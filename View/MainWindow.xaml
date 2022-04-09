@@ -4,9 +4,51 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:views="clr-namespace:View.Views"
+        xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        WindowState="Maximized">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        
+        <DataTemplate DataType="{x:Type viewModels:StartupViewModel}">
+            <views:StartupView />
+        </DataTemplate> 
+        <DataTemplate DataType="{x:Type viewModels:CustomerViewModel}">
+            <views:CustomerView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ServiceViewModel}">
+            <views:ServiceView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AppointmentViewModel}">
+            <views:AppointmentView />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+                   Margin="5">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Customers"
+                          Command="{Binding NavCommand}"
+                          CommandParameter="customer"/>
+                <MenuItem Header="Services"
+                          Command="{Binding NavCommand}"
+                          CommandParameter="service"/>
+                <MenuItem Header="Appointments"
+                          Command="{Binding NavCommand}"
+                          CommandParameter="appointment" />
+            </Menu>
+        </Grid>
 
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>
