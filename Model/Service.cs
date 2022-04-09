@@ -8,48 +8,46 @@ namespace Model
 {
     public class Service
     {
-        private int serviceId;
-        private string name;
-        private int price;
-        private int duration; // In minutes.
-        private int pointPrice;
-        private int pointReward;
-        private string category;
+        public int id { get; set; }
+        public string name { get; set; }
+        public string category { get; set; }
+        public int duration { get; set; }
+        public double price { get; set; }
+        public int pointsPrice { get; set; }
+        public int pointsValue { get; set; }
 
-        public Service(int serviceId, string name, int price, int duration, int pointPrice, int pointReward, string category)
+        public Service() { }
+
+        public Service(int id, string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
-            this.serviceId = serviceId;
+            this.id = id;
             this.name = name;
-            this.price = price;
-            this.duration = duration;
-            this.pointPrice = pointPrice;
-            this.pointReward = pointReward;
             this.category = category;
+            this.duration = duration;
+            this.price = price;
+            this.pointsPrice = pointsPrice;
+            this.pointsValue = pointsValue;
         }
 
-        public int ServiceId { get => serviceId; set => serviceId = value; }
-        public string Name { get => name; set => name = value; }
-        public int Price { get => price; set => price = value; }
-        public int Duration { get => duration; set => duration = value; }
-        public int PointPrice { get => pointPrice; set => pointPrice = value; }
-        public int PointReward { get => pointReward; set => pointReward = value; }
-        public string Category { get => category; set => category = value; }
-
-        public override bool Equals(object? obj)
+        public Service(string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
-            return obj is Service service &&
-                   serviceId == service.serviceId &&
-                   name == service.name &&
-                   price == service.price &&
-                   duration == service.duration &&
-                   pointPrice == service.pointPrice &&
-                   pointReward == service.pointReward &&
-                   category == service.category;
+            id = 0;
+            this.name = name;
+            this.category = category;
+            this.duration = duration;
+            this.price = price;
+            this.pointsPrice = pointsPrice;
+            this.pointsValue = pointsValue;
         }
-
-        public override int GetHashCode()
+        public static string GetHeader()
         {
-            return HashCode.Combine(serviceId, name, price, duration, pointPrice, pointReward, category);
+            return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}",
+                "S_ID", "S_NAME", "S_CATEGORY", "S_DURATION", "S_PRICE", "SP_PRICE", "SP_VALUE");
+        }
+        public override string ToString()
+        {
+
+            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}", id, name, category, duration, price, pointsPrice, pointsValue);
         }
     }
 }
