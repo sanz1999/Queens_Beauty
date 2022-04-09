@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class User
+    public class Customer
     {
-        private int userId;
+        private int customerId;
         private string firstName;
         private string lastName;
         private int phoneNumber;
@@ -17,9 +17,9 @@ namespace Model
         private int points;
         private int loyaltyCardId;
 
-        public User(int userId, string firstName, string lastName, int phoneNumber, string email, string gender, int points, int loyaltyCardId)
+        public Customer(int customerId, string firstName, string lastName, int phoneNumber, string email, string gender, int points, int loyaltyCardId)
         {
-            this.userId = userId;
+            this.customerId = customerId;
             this.firstName = firstName;
             this.lastName = lastName;
             this.phoneNumber = phoneNumber;
@@ -29,7 +29,7 @@ namespace Model
             this.loyaltyCardId = loyaltyCardId;
         }
 
-        public int UserId { get => userId; set => userId = value; }
+        public int CustomerId { get => customerId; set => customerId = value; }
         public string FirstName { get => firstName; set => firstName = value; }
         public string LastName { get => lastName; set => lastName = value; }
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
@@ -40,20 +40,20 @@ namespace Model
 
         public override bool Equals(object? obj)
         {
-            return obj is User user &&
-                   userId == user.userId &&
-                   firstName == user.firstName &&
-                   lastName == user.lastName &&
-                   phoneNumber == user.phoneNumber &&
-                   email == user.email &&
-                   gender == user.gender &&
-                   points == user.points &&
-                   loyaltyCardId == user.loyaltyCardId;
+            return obj is Customer customer &&
+                   customerId == customer.customerId &&
+                   firstName == customer.firstName &&
+                   lastName == customer.lastName &&
+                   phoneNumber == customer.phoneNumber &&
+                   email == customer.email &&
+                   gender == customer.gender &&
+                   points == customer.points &&
+                   loyaltyCardId == customer.loyaltyCardId;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(userId, firstName, lastName, phoneNumber, email, gender, points, loyaltyCardId);
+            return HashCode.Combine(customerId, firstName, lastName, phoneNumber, email, gender, points, loyaltyCardId);
         }
     }
 }
