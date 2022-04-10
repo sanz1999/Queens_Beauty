@@ -27,7 +27,7 @@ CREATE TABLE customer(
 	cmail			VARCHAR2(255 CHAR) DEFAULT '',
 	csex			CHAR(1) DEFAULT 'N',
 	cp				INT DEFAULT 0,
-	cloyal			VARCHAR2(255 CHAR),
+	cloyal			INT,
 	CONSTRAINT customer_pk PRIMARY KEY ( cid ),	
 	CONSTRAINT customer_uk UNIQUE (cloyal),
     CONSTRAINT customer_cp_ch CHECK (cp >= 0)
@@ -47,7 +47,7 @@ CREATE TABLE appointment(
 	astate			NUMBER(1) DEFAULT 0,
 	CONSTRAINT appointment_pk PRIMARY KEY (aid),
     CONSTRAINT appointment_fk FOREIGN KEY (cid) REFERENCES customer(cid),
-    CONSTRAINT appointment_ch CHECK (astate = 0 || 1) ,
+    CONSTRAINT appointment_ch CHECK (astate IN (0, 1)) ,
     CONSTRAINT appointment_price_ch CHECK (aprice >= 0)
 );
 

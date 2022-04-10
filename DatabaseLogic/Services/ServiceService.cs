@@ -33,7 +33,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>Vraca 1 u slucaju uspesnog dodavanja</returns>
-        public int Save(Model.Service entity)
+        public int Save(Model.DBService entity)
         {
             return uslugaDAO.Save(entity);
         }
@@ -51,7 +51,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
-        public int Delete(Model.Service entity)
+        public int Delete(Model.DBService entity)
         {
             return uslugaDAO.Delete(entity);
         }
@@ -68,7 +68,7 @@ namespace DatabaseLogic.Services
         /// Nalazi sve usluge u tabeli
         /// </summary>
         /// <returns>Vraca listu usluga</returns>
-        public IEnumerable<Model.Service> FindAll()
+        public IEnumerable<Model.DBService> FindAll()
         {
             return uslugaDAO.FindAll();
         }
@@ -77,7 +77,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IEnumerable<Model.Service> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<Model.DBService> FindAllById(IEnumerable<int> ids)
         {
             return uslugaDAO.FindAllById(ids);
         }
@@ -86,7 +86,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Model.Service FindById(int id)
+        public Model.DBService FindById(int id)
         {
             return uslugaDAO.FindById(id);
         }
@@ -95,7 +95,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public int SaveAll(IEnumerable<Model.Service> entities)
+        public int SaveAll(IEnumerable<Model.DBService> entities)
         {
             return uslugaDAO.SaveAll(entities);
         }

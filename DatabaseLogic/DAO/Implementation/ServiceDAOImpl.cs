@@ -30,7 +30,7 @@ namespace DatabaseLogic.DAO.Implementation
             }
         }
 
-        public int Delete(Model.Service entity)
+        public int Delete(Model.DBService entity)
         {
             return DeleteById(entity.id);
         }
@@ -93,10 +93,10 @@ namespace DatabaseLogic.DAO.Implementation
             }
         }
 
-        public IEnumerable<Model.Service> FindAll()
+        public IEnumerable<Model.DBService> FindAll()
         {
             string query = "select sid, sname, scat, sdur, spri, sprip, sp from service order by sid";
-            List<Model.Service> listaUsluga = new List<Model.Service>();
+            List<Model.DBService> listaUsluga = new List<Model.DBService>();
 
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
             {
@@ -113,7 +113,7 @@ namespace DatabaseLogic.DAO.Implementation
                         {
                             //Console.WriteLine("Debug");
 
-                            Model.Service usluga = new Model.Service(reader.GetInt32(0),
+                            Model.DBService usluga = new Model.DBService(reader.GetInt32(0),
                                                        reader.GetString(1),
                                                        reader.GetString(2),
                                                        reader.GetInt32(3),
@@ -130,7 +130,7 @@ namespace DatabaseLogic.DAO.Implementation
             return listaUsluga;
         }
 
-        public IEnumerable<Model.Service> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<Model.DBService> FindAllById(IEnumerable<int> ids)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("select * from service where sid in (");
@@ -141,7 +141,7 @@ namespace DatabaseLogic.DAO.Implementation
             sb.Remove(sb.Length - 1, 1); // delete last ','
             sb.Append(")");
 
-            List<Model.Service> serviceList = new List<Model.Service>();
+            List<Model.DBService> serviceList = new List<Model.DBService>();
 
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
             {
@@ -163,7 +163,7 @@ namespace DatabaseLogic.DAO.Implementation
                     {
                         while (reader.Read())
                         {
-                            Model.Service service = new Model.Service(reader.GetInt32(0),
+                            Model.DBService service = new Model.DBService(reader.GetInt32(0),
                                                                       reader.GetString(1),
                                                                       reader.GetString(2),
                                                                       reader.GetInt32(3),
@@ -179,10 +179,10 @@ namespace DatabaseLogic.DAO.Implementation
             return serviceList;
         }
 
-        public Model.Service FindById(int id)
+        public Model.DBService FindById(int id)
         {
             string query = "select * from service where sid = :sid";
-            Model.Service service = null;
+            Model.DBService service = null;
 
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
             {
@@ -197,7 +197,7 @@ namespace DatabaseLogic.DAO.Implementation
                     {
                         if (reader.Read())
                         {
-                            service = new Model.Service(reader.GetInt32(0),
+                            service = new Model.DBService(reader.GetInt32(0),
                                                         reader.GetString(1),
                                                         reader.GetString(2),
                                                         reader.GetInt32(3),
@@ -212,7 +212,7 @@ namespace DatabaseLogic.DAO.Implementation
             return service;
         }
 
-        public int Save(Model.Service entity)
+        public int Save(Model.DBService entity)
         {
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
             {
@@ -221,7 +221,7 @@ namespace DatabaseLogic.DAO.Implementation
             }
         }
 
-        private int Save(Model.Service usluga, IDbConnection connection)
+        private int Save(Model.DBService usluga, IDbConnection connection)
         {
             string insertSql = "insert into service (sname, scat, sdur, spri, sprip, sp) " +
                                 "values (:sname, :scat, :sdur, :spri, :sprip, :sp)";
@@ -257,7 +257,7 @@ namespace DatabaseLogic.DAO.Implementation
             }
         }
 
-        public int SaveAll(IEnumerable<Model.Service> entities)
+        public int SaveAll(IEnumerable<Model.DBService> entities)
         {
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
             {
@@ -266,7 +266,7 @@ namespace DatabaseLogic.DAO.Implementation
 
                 int numSaved = 0;
 
-                foreach (Model.Service entity in entities)
+                foreach (Model.DBService entity in entities)
                 {
                     numSaved += Save(entity, connection);
                 }

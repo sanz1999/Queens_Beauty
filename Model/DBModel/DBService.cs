@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Service
+    public class DBService
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -16,9 +16,7 @@ namespace Model
         public int pointsPrice { get; set; }
         public int pointsValue { get; set; }
 
-        public Service() { }
-
-        public Service(int id, string name, string category, int duration, double price, int pointsPrice, int pointsValue)
+        public DBService(int id, string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
             this.id = id;
             this.name = name;
@@ -29,7 +27,7 @@ namespace Model
             this.pointsValue = pointsValue;
         }
 
-        public Service(string name, string category, int duration, double price, int pointsPrice, int pointsValue)
+        public DBService(string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
             id = 0;
             this.name = name;
@@ -47,7 +45,8 @@ namespace Model
         public override string ToString()
         {
 
-            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}", id, name, category, duration, price, pointsPrice, pointsValue);
+            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}",
+                id, name, category, duration, price, pointsPrice, pointsValue);
         }
     }
 }

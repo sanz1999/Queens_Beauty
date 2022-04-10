@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseLogic.DAO
 {
-    public interface IServiceDAO : ICRUDDAO<Model.Service, int>
+    public interface IServiceDAO : ICRUDDAO<Model.DBService, int>
     {
 
     }
