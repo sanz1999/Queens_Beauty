@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace DatabaseLogic.DAO
+namespace TestingCA.UIHandler
 {
-    public interface IServiceDAO : ICRUDDAO<Model.DBService, int>
+    public class AppoinmentCRUDUIHandler
     {
-
     }
 }
