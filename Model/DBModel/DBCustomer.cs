@@ -8,6 +8,7 @@ namespace Model.DBModel
 {
     public class DBCustomer
     {
+        //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
         public int id { get; set; }
         public string name { get; set; }
         public string surname { get; set; }

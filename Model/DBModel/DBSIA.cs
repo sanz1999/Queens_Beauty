@@ -8,6 +8,7 @@ namespace Model.DBModel
 {
     public class DBSIA
     {
+        //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
         public int appointmentId { get; set; }
         public int serviceId { get; set; }
         public int workerId { get; set; }

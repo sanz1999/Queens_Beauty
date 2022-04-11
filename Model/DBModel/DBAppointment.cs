@@ -8,6 +8,7 @@ namespace Model.DBModel
 {
     public class DBAppointment
     {
+        //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
         public int appointmentId { get; set; }
         public int customerId { get; set; }
         public DateTime dateTime { get; set; }
