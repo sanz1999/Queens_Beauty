@@ -6,8 +6,16 @@
              xmlns:local="clr-namespace:View.Views.CustomerViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Background="AliceBlue"
-                   Text="FILTER" />
-    </Grid>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Filter by input:" />
+            <TextBox Grid.Column="1" />
+        </Grid>
+
+    </StackPanel>
 </UserControl>

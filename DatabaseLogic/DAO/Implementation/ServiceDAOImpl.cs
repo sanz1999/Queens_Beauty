@@ -32,7 +32,7 @@ namespace DatabaseLogic.DAO.Implementation
 
         public int Delete(Model.DBService entity)
         {
-            return DeleteById(entity.id);
+            return DeleteById(entity.Id);
         }
 
         public int DeleteAll()
@@ -225,15 +225,15 @@ namespace DatabaseLogic.DAO.Implementation
         {
             string insertSql = "insert into service (sname, scat, sdur, spri, sprip, sp) " +
                                 "values (:sname, :scat, :sdur, :spri, :sprip, :sp)";
-            if (usluga.id != 0)
+            if (usluga.Id != 0)
                 insertSql = "insert into service ( sid, sname, scat, sdur, spri, sprip, sp) " +
                                 "values (:sid, :sname, :scat, :sdur, :spri, :sprip, :sp)";
 
             string updateSql = "update service set sname=:sname, scat=:scat, sdur=:sdur, spri=:spri, sprip=:sprip, sp=:sp where sid=:sid";
             using (IDbCommand command = connection.CreateCommand())
             {
-                command.CommandText = ExistsById(usluga.id, connection) ? updateSql : insertSql;
-                if (usluga.id != 0 && command.CommandText.Equals(insertSql))
+                command.CommandText = ExistsById(usluga.Id, connection) ? updateSql : insertSql;
+                if (usluga.Id != 0 && command.CommandText.Equals(insertSql))
                     ParameterUtil.AddParameter(command, "sid", DbType.Int32);
                 ParameterUtil.AddParameter(command, "sname", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "scat", DbType.String, 30);
@@ -245,14 +245,14 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.AddParameter(command, "sid", DbType.Int32);
 
                 command.Prepare();
-                if (usluga.id != 0)
-                    ParameterUtil.SetParameterValue(command, "sid", usluga.id);
-                ParameterUtil.SetParameterValue(command, "sname", usluga.name);
-                ParameterUtil.SetParameterValue(command, "scat", usluga.category);
-                ParameterUtil.SetParameterValue(command, "sdur", usluga.duration);
-                ParameterUtil.SetParameterValue(command, "spri", usluga.price);
-                ParameterUtil.SetParameterValue(command, "sprip", usluga.pointsPrice);
-                ParameterUtil.SetParameterValue(command, "sp", usluga.pointsValue);
+                if (usluga.Id != 0)
+                    ParameterUtil.SetParameterValue(command, "sid", usluga.Id);
+                ParameterUtil.SetParameterValue(command, "sname", usluga.Name);
+                ParameterUtil.SetParameterValue(command, "scat", usluga.Category);
+                ParameterUtil.SetParameterValue(command, "sdur", usluga.Duration);
+                ParameterUtil.SetParameterValue(command, "spri", usluga.Price);
+                ParameterUtil.SetParameterValue(command, "sprip", usluga.PointsPrice);
+                ParameterUtil.SetParameterValue(command, "sp", usluga.PointsValue);
                 return command.ExecuteNonQuery();
             }
         }
