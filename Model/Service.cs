@@ -8,48 +8,54 @@ namespace Model
 {
     public class Service
     {
-        private int serviceId;
+        private int id;
         private string name;
-        private int price;
-        private int duration; // In minutes.
-        private int pointPrice;
-        private int pointReward;
         private string category;
+        private int duration;
+        private double price;
+        private int pointsPrice;
+        private int pointsValue;
 
-        public Service(int serviceId, string name, int price, int duration, int pointPrice, int pointReward, string category)
-        {
-            this.serviceId = serviceId;
-            this.name = name;
-            this.price = price;
-            this.duration = duration;
-            this.pointPrice = pointPrice;
-            this.pointReward = pointReward;
-            this.category = category;
-        }
-
-        public int ServiceId { get => serviceId; set => serviceId = value; }
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public int Price { get => price; set => price = value; }
-        public int Duration { get => duration; set => duration = value; }
-        public int PointPrice { get => pointPrice; set => pointPrice = value; }
-        public int PointReward { get => pointReward; set => pointReward = value; }
         public string Category { get => category; set => category = value; }
+        public int Duration { get => duration; set => duration = value; }
+        public double Price { get => price; set => price = value; }
+        public int PointsPrice { get => pointsPrice; set => pointsPrice = value; }
+        public int PointsValue { get => pointsValue; set => pointsValue = value; }
 
-        public override bool Equals(object? obj)
+        public Service() { }
+
+        public Service(int id, string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
-            return obj is Service service &&
-                   serviceId == service.serviceId &&
-                   name == service.name &&
-                   price == service.price &&
-                   duration == service.duration &&
-                   pointPrice == service.pointPrice &&
-                   pointReward == service.pointReward &&
-                   category == service.category;
+            this.id = id;
+            this.name = name;
+            this.category = category;
+            this.duration = duration;
+            this.price = price;
+            this.pointsPrice = pointsPrice;
+            this.pointsValue = pointsValue;
         }
 
-        public override int GetHashCode()
+        public Service(string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
-            return HashCode.Combine(serviceId, name, price, duration, pointPrice, pointReward, category);
+            id = 0;
+            this.name = name;
+            this.category = category;
+            this.duration = duration;
+            this.price = price;
+            this.pointsPrice = pointsPrice;
+            this.pointsValue = pointsValue;
+        }
+        public static string GetHeader()
+        {
+            return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}",
+                "S_ID", "S_NAME", "S_CATEGORY", "S_DURATION", "S_PRICE", "SP_PRICE", "SP_VALUE");
+        }
+        public override string ToString()
+        {
+
+            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}", id, name, category, duration, price, pointsPrice, pointsValue);
         }
     }
 }
