@@ -11,6 +11,10 @@
     <Folder Include="Views\Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
 
 
 </Project>
