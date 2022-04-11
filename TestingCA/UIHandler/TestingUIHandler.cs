@@ -32,10 +32,7 @@ namespace TestingCA.UIHandler
                 Console.WriteLine("3. Service Testing");
                 Console.WriteLine("4. SIA (services in a appointment) Testing");
                 Console.WriteLine("5. Worker Testing");
-
-                Console.WriteLine("\nZa izlazak uneti x\nOpcije:");
-                Console.WriteLine("1. Testiranje usluga");
-                Console.WriteLine("2. Testiraj filtriranje");
+                Console.WriteLine("6. Testiraj filtriranje");
 
 
                 answer = Console.ReadLine();
@@ -57,7 +54,7 @@ namespace TestingCA.UIHandler
                     case "5":
                         workerUI.MenuHandler();
                         break;
-                    case "2":
+                    case "6":
                         TestIt();
                         break;
                     case "x":
