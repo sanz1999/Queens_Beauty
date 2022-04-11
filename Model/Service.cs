@@ -8,13 +8,21 @@ namespace Model
 {
     public class Service
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string category { get; set; }
-        public int duration { get; set; }
-        public double price { get; set; }
-        public int pointsPrice { get; set; }
-        public int pointsValue { get; set; }
+        private int id;
+        private string name;
+        private string category;
+        private int duration;
+        private double price;
+        private int pointsPrice;
+        private int pointsValue;
+
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public string Category { get => category; set => category = value; }
+        public int Duration { get => duration; set => duration = value; }
+        public double Price { get => price; set => price = value; }
+        public int PointsPrice { get => pointsPrice; set => pointsPrice = value; }
+        public int PointsValue { get => pointsValue; set => pointsValue = value; }
 
         public Service() { }
 
