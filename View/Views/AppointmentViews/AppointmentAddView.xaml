@@ -5,8 +5,127 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Views.AppointmentViews"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="550" d:DesignWidth="300">
+    <StackPanel>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Filter customers by input:" />
+            <TextBox Grid.Column="1" />
+        </Grid>
+        <DataGrid Height="80"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name"
+                                    Width="*" />
+                <DataGridTextColumn Header="Last Name"
+                                    Width="*" />
+                <DataGridTextColumn Header="Phone"
+                                    Width="*" />
+                <DataGridTextColumn Header="Loyalty Card ID"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Filter employees by name:" />
+            <TextBox Grid.Column="1" />
+        </Grid>
+        <DataGrid Height="80"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="Add services to appointment:"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Filter services by input:" />
+            <TextBox Grid.Column="1"/>
+        </Grid>
+        <DataGrid Height="80"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Width="*" />
+                <DataGridTextColumn Header="Category"
+                                    Width="*" />
+                <DataGridTextColumn Header="Duration"
+                                    Width="*" />
+                <DataGridTextColumn Header="Price"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Height="20" 
+                Width="130"
+                Content="Add service to list"/>
+        <TextBlock Text="Services added to appointment:" />
+        <DataGrid Height="60"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Width="*" />
+                <DataGridTextColumn Header="Category"
+                                    Width="*" />
+                <DataGridTextColumn Header="Duration"
+                                    Width="*" />
+                <DataGridTextColumn Header="Price"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Height="20"
+                Width="160"
+                Content="Remove service from list" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Check if appointment was done:" />
+            <CheckBox Grid.Column="1"
+                      Content="Done"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Total price:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Button Height="20"
+                Width="130"
+                Content="Add appointment" />
+    </StackPanel>
 </UserControl>
