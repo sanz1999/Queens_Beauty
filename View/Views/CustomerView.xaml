@@ -55,8 +55,26 @@
             <ContentControl Grid.Row="1" Content="{Binding CurrentCustomerViewModel}" />
         </Grid>
         <Grid Margin="5" HorizontalAlignment="Stretch" Grid.Column="1">
-            <TextBlock Text="IdeGas"
-                       Background="AliceBlue" />
+            <DataGrid IsReadOnly="True"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      CanUserResizeColumns="False"
+                      CanUserReorderColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Last Name"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Phone Number"
+                                        Width="*" />
+                    <DataGridTextColumn Header=""
+                                        Width="*" />
+                    <DataGridTextColumn Header=""
+                                        Width="*" />
+                    <DataGridTextColumn Header=""
+                                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </UserControl>

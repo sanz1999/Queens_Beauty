@@ -54,8 +54,22 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Gender:" />
-            <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Column="0"
+                             Content="Male"
+                             GroupName="GenderRB" />
+                <RadioButton Grid.Column="1"
+                             Content="Female"
+                             GroupName="GenderRB" />
+                <RadioButton Grid.Column="2"
+                             Content="Other"
+                             GroupName="GenderRB" />
+            </Grid>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
