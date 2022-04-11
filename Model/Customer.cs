@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Customer
+    public class Customer : INotifyPropertyChanged
     {
         private int customerId;
         private string firstName;
@@ -29,14 +30,49 @@ namespace Model
             this.loyaltyCardId = loyaltyCardId;
         }
 
-        public int CustomerId { get => customerId; set => customerId = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
+        public int CustomerId
+        {
+            get { return customerId; }
+            set
+            {
+                if (customerId != value)
+                {
+                    customerId = value;
+                    RaisePropertyChanged("CustomerId");
+                }
+            }
+        }
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                if (firstName != value)
+                {
+                    firstName = value;
+                    RaisePropertyChanged("FirstName");
+                }
+            }
+        }
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (lastName != value)
+                {
+                    lastName = value;
+                    RaisePropertyChanged("LastName");
+                }
+            }
+        }
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Email { get => email; set => email = value; }
         public string Gender { get => gender; set => gender = value; }
         public int Points { get => points; set => points = value; }
         public int LoyaltyCardId { get => loyaltyCardId; set => loyaltyCardId = value; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public override bool Equals(object? obj)
         {
@@ -54,6 +90,14 @@ namespace Model
         public override int GetHashCode()
         {
             return HashCode.Combine(customerId, firstName, lastName, phoneNumber, email, gender, points, loyaltyCardId);
+        }
+
+        private void RaisePropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
         }
     }
 }

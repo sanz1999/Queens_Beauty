@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.ServiceViewModels
 {
-    internal class ServiceAddViewModel
+    public class ServiceAddViewModel : BindableBase
     {
+        public ServiceAddViewModel()
+        {
+        }
     }
 }

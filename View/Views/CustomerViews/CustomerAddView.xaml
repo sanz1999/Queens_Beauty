@@ -6,8 +6,5 @@
              xmlns:local="clr-namespace:View.Views.CustomerViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Background="Aqua"
-                   Text="ADD" />
-    </Grid>
+    <
 </UserControl>

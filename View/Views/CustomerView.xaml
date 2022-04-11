@@ -37,26 +37,20 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" 
+                <Button Grid.Column="0"
                         Height="30"
                         Margin="5"
                         Content="Add"
                         Command="{Binding NavCommand}"
-                        CommandParameter="add"/>
+                        CommandParameter="add" />
                 <Button Grid.Column="1"
                         Height="30"
                         Margin="5"
-                        Content="Info"
+                        Content="Alter"
+                        IsEnabled="False"
                         Command="{Binding NavCommand}"
-                        CommandParameter="info"/>
-                <Button Grid.Column="2"
-                        Height="30"
-                        Margin="5"
-                        Content="Filter"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="filter"/>
+                        CommandParameter="alter"/>
             </Grid>
             <ContentControl Grid.Row="1" Content="{Binding CurrentCustomerViewModel}" />
         </Grid>

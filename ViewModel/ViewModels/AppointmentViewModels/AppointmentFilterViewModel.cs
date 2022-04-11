@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.AppointmentViewModels
 {
-    internal class AppointmentFilterViewModel
+    public class AppointmentFilterViewModel : BindableBase
     {
+        public AppointmentFilterViewModel()
+        {
+        }
     }
 }
