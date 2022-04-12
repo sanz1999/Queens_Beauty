@@ -1,5 +1,6 @@
 ﻿using DatabaseLogic.Connection;
 using DatabaseLogic.Utils;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,7 +31,7 @@ namespace DatabaseLogic.DAO.Implementation
             }
         }
 
-        public int Delete(Model.DBService entity)
+        public int Delete(DBService entity)
         {
             return DeleteById(entity.id);
         }
