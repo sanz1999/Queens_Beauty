@@ -37,6 +37,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                         Height="30"
@@ -50,7 +51,12 @@
                         Content="Alter"
                         IsEnabled="False"
                         Command="{Binding NavCommand}"
-                        CommandParameter="alter"/>
+                        CommandParameter="alter" />
+                <Button Grid.Column="2"
+                        Height="30"
+                        Margin="5"
+                        Content="Delete"
+                        IsEnabled="False" />
             </Grid>
             <ContentControl Grid.Row="1" Content="{Binding CurrentCustomerViewModel}" />
         </Grid>
@@ -67,11 +73,13 @@
                                         Width="*" />
                     <DataGridTextColumn Header="Phone Number"
                                         Width="*" />
-                    <DataGridTextColumn Header=""
+                    <DataGridTextColumn Header="Email"
                                         Width="*" />
-                    <DataGridTextColumn Header=""
-                                        Width="*" />
-                    <DataGridTextColumn Header=""
+                    <DataGridTextColumn Header="Gender"
+                                        Width="0.4*" />
+                    <DataGridTextColumn Header="Points"
+                                        Width="0.3*" />
+                    <DataGridTextColumn Header="Loyalty Card ID"
                                         Width="*" />
                 </DataGrid.Columns>
             </DataGrid>

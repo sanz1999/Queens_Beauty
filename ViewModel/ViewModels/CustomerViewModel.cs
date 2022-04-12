@@ -34,6 +34,9 @@ namespace ViewModel.ViewModels
                 case "info":
                     CurrentCustomerViewModel = customerInfoViewModel;
                     break;
+                case "alter":
+                    CurrentCustomerViewModel = customerAddViewModel;
+                    break;
             }
         }
 
