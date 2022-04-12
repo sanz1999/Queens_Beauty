@@ -48,13 +48,16 @@ namespace ViewModel.ViewModels
             {
                 customerAddViewModel.ClearInput();
 
-                CustomerFront newCust = SelectedItem;
-                Customers.Remove(SelectedItem);
-                Customers.Add(newCust);
+                if (SelectedItem != null)
+                {
+                    CustomerFront newCust = SelectedItem;
+                    Customers.Remove(SelectedItem);
+                    Customers.Add(newCust);
+                }
                 CanAlter = false;
                 CanDelete = false;
 
-                // SelectedItem = null
+                //SelectedItem = null;
                 // ~~ Problem, SelectedItem remains selected. Bypassed, costly.
 
                 OnNav("filter");
@@ -65,6 +68,14 @@ namespace ViewModel.ViewModels
             }
             else if(CurrentCustomerViewModel == customerInfoViewModel)
             {
+                customerInfoViewModel.ClearInput();
+
+                CustomerFront newCust = SelectedItem;
+                Customers.Remove(SelectedItem);
+                Customers.Add(newCust);
+                CanAlter = false;
+                CanDelete = false; 
+                
                 OnNav("filter");
             }
         }
@@ -87,6 +98,7 @@ namespace ViewModel.ViewModels
             if(CurrentCustomerViewModel != customerAddViewModel)
             {
                 CurrentCustomerViewModel = customerAddViewModel;
+                customerInfoViewModel.ClearInput();
 
                 customerAddViewModel.FirstNameVM = SelectedItem.FirstName;
                 customerAddViewModel.LastNameVM = SelectedItem.LastName;
@@ -111,7 +123,7 @@ namespace ViewModel.ViewModels
             }
             else
             {
-                CustomerFront customer = customerAddViewModel.GetCustomer();
+                CustomerFront customer = customerAddViewModel.GetCustomer(SelectedItem.CustomerId);
                 Customers.Remove(SelectedItem);
                 Customers.Add(customer);
 
@@ -131,10 +143,32 @@ namespace ViewModel.ViewModels
 
         private void OnSelect()
         {
-            if(SelectedItem != null)
+            if (SelectedItem == null)
+                return;
+
+            CanAlter = true;
+            CanDelete = true;
+            OnNav("info");
+
+            customerInfoViewModel.FirstNameVM = SelectedItem.FirstName;
+            customerInfoViewModel.LastNameVM = SelectedItem.LastName;
+            customerInfoViewModel.PhoneNumberVM = SelectedItem.PhoneNumber;
+            customerInfoViewModel.EmailVM = SelectedItem.Email;
+            customerInfoViewModel.LoyaltyCardIdVM = SelectedItem.LoyaltyCardId;
+
+            switch (SelectedItem.Gender)
             {
-                CanAlter = true;
-                CanDelete = true;
+                case "Male":
+                    customerInfoViewModel.IsMaleCheckedVM = true;
+                    break;
+                case "Female":
+                    customerInfoViewModel.IsFemaleCheckedVM = true;
+                    break;
+                case "Other":
+                    customerInfoViewModel.IsOtherCheckedVM = true;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -143,12 +177,25 @@ namespace ViewModel.ViewModels
             switch (obj)
             {
                 case "add":
-                    if(CurrentCustomerViewModel != customerAddViewModel)
+                    if (CurrentCustomerViewModel != customerAddViewModel)
+                    {
                         CurrentCustomerViewModel = customerAddViewModel;
+                        CanAlter = false;
+                        CanDelete = false;
+                        if (SelectedItem == null)
+                            break;
+                        CustomerFront newCust = SelectedItem;
+                        Customers.Remove(SelectedItem);
+                        Customers.Add(newCust);
+                    }
                     else
                     {
                         Customers.Add(customerAddViewModel.GetCustomer());
                         OnNav("filter");
+
+                        //Could be an issue.
+                        CanAlter = false;
+                        CanDelete = false;
                     }
                     break;
                 case "filter":
