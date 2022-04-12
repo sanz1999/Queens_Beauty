@@ -14,11 +14,11 @@ namespace Model.DBModel
         public string surname { get; set; }
         public string phoneNumber { get; set; }
         public string email { get; set; }
-        public char gender { get; set; }
+        public string gender { get; set; }
         public int points { get; set; }
         public int loyaltyNumber { get; set; }
 
-        public DBCustomer(int id, string name, string surname, string phoneNumber, string email, char gender, int points, int loyaltyNumber)
+        public DBCustomer(int id, string name, string surname, string phoneNumber, string email, string gender, int points, int loyaltyNumber)
         {
             this.id = id;
             this.name = name;
@@ -30,7 +30,7 @@ namespace Model.DBModel
             this.loyaltyNumber = loyaltyNumber;
         }
 
-        public DBCustomer(string name, string surname, string phoneNumber, string email, char gender, int points, int loyaltyNumber)
+        public DBCustomer(string name, string surname, string phoneNumber, string email, string gender, int points, int loyaltyNumber)
         {
             this.name = name;
             this.surname = surname;
@@ -43,14 +43,14 @@ namespace Model.DBModel
 
         public static string GetHeader()
         {
-            return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
+            return string.Format("\n{0, -12} {1, -20} {2, -20} {3, -12} {4, -20} {5, -12} {6, -12} {7, -12}",
                 "ID", "NAME", "SURNAME", "PHONE_NUMBER", "EMAIL", "GENDER", "POINTS", "LOYALTY_NUM");
         }
 
         public override string ToString()
         {
 
-            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
+            return string.Format("{0, -12} {1, -20} {2, -20} {3, -12} {4, -20} {5, -12} {6, -12} {7, -12}",
                 id, name, surname, phoneNumber, email, gender, points, loyaltyNumber);
         }
     }

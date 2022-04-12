@@ -115,7 +115,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                           reader.GetString(2),
                                                           reader.GetString(3),
                                                           reader.GetString(4),
-                                                          reader.GetChar(5),
+                                                          reader.GetString(5),
                                                           reader.GetInt32(6),
                                                           reader.GetInt32(7));
 
@@ -166,7 +166,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                           reader.GetString(2),
                                                           reader.GetString(3),
                                                           reader.GetString(4),
-                                                          reader.GetChar(5),
+                                                          reader.GetString(5),
                                                           reader.GetInt32(6),
                                                           reader.GetInt32(7));
                             returnList.Add(o);
@@ -201,7 +201,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                reader.GetString(2),
                                                reader.GetString(3),
                                                reader.GetString(4),
-                                               reader.GetChar(5),
+                                               reader.GetString(5),
                                                reader.GetInt32(6),
                                                reader.GetInt32(7));
                         }
@@ -229,12 +229,13 @@ namespace DatabaseLogic.DAO.Implementation
                 insertSql = "insert into customer (cid, cname, csname, cnum, cmail, csex, cp, cloyal) " +
                                 "values (:cid, :cname, :csname, :cnum, :cmail, :csex, :cp, :cloyal)";
 
-            string updateSql = "update custoemr set cid=:cid, cname=:cname, csname=:csname, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp, cloyal=:cloyal";
+            string updateSql = "update customer set cname=:cname, csname=:csname, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp, cloyal=:cloyal where cid=:cid";
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = ExistsById(entity.id, connection) ? updateSql : insertSql;
                 if (entity.id != 0 && command.CommandText.Equals(insertSql))
                     ParameterUtil.AddParameter(command, "cid", DbType.Int32);
+                ParameterUtil.AddParameter(command, "cname", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "csname", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "cnum", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "cmail", DbType.String, 30);
@@ -248,6 +249,7 @@ namespace DatabaseLogic.DAO.Implementation
                 if (entity.id != 0)
                     ParameterUtil.SetParameterValue(command, "cid", entity.id);
                 ParameterUtil.SetParameterValue(command, "cname", entity.name);
+                ParameterUtil.SetParameterValue(command, "csname", entity.surname);
                 ParameterUtil.SetParameterValue(command, "cnum", entity.phoneNumber);
                 ParameterUtil.SetParameterValue(command, "cmail", entity.email);
                 ParameterUtil.SetParameterValue(command, "csex", entity.gender);
