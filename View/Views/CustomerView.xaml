@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
              xmlns:customerViews="clr-namespace:View.Views.CustomerViews"
              xmlns:customerViewModels="clr-namespace:ViewModel.ViewModels.CustomerViewModels;assembly=ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -31,7 +32,8 @@
         <Grid Margin="5" HorizontalAlignment="Stretch" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -49,38 +51,58 @@
                         Height="30"
                         Margin="5"
                         Content="Alter"
-                        IsEnabled="False"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="alter" />
+                        IsEnabled="{Binding CanAlter}"
+                        Command="{Binding AlterCommand}" />
                 <Button Grid.Column="2"
                         Height="30"
                         Margin="5"
                         Content="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="{Binding CanDelete}"
+                        Command="{Binding DeleteCommand}"/>
             </Grid>
             <ContentControl Grid.Row="1" Content="{Binding CurrentCustomerViewModel}" />
+            <Button Grid.Row="2"
+                    Height="20"
+                    Width="100"
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"/>
         </Grid>
         <Grid Margin="5" HorizontalAlignment="Stretch" Grid.Column="1">
             <DataGrid IsReadOnly="True"
                       SelectionMode="Single"
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
-                      CanUserReorderColumns="False">
+                      CanUserReorderColumns="False"
+                      ItemsSource="{Binding Customers}"
+                      SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                      >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First Name"
-                                        Width="*" />
+                                        Width="*" 
+                                        Binding="{Binding FirstName}"/>
                     <DataGridTextColumn Header="Last Name"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding LastName}"/>
                     <DataGridTextColumn Header="Phone Number"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding PhoneNumber}"/>
                     <DataGridTextColumn Header="Email"
-                                        Width="*" />
+                                        Width="*" 
+                                        Binding="{Binding Email}"/>
                     <DataGridTextColumn Header="Gender"
-                                        Width="0.4*" />
+                                        Width="0.4*"
+                                        Binding="{Binding Gender}"/>
                     <DataGridTextColumn Header="Points"
-                                        Width="0.3*" />
+                                        Width="0.3*" 
+                                        Binding="{Binding Points}"/>
                     <DataGridTextColumn Header="Loyalty Card ID"
-                                        Width="*" />
+                                        Width="*" 
+                                        Binding="{Binding LoyaltyCardId}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

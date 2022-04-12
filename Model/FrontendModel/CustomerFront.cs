@@ -13,13 +13,13 @@ namespace Model.FrontendModel
             private int customerId;
             private string firstName;
             private string lastName;
-            private int phoneNumber;
+            private string phoneNumber;
             private string email;
             private string gender;
             private int points;
-            private int loyaltyCardId;
+            private string loyaltyCardId;
 
-            public CustomerFront(int customerId, string firstName, string lastName, int phoneNumber, string email, string gender, int points, int loyaltyCardId)
+            public CustomerFront(int customerId, string firstName, string lastName, string phoneNumber, string email, string gender, int points, string loyaltyCardId)
             {
                 this.customerId = customerId;
                 this.firstName = firstName;
@@ -30,7 +30,7 @@ namespace Model.FrontendModel
                 this.points = points;
                 this.loyaltyCardId = loyaltyCardId;
             }
-
+            
             public int CustomerId
             {
                 get { return customerId; }
@@ -67,7 +67,7 @@ namespace Model.FrontendModel
                     }
                 }
             }
-            public int PhoneNumber 
+            public string PhoneNumber 
             {
                 get { return phoneNumber; }
                 set
@@ -115,16 +115,15 @@ namespace Model.FrontendModel
             }
             }
 
-            public int LoyaltyCardId {
-            get { return loyaltyCardId; }
-            set {
-                if (loyaltyCardId != value) {
-                    loyaltyCardId = value;
-                    RaisePropertyChanged("LoyaltyCardId");
+            public string LoyaltyCardId {
+                get { return loyaltyCardId; }
+                set {
+                    if (loyaltyCardId != value) {
+                        loyaltyCardId = value;
+                        RaisePropertyChanged("LoyaltyCardId");
+                    }
                 }
             }
-
-        }
             
 
             public event PropertyChangedEventHandler? PropertyChanged;
