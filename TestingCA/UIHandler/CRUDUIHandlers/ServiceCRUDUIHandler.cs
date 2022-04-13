@@ -1,4 +1,5 @@
 ﻿using DatabaseLogic.Services;
+using Model.DBModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace TestingCA.UIHandler
 
                         for (int i = 0; i < n; i++)
                         {
-                            Model.DBService u = new Model.DBService("Feniranje", "KoŠa", 120, 15.4, 100, 5);
+                            DBService u = new DBService("Feniranje", "KoŠa", 120, 15.4, 100, 5);
                             if (uslugaService.Save(u) == 1)
                                 Console.WriteLine("dodavanje uspesno");
                         }
@@ -72,8 +73,8 @@ namespace TestingCA.UIHandler
                     case "6":
                         Console.WriteLine();
                         //uslugaService.FindAll();
-                        Console.WriteLine(Model.DBService.GetHeader());
-                        foreach (Model.DBService usluga in uslugaService.FindAll())
+                        Console.WriteLine(DBService.GetHeader());
+                        foreach (DBService usluga in uslugaService.FindAll())
                         {
                             Console.WriteLine(usluga);
                         }
@@ -82,7 +83,7 @@ namespace TestingCA.UIHandler
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
 
-                        Model.DBService updateModel = new Model.DBService(n, "Brijanje", "Brada", 42, 6.9, -5, 2);
+                        DBService updateModel = new DBService(n, "Brijanje", "Brada", 42, 6.9, -5, 2);
                         if (uslugaService.Save(updateModel) == 1)
                             Console.WriteLine("Update uspesan");
                         break;
@@ -96,8 +97,8 @@ namespace TestingCA.UIHandler
                             idList.Add(n);
                         } while (n != 0);
                         //uslugaService.FindAllById(idList);
-                        Console.WriteLine(Model.DBService.GetHeader());
-                        foreach (Model.DBService usluga in uslugaService.FindAllById(idList))
+                        Console.WriteLine(DBService.GetHeader());
+                        foreach (DBService usluga in uslugaService.FindAllById(idList))
                         {
                             Console.WriteLine(usluga);
                         }
@@ -106,7 +107,7 @@ namespace TestingCA.UIHandler
                     case "9":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
-                        Console.WriteLine(Model.DBService.GetHeader());
+                        Console.WriteLine(DBService.GetHeader());
                         Console.WriteLine(uslugaService.FindById(n));
                         break;
                     case "x":
