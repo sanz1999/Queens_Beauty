@@ -47,32 +47,23 @@ namespace ViewModel.ViewModels
             if(CurrentCustomerViewModel == customerAddViewModel)
             {
                 customerAddViewModel.ClearInput();
-
-                if (SelectedItem != null)
-                {
-                    CustomerFront newCust = SelectedItem;
-                    Customers.Remove(SelectedItem);
-                    Customers.Add(newCust);
-                }
+                
                 CanAlter = false;
                 CanDelete = false;
 
-                //SelectedItem = null;
-                // ~~ Problem, SelectedItem remains selected. Bypassed, costly.
+                SelectedItem = null;
 
                 OnNav("filter");
             }
             else if(CurrentCustomerViewModel == customerFilterViewModel)
             {
-                //customerFilterViewModel.ClearInput();
+                customerFilterViewModel.ClearInput();
             }
             else if(CurrentCustomerViewModel == customerInfoViewModel)
             {
                 customerInfoViewModel.ClearInput();
-
-                CustomerFront newCust = SelectedItem;
-                Customers.Remove(SelectedItem);
-                Customers.Add(newCust);
+                
+                SelectedItem = null;
                 CanAlter = false;
                 CanDelete = false; 
                 
@@ -87,7 +78,6 @@ namespace ViewModel.ViewModels
                 return;
             }
             Customers.Remove(SelectedItem);
-            //SelectedItem = null; ~~ Doesn't work
             CanAlter = false;
             CanDelete = false;
             OnNav("filter");
@@ -123,7 +113,7 @@ namespace ViewModel.ViewModels
             }
             else
             {
-                CustomerFront customer = customerAddViewModel.GetCustomer(SelectedItem.CustomerId);
+                CustomerFront customer = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
                 Customers.Remove(SelectedItem);
                 Customers.Add(customer);
 
@@ -133,7 +123,6 @@ namespace ViewModel.ViewModels
                 //
                 //
 
-                //SelectedItem = null; ~~ Doesn't work
                 CanAlter = false;
                 CanDelete = false;
 
@@ -252,7 +241,7 @@ namespace ViewModel.ViewModels
                 if (selectedItem != value)
                 {
                     selectedItem = value;
-                    RaisePropertyChanged("SelectedItem");
+                    OnPropertyChanged("SelectedItem");
                 }
             }
         }
