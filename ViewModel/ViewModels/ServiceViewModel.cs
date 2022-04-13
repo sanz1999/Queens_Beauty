@@ -26,12 +26,19 @@ namespace ViewModel.ViewModels
         public MyICommand CancelCommand { get; set; }
 
         public static BindingList<ServiceFront> Services { get; private set; }
-        //public static BindingList<string> Categories { get; private set; }
+        public static BindingList<string> Categories = new BindingList<string>()
+        {
+            "Sisanje",
+            "Feniranje"
+            //Dopuniti
+        };
         
         public ServiceViewModel()
         {
             Services = new BindingList<ServiceFront>();
             Services.Add(new ServiceFront(0, "Sisanje", "Frizeraj", 30, 5, 10, 2));
+            serviceFilterViewModel.Categories = Categories;
+            serviceAddViewModel.Categories = Categories;
 
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);
@@ -50,7 +57,7 @@ namespace ViewModel.ViewModels
             }
             else if(CurrentServiceViewModel == serviceFilterViewModel)
             {
-
+                serviceFilterViewModel.ClearInput();
             }
             else if(CurrentServiceViewModel == serviceInfoViewModel)
             {
@@ -66,7 +73,12 @@ namespace ViewModel.ViewModels
 
         private void OnDelete()
         {
-            throw new NotImplementedException();
+            if (SelectedItem == null)
+                return;
+            Services.Remove(SelectedItem);
+            CanAlter = false;
+            canDelete = false;
+            OnNav("filter");
         }
 
         private void OnAlter()
@@ -96,7 +108,23 @@ namespace ViewModel.ViewModels
             switch (obj)
             {
                 case "add":
-                    CurrentServiceViewModel = serviceAddViewModel;
+                    if (CurrentServiceViewModel != serviceAddViewModel)
+                    {
+                        CurrentServiceViewModel = serviceAddViewModel;
+                        CanAlter = false;
+                        CanDelete = false;
+                        if (SelectedItem == null)
+                            break;
+                        SelectedItem = null;
+                    }
+                    else
+                    {
+                        Services.Add(serviceAddViewModel.GetService());
+                        OnNav("filter");
+
+                        CanAlter = false;
+                        CanDelete = false;
+                    }
                     break;
                 case "filter":
                     CurrentServiceViewModel = serviceFilterViewModel;

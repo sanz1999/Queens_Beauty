@@ -74,9 +74,7 @@ namespace ViewModel.ViewModels
         private void OnDelete()
         {
             if (SelectedItem == null)
-            {
                 return;
-            }
             Customers.Remove(SelectedItem);
             CanAlter = false;
             CanDelete = false;
@@ -173,9 +171,7 @@ namespace ViewModel.ViewModels
                         CanDelete = false;
                         if (SelectedItem == null)
                             break;
-                        CustomerFront newCust = SelectedItem;
-                        Customers.Remove(SelectedItem);
-                        Customers.Add(newCust);
+                        SelectedItem = null;
                     }
                     else
                     {
