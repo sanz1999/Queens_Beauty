@@ -33,12 +33,20 @@ namespace ViewModel.ViewModels
   
 
         public CustomerViewModel()      // u konstruktoru incijalizovati punjenje liste iz baze
+        public MyICommand ItemSelectedCommand { get; set; }
+        public MyICommand AlterCommand { get; set; }
+        public MyICommand DeleteCommand { get; set; }
+        public MyICommand CancelCommand { get; set; }
+
+        public static BindingList<CustomerFront> Customers { get; private set; }
+
+        public CustomerViewModel()
         {
             Customers = new BindingList<CustomerFront>();
             Customers.Add(new CustomerFront(0, "Marko", "Markovic", "0613228203", "marko123@gmail.com", "Male", 12, "231465231"));
 
             NavCommand = new MyICommand<string>(OnNav);
-            ItemSelectedCommand = new MyICommand(OnSelect); 
+            ItemSelectedCommand = new MyICommand(OnSelect);
             AlterCommand = new MyICommand(OnAlter);
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
@@ -52,13 +60,16 @@ namespace ViewModel.ViewModels
             {
                 customerAddViewModel.ClearInput();
 
-                CustomerFront newCust = SelectedItem;
-                Customers.Remove(SelectedItem);
-                Customers.Add(newCust);
+                if (SelectedItem != null)
+                {
+                    CustomerFront newCust = SelectedItem;
+                    Customers.Remove(SelectedItem);
+                    Customers.Add(newCust);
+                }
                 CanAlter = false;
                 CanDelete = false;
 
-                // SelectedItem = null
+                //SelectedItem = null;
                 // ~~ Problem, SelectedItem remains selected. Bypassed, costly.
 
                 OnNav("filter");
@@ -69,6 +80,14 @@ namespace ViewModel.ViewModels
             }
             else if(CurrentCustomerViewModel == customerInfoViewModel)
             {
+                customerInfoViewModel.ClearInput();
+
+                CustomerFront newCust = SelectedItem;
+                Customers.Remove(SelectedItem);
+                Customers.Add(newCust);
+                CanAlter = false;
+                CanDelete = false; 
+                
                 OnNav("filter");
             }
         }
@@ -91,6 +110,7 @@ namespace ViewModel.ViewModels
             if(CurrentCustomerViewModel != customerAddViewModel)
             {
                 CurrentCustomerViewModel = customerAddViewModel;
+                customerInfoViewModel.ClearInput();
 
                 customerAddViewModel.FirstNameVM = SelectedItem.FirstName;
                 customerAddViewModel.LastNameVM = SelectedItem.LastName;
@@ -115,11 +135,9 @@ namespace ViewModel.ViewModels
             }
             else
             {
-                CustomerFront customer = customerAddViewModel.GetCustomer();
+                CustomerFront customer = customerAddViewModel.GetCustomer(SelectedItem.CustomerId);
                 Customers.Remove(SelectedItem);
                 Customers.Add(customer);
-
-                Customers.OrderBy(x => x.FirstName); 
 
                 //
                 //
@@ -137,10 +155,32 @@ namespace ViewModel.ViewModels
 
         private void OnSelect()
         {
-            if(SelectedItem != null)
+            if (SelectedItem == null)
+                return;
+
+            CanAlter = true;
+            CanDelete = true;
+            OnNav("info");
+
+            customerInfoViewModel.FirstNameVM = SelectedItem.FirstName;
+            customerInfoViewModel.LastNameVM = SelectedItem.LastName;
+            customerInfoViewModel.PhoneNumberVM = SelectedItem.PhoneNumber;
+            customerInfoViewModel.EmailVM = SelectedItem.Email;
+            customerInfoViewModel.LoyaltyCardIdVM = SelectedItem.LoyaltyCardId;
+
+            switch (SelectedItem.Gender)
             {
-                CanAlter = true;
-                CanDelete = true;
+                case "Male":
+                    customerInfoViewModel.IsMaleCheckedVM = true;
+                    break;
+                case "Female":
+                    customerInfoViewModel.IsFemaleCheckedVM = true;
+                    break;
+                case "Other":
+                    customerInfoViewModel.IsOtherCheckedVM = true;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -149,12 +189,25 @@ namespace ViewModel.ViewModels
             switch (obj)
             {
                 case "add":
-                    if(CurrentCustomerViewModel != customerAddViewModel)
+                    if (CurrentCustomerViewModel != customerAddViewModel)
+                    {
                         CurrentCustomerViewModel = customerAddViewModel;
+                        CanAlter = false;
+                        CanDelete = false;
+                        if (SelectedItem == null)
+                            break;
+                        CustomerFront newCust = SelectedItem;
+                        Customers.Remove(SelectedItem);
+                        Customers.Add(newCust);
+                    }
                     else
                     {
                         Customers.Add(customerAddViewModel.GetCustomer());
                         OnNav("filter");
+
+                        //Could be an issue.
+                        CanAlter = false;
+                        CanDelete = false;
                     }
                     break;
                 case "filter":

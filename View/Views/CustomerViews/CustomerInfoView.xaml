@@ -15,7 +15,8 @@
             <TextBlock Grid.Column="0"
                        Text="First name:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False"/>
+                     IsEnabled="False"
+                     Text="{Binding FirstNameVM}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,7 +26,8 @@
             <TextBlock Grid.Column="0"
                        Text="Last name:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding LastNameVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -35,7 +37,8 @@
             <TextBlock Grid.Column="0"
                        Text="Phone number:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding PhoneNumberVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,7 +48,8 @@
             <TextBlock Grid.Column="0"
                        Text="Email:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding EmailVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -62,13 +66,19 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Grid.Column="0"
                              Content="Male"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsMaleCheckedVM}"
+                             IsEnabled="False"/>
                 <RadioButton Grid.Column="1"
                              Content="Female"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsFemaleCheckedVM}"
+                             IsEnabled="False"/>
                 <RadioButton Grid.Column="2"
                              Content="Other"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsOtherCheckedVM}"
+                             IsEnabled="False"/>
             </Grid>
         </Grid>
         <Grid>
@@ -79,7 +89,8 @@
             <TextBlock Grid.Column="0"
                        Text="Loyalty Card ID:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding LoyaltyCardIdVM}" />
         </Grid>
     </StackPanel>
 </UserControl>

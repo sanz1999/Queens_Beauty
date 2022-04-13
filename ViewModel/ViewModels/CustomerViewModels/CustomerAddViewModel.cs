@@ -46,6 +46,17 @@ namespace ViewModel.ViewModels.CustomerViewModels
             return customerToAdd;
         }
 
+        public CustomerFront GetCustomer(int id)
+        {
+            string gender = GetGender();
+            CustomerFront customerToAdd =
+                new CustomerFront(id, FirstNameVM, LastNameVM, PhoneNumberVM, EmailVM, gender, 0, LoyaltyCardIdVM);
+
+            ClearInput();
+
+            return customerToAdd;
+        }
+
         public void ClearInput()
         {
             FirstNameVM = "";
