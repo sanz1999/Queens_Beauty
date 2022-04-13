@@ -1,4 +1,5 @@
-﻿using Model.FrontendModel;
+﻿using Common.Methods.CustomerMethodes;
+using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace ViewModel.ViewModels
         private CustomerFilterViewModel customerFilterViewModel = new CustomerFilterViewModel();
         private CustomerInfoViewModel customerInfoViewModel = new CustomerInfoViewModel();
         private BindableBase currentCustomerViewModel;
+        private CustomerCRUD commonCustomer = new CustomerCRUD();
 
         private CustomerFront selectedItem;
         private bool canAlter = false;
@@ -31,7 +33,7 @@ namespace ViewModel.ViewModels
         public CustomerViewModel()
         {
             Customers = new BindingList<CustomerFront>();
-            Customers.Add(new CustomerFront(0, "Marko", "Markovic", "0613228203", "marko123@gmail.com", "Male", 12, "231465231"));
+            Customers = commonCustomer.LoadFromDataBase();
 
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);

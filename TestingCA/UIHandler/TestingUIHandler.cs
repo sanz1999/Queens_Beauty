@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using Model.FrontendModel;
+using Common.Methods.CustomerMethodes;
 
 namespace TestingCA.UIHandler
 {
@@ -15,6 +18,12 @@ namespace TestingCA.UIHandler
         private static readonly ServiceUIHandler serviceUI = new ServiceUIHandler();
         private static readonly SIAUIHandler siaUI = new SIAUIHandler();
         private static readonly WorkerUIHandler workerUI = new WorkerUIHandler();
+
+
+        //sale testira za bazu nesto
+        public static BindingList<CustomerFront> Customers { get; private set; }
+        private CustomerCRUD commonCustomer = new CustomerCRUD();
+        //
 
         private static readonly ServiceUIHandler usluga = new ServiceUIHandler();
         private static readonly Recognition funkcije = new Recognition();
@@ -32,7 +41,8 @@ namespace TestingCA.UIHandler
                 Console.WriteLine("3. Service Testing");
                 Console.WriteLine("4. SIA (services in a appointment) Testing");
                 Console.WriteLine("5. Worker Testing");
-                Console.WriteLine("6. Testiraj filtriranje");
+                Console.WriteLine("6. Test filter");
+                Console.WriteLine("7. Test LoadFromBase");
 
 
                 answer = Console.ReadLine();
@@ -57,6 +67,9 @@ namespace TestingCA.UIHandler
                     case "6":
                         TestIt();
                         break;
+                    case "7":
+                        TestDBLoadCustomer();
+                        break;
                     case "x":
                         return;
                 }
@@ -69,6 +82,11 @@ namespace TestingCA.UIHandler
             string answer = Console.ReadLine();
             funkcije.FilterString(answer);
             Console.ReadKey();
+        }
+        public void TestDBLoadCustomer() {
+            Customers = commonCustomer.LoadFromDataBase();
+            Console.WriteLine("Broj customera je = " + Customers.Count());
+            string answer = Console.ReadLine();
         }
 
     }

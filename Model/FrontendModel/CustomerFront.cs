@@ -19,6 +19,10 @@ namespace Model.FrontendModel
             private int points;
             private string loyaltyCardId;
 
+
+            public CustomerFront() { }
+
+
             public CustomerFront(int customerId, string firstName, string lastName, string phoneNumber, string email, string gender, int points, string loyaltyCardId)
             {
                 this.customerId = customerId;

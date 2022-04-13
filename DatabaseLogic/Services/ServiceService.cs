@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model;
+using Model.DBModel;
 
 namespace DatabaseLogic.Services
 {
@@ -34,7 +35,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>Vraca 1 u slucaju uspesnog dodavanja</returns>
-        public int Save(Model.DBService entity)
+        public int Save(DBService entity)
         {
             return uslugaDAO.Save(entity);
         }
@@ -52,7 +53,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
-        public int Delete(Model.DBService entity)
+        public int Delete(DBService entity)
         {
             return uslugaDAO.Delete(entity);
         }
@@ -69,7 +70,7 @@ namespace DatabaseLogic.Services
         /// Nalazi sve usluge u tabeli
         /// </summary>
         /// <returns>Vraca listu usluga</returns>
-        public IEnumerable<Model.DBService> FindAll()
+        public IEnumerable<DBService> FindAll()
         {
             return uslugaDAO.FindAll();
         }
@@ -78,7 +79,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IEnumerable<Model.DBService> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<DBService> FindAllById(IEnumerable<int> ids)
         {
             return uslugaDAO.FindAllById(ids);
         }
@@ -87,7 +88,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Model.DBService FindById(int id)
+        public DBService FindById(int id)
         {
             return uslugaDAO.FindById(id);
         }
@@ -96,7 +97,7 @@ namespace DatabaseLogic.Services
         /// </summary>
         /// <param name="entities"></param>
         /// <returns></returns>
-        public int SaveAll(IEnumerable<Model.DBService> entities)
+        public int SaveAll(IEnumerable<DBService> entities)
         {
             return uslugaDAO.SaveAll(entities);
         }
