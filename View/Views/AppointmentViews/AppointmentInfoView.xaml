@@ -5,8 +5,200 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Views.AppointmentViews"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="450" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock Text="Customer information:" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="First name:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Last name:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Phone number:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Email:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Gender:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Loyalty Card ID:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <TextBlock Text="Appointment information:" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Appointment Date:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Pick start time:"
+                       Grid.Row="0"
+                       Grid.Column="0" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="0"
+                     IsEnabled="False"/>
+            <TextBlock Text="Pick end time:"
+                       Grid.Row="0"
+                       Grid.Column="1" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     IsEnabled="False"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Check if appointment was done:" />
+            <CheckBox Grid.Column="1"
+                      Content="Done" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Total price:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <DataGrid Height="100"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Width="*" />
+                <DataGridTextColumn Header="Category"
+                                    Width="*" />
+                <DataGridTextColumn Header="Duration"
+                                    Width="*" />
+                <DataGridTextColumn Header="Price"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="Selected service information: " />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Name:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Category:" />
+            <TextBox Grid.Column="1"
+                      IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Duration (in minutes):" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Price:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Points cost:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Points reward:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False" />
+        </Grid>
+    </StackPanel>
 </UserControl>

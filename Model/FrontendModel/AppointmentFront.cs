@@ -12,18 +12,23 @@ namespace Model.FrontendModel
     {
 
         private int appointmentId;
-        private int KorisnikId;
-        private DateTime dateTime;
+        private int korisnikId;
+        private DateOnly appointmentDate;
+        private string startTime;
+        private string endTime;
         private int sumCena;
         private bool state;
         private string employeeName;
 
         private List<int> appointmentIdList;
-        public AppointmentFront(int appointmentId, int korisnikId, DateTime dateTime, int sumCena, bool state, string employeeName, List<int> appointmentIdList)
+
+        public AppointmentFront(int appointmentId, int korisnikId, DateOnly appointmentDate, string startTime, string endTime, int sumCena, bool state, string employeeName, List<int> appointmentIdList)
         {
             this.appointmentId = appointmentId;
-            KorisnikId = korisnikId;
-            this.dateTime = dateTime;
+            this.korisnikId = korisnikId;
+            this.appointmentDate = appointmentDate;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
             this.sumCena = sumCena;
             this.state = state;
             this.employeeName = employeeName;
@@ -44,25 +49,25 @@ namespace Model.FrontendModel
         }
         public int KorisnikId1
         {
-            get { return KorisnikId; }
+            get { return korisnikId; }
             set
             {
-                if (KorisnikId != value)
+                if (korisnikId != value)
                 {
-                    KorisnikId = value;
+                    korisnikId = value;
                     RaisePropertyChanged("KorisnikId");
                 }
             }
         }
-        public DateTime DateTime
+        public DateOnly AppointmentDate
         {
-            get { return dateTime; }
+            get { return appointmentDate; }
             set
             {
-                if (dateTime != value)
+                if (appointmentDate != value)
                 {
-                    dateTime = value;
-                    RaisePropertyChanged("DateTime");
+                    appointmentDate = value;
+                    RaisePropertyChanged("AppointmentDate");
                 }
             }
         }
@@ -76,7 +81,32 @@ namespace Model.FrontendModel
                     sumCena = value;
                     RaisePropertyChanged("SumCena");
                 }
-            } }
+            } 
+        }
+        public string StartTime
+        {
+            get { return startTime; }
+            set
+            {
+                if (startTime != value)
+                {
+                    startTime = value;
+                    RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        public string EndTime
+        {
+            get { return endTime; }
+            set
+            {
+                if (endTime != value)
+                {
+                    endTime = value;
+                    RaisePropertyChanged("EndTime");
+                }
+            }
+        }
         public bool State
         {
             get { return state; }
@@ -114,22 +144,39 @@ namespace Model.FrontendModel
             }
         }
 
+
+        
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public override bool Equals(object? obj)
         {
-            return obj is AppointmentFront appointment &&
-                   appointmentId == appointment.appointmentId &&
-                   KorisnikId == appointment.KorisnikId &&
-                   dateTime == appointment.dateTime &&
-                   sumCena == appointment.sumCena &&
-                   state == appointment.state &&
-                   employeeName == appointment.employeeName;
+            return obj is AppointmentFront front &&
+                   appointmentId == front.appointmentId &&
+                   korisnikId == front.korisnikId &&
+                   appointmentDate.Equals(front.appointmentDate) &&
+                   startTime == front.startTime &&
+                   endTime == front.endTime &&
+                   sumCena == front.sumCena &&
+                   state == front.state &&
+                   employeeName == front.employeeName &&
+                   EqualityComparer<List<int>>.Default.Equals(appointmentIdList, front.appointmentIdList);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(appointmentId, KorisnikId, dateTime, sumCena, state, employeeName);
+            HashCode hash = new HashCode();
+            hash.Add(appointmentId);
+            hash.Add(korisnikId);
+            hash.Add(appointmentDate);
+            hash.Add(startTime);
+            hash.Add(endTime);
+            hash.Add(sumCena);
+            hash.Add(state);
+            hash.Add(employeeName);
+            hash.Add(appointmentIdList);
+            return hash.ToHashCode();
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
+
         private void RaisePropertyChanged(string property)
         {
             if (PropertyChanged != null)
