@@ -215,8 +215,8 @@ namespace DatabaseLogic.DAO.Implementation
         {
             /*string insertSql = "insert into service (sname, scat, sdur, spri, sprip, sp) " +
                                 "values (:sname, :scat, :sdur, :spri, :sprip, :sp)";
-            if (o.id != 0)
-                insertSql = "insert into service ( sid, sname, scat, sdur, spri, sprip, sp) " +
+            if (o.appointmentId != 0)
+                insertSql = "insert into appointment (aid, cid, atime, aprice, astate) " +
                                 "values (:sid, :sname, :scat, :sdur, :spri, :sprip, :sp)";
 
             string updateSql = "update service set sname=:sname, scat=:scat, sdur=:sdur, spri=:spri, sprip=:sprip, sp=:sp where sid=:sid";

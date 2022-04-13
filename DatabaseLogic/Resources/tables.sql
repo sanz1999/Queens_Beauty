@@ -25,7 +25,7 @@ CREATE TABLE customer(
 	csname			VARCHAR2(255 CHAR) NOT NULL,
 	cnum			VARCHAR2(255 CHAR) DEFAULT '',
 	cmail			VARCHAR2(255 CHAR) DEFAULT '',
-	csex			CHAR(1) DEFAULT 'N',
+	csex			VARCHAR2(1 CHAR) DEFAULT 'N',
 	cp				INT DEFAULT 0,
 	cloyal			INT,
 	CONSTRAINT customer_pk PRIMARY KEY ( cid ),	
