@@ -28,18 +28,6 @@ namespace ViewModel.ViewModels
 
         public static BindingList<CustomerFront> Customers { get; private set; }
 
-       
-
-  
-
-        public CustomerViewModel()      // u konstruktoru incijalizovati punjenje liste iz baze
-        public MyICommand ItemSelectedCommand { get; set; }
-        public MyICommand AlterCommand { get; set; }
-        public MyICommand DeleteCommand { get; set; }
-        public MyICommand CancelCommand { get; set; }
-
-        public static BindingList<CustomerFront> Customers { get; private set; }
-
         public CustomerViewModel()
         {
             Customers = new BindingList<CustomerFront>();
