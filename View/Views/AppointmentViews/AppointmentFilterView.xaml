@@ -17,11 +17,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <RadioButton Grid.Column="0"
-                             Content="Day" />
+                             Content="Day" 
+                             GroupName="IntervalRB"/>
                 <RadioButton Grid.Column="1"
-                             Content="Week" />
+                             Content="Week"
+                             GroupName="IntervalRB" />
                 <RadioButton Grid.Column="2"
-                             Content="Month" />
+                             Content="Month"
+                             GroupName="IntervalRB" />
             </Grid>
             <DatePicker />
             

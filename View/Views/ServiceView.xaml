@@ -4,9 +4,89 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View.Views"
+             xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
+             xmlns:serviceViewModels="clr-namespace:ViewModel.ViewModels.ServiceViewModels;assembly=ViewModel"
+             xmlns:serviceViews="clr-namespace:View.Views.ServiceViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModels:ServiceViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type serviceViewModels:ServiceAddViewModel}">
+            <serviceViews:ServiceAddView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type serviceViewModels:ServiceFilterViewModel}">
+            <serviceViews:ServiceFilterView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type serviceViewModels:ServiceInfoViewModel}">
+            <serviceViews:ServiceInfoView />
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="5"
+              HorizontalAlignment="Stretch"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Height="30"
+                        Margin="5"
+                        Content="Add"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="add" />
+                <Button Grid.Column="1"
+                        Height="30"
+                        Margin="5"
+                        Content="Alter"
+                        IsEnabled="False"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="alter" />
+                <Button Grid.Column="2"
+                        Height="30"
+                        Margin="5"
+                        Content="Delete"
+                        IsEnabled="False" />
+            </Grid>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding CurrentServiceViewModel}" />
+        </Grid>
+        <Grid Margin="5"
+              HorizontalAlignment="Stretch"
+              Grid.Column="1">
+            <DataGrid IsReadOnly="True"
+                      SelectionMode="Single"
+                      AutoGenerateColumns="False"
+                      CanUserResizeColumns="False"
+                      CanUserReorderColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Category"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Duration (in minutes)"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Price"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Price in points"
+                                        Width="0.5*" />
+                    <DataGridTextColumn Header="Value in points"
+                                        Width="0.5*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

@@ -104,6 +104,28 @@
         <Button Height="20"
                 Width="160"
                 Content="Remove service from list" />
+        <TextBlock Text="Select date of the appointment: " />
+        <DatePicker />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Pick start time:"
+                       Grid.Row="0"
+                       Grid.Column="0"/>
+            <TextBox Grid.Row="1"
+                     Grid.Column="0" />
+            <TextBlock Text="Pick end time:"
+                       Grid.Row="0"
+                       Grid.Column="1" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1" />
+        </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
