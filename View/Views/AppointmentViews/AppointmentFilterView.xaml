@@ -18,26 +18,18 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Grid.Column="0"
                              Content="Day" 
-                             GroupName="IntervalRB"/>
+                             GroupName="IntervalRB"
+                             IsChecked="{Binding IsDayVM}"/>
                 <RadioButton Grid.Column="1"
                              Content="Week"
-                             GroupName="IntervalRB" />
+                             GroupName="IntervalRB"
+                             IsChecked="{Binding IsWeekVM}" />
                 <RadioButton Grid.Column="2"
                              Content="Month"
-                             GroupName="IntervalRB" />
+                             GroupName="IntervalRB"
+                             IsChecked="{Binding IsMonthVM}" />
             </Grid>
-            <DatePicker />
-            
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                           Text="Filter by input:" />
-                <TextBox Grid.Column="1" />
-            </Grid>
-
+            <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </UserControl>

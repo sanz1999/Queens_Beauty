@@ -12,28 +12,29 @@ namespace Model.FrontendModel
     {
 
         private int appointmentId;
-        private int korisnikId;
+        private CustomerFront customer;
         private DateOnly appointmentDate;
         private string startTime;
         private string endTime;
         private int sumCena;
         private bool state;
         private string employeeName;
+        public BindingList<ServiceFront> ServiceList { get; private set; }
 
-        private List<int> appointmentIdList;
-
-        public AppointmentFront(int appointmentId, int korisnikId, DateOnly appointmentDate, string startTime, string endTime, int sumCena, bool state, string employeeName, List<int> appointmentIdList)
+        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, int sumCena, bool state, string employeeName, BindingList<ServiceFront> serviceList)
         {
             this.appointmentId = appointmentId;
-            this.korisnikId = korisnikId;
+            this.customer = customer;
             this.appointmentDate = appointmentDate;
-            this.StartTime = startTime;
-            this.EndTime = endTime;
+            this.startTime = startTime;
+            this.endTime = endTime;
             this.sumCena = sumCena;
             this.state = state;
             this.employeeName = employeeName;
-            this.appointmentIdList = appointmentIdList;
+            ServiceList = serviceList;
         }
+
+
 
         public int AppointmentId
         {
@@ -47,15 +48,15 @@ namespace Model.FrontendModel
                 }
             }
         }
-        public int KorisnikId1
+        public CustomerFront Customer
         {
-            get { return korisnikId; }
+            get { return customer; }
             set
             {
-                if (korisnikId != value)
+                if (customer != value)
                 {
-                    korisnikId = value;
-                    RaisePropertyChanged("KorisnikId");
+                    customer = value;
+                    RaisePropertyChanged("Customer");
                 }
             }
         }
@@ -131,51 +132,8 @@ namespace Model.FrontendModel
                 }
             }
         }
-        public List<int> AppointmentIdList
-        {
-            get { return appointmentIdList; }
-            set
-            {
-                if (appointmentIdList != value)
-                {
-                    appointmentIdList = value;
-                    RaisePropertyChanged("AppointmentIdList");
-                }
-            }
-        }
-
-
         
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public override bool Equals(object? obj)
-        {
-            return obj is AppointmentFront front &&
-                   appointmentId == front.appointmentId &&
-                   korisnikId == front.korisnikId &&
-                   appointmentDate.Equals(front.appointmentDate) &&
-                   startTime == front.startTime &&
-                   endTime == front.endTime &&
-                   sumCena == front.sumCena &&
-                   state == front.state &&
-                   employeeName == front.employeeName &&
-                   EqualityComparer<List<int>>.Default.Equals(appointmentIdList, front.appointmentIdList);
-        }
-
-        public override int GetHashCode()
-        {
-            HashCode hash = new HashCode();
-            hash.Add(appointmentId);
-            hash.Add(korisnikId);
-            hash.Add(appointmentDate);
-            hash.Add(startTime);
-            hash.Add(endTime);
-            hash.Add(sumCena);
-            hash.Add(state);
-            hash.Add(employeeName);
-            hash.Add(appointmentIdList);
-            return hash.ToHashCode();
-        }
 
         private void RaisePropertyChanged(string property)
         {
@@ -185,5 +143,33 @@ namespace Model.FrontendModel
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is AppointmentFront front &&
+                   appointmentId == front.appointmentId &&
+                   EqualityComparer<CustomerFront>.Default.Equals(customer, front.customer) &&
+                   appointmentDate.Equals(front.appointmentDate) &&
+                   startTime == front.startTime &&
+                   endTime == front.endTime &&
+                   sumCena == front.sumCena &&
+                   state == front.state &&
+                   employeeName == front.employeeName &&
+                   EqualityComparer<BindingList<ServiceFront>>.Default.Equals(ServiceList, front.ServiceList);
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(appointmentId);
+            hash.Add(customer);
+            hash.Add(appointmentDate);
+            hash.Add(startTime);
+            hash.Add(endTime);
+            hash.Add(sumCena);
+            hash.Add(state);
+            hash.Add(employeeName);
+            hash.Add(ServiceList);
+            return hash.ToHashCode();
+        }
     }
 }

@@ -249,14 +249,5 @@ namespace ViewModel.ViewModels
                 }
             }
         }
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
