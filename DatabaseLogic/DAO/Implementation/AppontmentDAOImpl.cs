@@ -113,7 +113,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
                                                                 reader.GetDouble(3),
-                                                                reader.GetInt32(4));
+                                                                reader.GetInt32(4),
+                                                                reader.GetInt32(5));
 
                             returnList.Add(o);
                         }
@@ -161,7 +162,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
                                                                 reader.GetDouble(3),
-                                                                reader.GetInt32(4));
+                                                                reader.GetInt32(4),
+                                                                reader.GetInt32(5));
                             returnList.Add(o);
                         }
                     }
@@ -193,7 +195,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                   reader.GetInt32(1),
                                                   reader.GetDateTime(2),
                                                   reader.GetDouble(3),
-                                                  reader.GetInt32(4));
+                                                  reader.GetInt32(4),
+                                                  reader.GetInt32(5));
                         }
                     }
                 }
@@ -213,45 +216,58 @@ namespace DatabaseLogic.DAO.Implementation
 
         private int Save(DBAppointment o, IDbConnection connection)
         {
-            /*string insertSql = "insert into service (sname, scat, sdur, spri, sprip, sp) " +
-                                "values (:sname, :scat, :sdur, :spri, :sprip, :sp)";
+            StringBuilder insertSql = new StringBuilder();
+            
+            insertSql.Append("insert into appointment (");
             if (o.appointmentId != 0)
-                insertSql = "insert into appointment (aid, cid, atime, aprice, astate) " +
-                                "values (:sid, :sname, :scat, :sdur, :spri, :sprip, :sp)";
+                insertSql.Append("aid,");
+            insertSql.Append("cid, atime, aprice) values (");
+            if (o.appointmentId != 0)
+                insertSql.Append(":aid,");
+            insertSql.Append(":cid, :atime, :aprice)");
 
-            string updateSql = "update service set sname=:sname, scat=:scat, sdur=:sdur, spri=:spri, sprip=:sprip, sp=:sp where sid=:sid";
+            string updateSql = "update appointment set cid=:cid, atime=:atime, aprice=:aprice where aid=:aid";
             using (IDbCommand command = connection.CreateCommand())
             {
-                command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql;
-                if (o.id != 0 && command.CommandText.Equals(insertSql))
-                    ParameterUtil.AddParameter(command, "sid", DbType.Int32);
-                ParameterUtil.AddParameter(command, "sname", DbType.String, 30);
-                ParameterUtil.AddParameter(command, "scat", DbType.String, 30);
-                ParameterUtil.AddParameter(command, "sdur", DbType.Int32);
-                ParameterUtil.AddParameter(command, "spri", DbType.Double);
-                ParameterUtil.AddParameter(command, "sprip", DbType.Int32);
-                ParameterUtil.AddParameter(command, "sp", DbType.Int32);
+                command.CommandText = ExistsById(o.appointmentId, connection) ? updateSql : insertSql.ToString();
+                if (o.appointmentId != 0 && command.CommandText.Equals(insertSql.ToString()))
+                    ParameterUtil.AddParameter(command, "aid", DbType.Int32);
+                ParameterUtil.AddParameter(command, "cid", DbType.Int32);
+                ParameterUtil.AddParameter(command, "atime", DbType.DateTime);
+                ParameterUtil.AddParameter(command, "aprice", DbType.Double);                
                 if (command.CommandText.Equals(updateSql))
-                    ParameterUtil.AddParameter(command, "sid", DbType.Int32);
+                    ParameterUtil.AddParameter(command, "aid", DbType.Int32);
 
                 command.Prepare();
-                if (o.id != 0)
-                    ParameterUtil.SetParameterValue(command, "sid", o.id);
-                ParameterUtil.SetParameterValue(command, "sname", o.name);
-                ParameterUtil.SetParameterValue(command, "scat", o.category);
-                ParameterUtil.SetParameterValue(command, "sdur", o.duration);
-                ParameterUtil.SetParameterValue(command, "spri", o.price);
-                ParameterUtil.SetParameterValue(command, "sprip", o.pointsPrice);
-                ParameterUtil.SetParameterValue(command, "sp", o.pointsValue);
+                if (o.appointmentId != 0)
+                    ParameterUtil.SetParameterValue(command, "aid", o.appointmentId);
+                ParameterUtil.SetParameterValue(command, "cid", o.customerId);
+                ParameterUtil.SetParameterValue(command, "atime", o.dateTime);
+                ParameterUtil.SetParameterValue(command, "aprice", o.price);                
                 return command.ExecuteNonQuery();
-            }*/
+            }
 
             throw new NotImplementedException();
         }
 
         public int SaveAll(IEnumerable<DBAppointment> entities)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                IDbTransaction transaction = connection.BeginTransaction();
+
+                int numSaved = 0;
+
+                foreach (DBAppointment entity in entities)
+                {
+                    numSaved += Save(entity, connection);
+                }
+
+                transaction.Commit();
+
+                return numSaved;
+            }
         }
     }
 }

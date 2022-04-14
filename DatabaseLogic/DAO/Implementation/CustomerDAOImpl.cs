@@ -113,11 +113,13 @@ namespace DatabaseLogic.DAO.Implementation
                             DBCustomer o = new DBCustomer(reader.GetInt32(0),
                                                           reader.GetString(1),
                                                           reader.GetString(2),
-                                                          reader.GetString(3),
+                                                          reader.GetDateTime(3),
                                                           reader.GetString(4),
                                                           reader.GetString(5),
-                                                          reader.GetInt32(6),
-                                                          reader.GetInt32(7));
+                                                          reader.GetString(6),
+                                                          reader.GetInt32(7),
+                                                          reader.GetInt32(8),
+                                                          reader.GetInt32(9));
 
                             returnList.Add(o);
                         }
@@ -164,11 +166,14 @@ namespace DatabaseLogic.DAO.Implementation
                             DBCustomer o = new DBCustomer(reader.GetInt32(0),
                                                           reader.GetString(1),
                                                           reader.GetString(2),
-                                                          reader.GetString(3),
+                                                          reader.GetDateTime(3),
                                                           reader.GetString(4),
                                                           reader.GetString(5),
-                                                          reader.GetInt32(6),
-                                                          reader.GetInt32(7));
+                                                          reader.GetString(6),
+                                                          reader.GetInt32(7),
+                                                          reader.GetInt32(8),
+                                                          reader.GetInt32(9));
+
                             returnList.Add(o);
                         }
                     }
@@ -199,11 +204,14 @@ namespace DatabaseLogic.DAO.Implementation
                             o = new DBCustomer(reader.GetInt32(0),
                                                reader.GetString(1),
                                                reader.GetString(2),
-                                               reader.GetString(3),
+                                               reader.GetDateTime(3),
                                                reader.GetString(4),
                                                reader.GetString(5),
-                                               reader.GetInt32(6),
-                                               reader.GetInt32(7));
+                                               reader.GetString(6),
+                                               reader.GetInt32(7),
+                                               reader.GetInt32(8),
+                                               reader.GetInt32(9));
+
                         }
                     }
                 }
@@ -223,13 +231,13 @@ namespace DatabaseLogic.DAO.Implementation
 
         private int Save(DBCustomer entity, IDbConnection connection) 
         { 
-        string insertSql = "insert into customer (cname, csname, cnum, cmail, csex, cp, cloyal) " +
-                                "values (:cname, :csname, :cnum, :cmail, :csex, :cp, :cloyal)";
+        string insertSql = "insert into customer (cname, csname, cdob, cnum, cmail, csex, cp, cloyal) " +
+                                "values (:cname, :csname, :cdob, :cnum, :cmail, :csex, :cp, :cloyal)";
             if (entity.id != 0)
-                insertSql = "insert into customer (cid, cname, csname, cnum, cmail, csex, cp, cloyal) " +
-                                "values (:cid, :cname, :csname, :cnum, :cmail, :csex, :cp, :cloyal)";
+                insertSql = "insert into customer (cid, cname, csname, cdob, cnum, cmail, csex, cp, cloyal) " +
+                                "values (:cid, :cname, :csname, :cdob, :cnum, :cmail, :csex, :cp, :cloyal)";
 
-            string updateSql = "update customer set cname=:cname, csname=:csname, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp, cloyal=:cloyal where cid=:cid";
+            string updateSql = "update customer set cname=:cname, csname=:csname, cdob=:cdob, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp, cloyal=:cloyal where cid=:cid";
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = ExistsById(entity.id, connection) ? updateSql : insertSql;
@@ -237,6 +245,7 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.AddParameter(command, "cid", DbType.Int32);
                 ParameterUtil.AddParameter(command, "cname", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "csname", DbType.String, 30);
+                ParameterUtil.AddParameter(command, "cdob", DbType.Date);
                 ParameterUtil.AddParameter(command, "cnum", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "cmail", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "csex", DbType.String, 1);
@@ -250,6 +259,7 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.SetParameterValue(command, "cid", entity.id);
                 ParameterUtil.SetParameterValue(command, "cname", entity.name);
                 ParameterUtil.SetParameterValue(command, "csname", entity.surname);
+                ParameterUtil.SetParameterValue(command, "cdob", entity.dateOfBirth);
                 ParameterUtil.SetParameterValue(command, "cnum", entity.phoneNumber);
                 ParameterUtil.SetParameterValue(command, "cmail", entity.email);
                 ParameterUtil.SetParameterValue(command, "csex", entity.gender);

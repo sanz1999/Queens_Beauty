@@ -8,86 +8,99 @@ using System.Threading.Tasks;
 
 namespace TestingCA.UIHandler
 {
-    public class CustomerCRUDUIHandler
+    public class AppointmentCRUDUIHandler
     {
+        private static readonly AppointmentService appointmentService = new AppointmentService();
         private static readonly CustomerService customerService = new CustomerService();
         public void MenuHandler()
         {
             string answer;
             int n;
-            DateTime dt;
+            DateTime datum;
+
 
             do
             {
                 Console.Clear();
 
                 Console.WriteLine("\nZa povratak na prethodni menu uneti x\nOpcije:");
-                Console.WriteLine("1. Broj musterija");
+                Console.WriteLine("1. Broj termina");
                 Console.WriteLine("2. Izbrisi sve");
-                Console.WriteLine("3. Dodaj musteriju u tableu");
-                Console.WriteLine("4. Proveri dali musterija postoji u tabeli");
-                Console.WriteLine("5. Brisi musteriju sa datim id-om");
-                Console.WriteLine("6. Prikazi sve musterije");
+                Console.WriteLine("3. Dodaj termin u tableu");
+                Console.WriteLine("4. Proveri dali termina postoji u tabeli");
+                Console.WriteLine("5. Brisi termin sa datim id-om");
+                Console.WriteLine("6. Prikazi sve termine");
                 Console.WriteLine("7. Update na zadati id");
                 Console.WriteLine("8. FindAllById");
-                Console.WriteLine("9. Nadji i ispisi jednu musteriju");
+                Console.WriteLine("9. Nadji i ispisi jedan termin");
 
                 answer = Console.ReadLine();
 
                 switch (answer)
                 {
                     case "1":
-                        Console.WriteLine("\nBroj musterija u tabeli : " + customerService.Count());
+                        Console.WriteLine("\nBroj termina u tabeli : " + appointmentService.Count());
                         break;
                     case "2":
-                        Console.WriteLine("\nBroj izbrisanih musterija: " + customerService.DeleteAll());
+                        Console.WriteLine("\nBroj izbrisanih termina: " + appointmentService.DeleteAll());
                         break;
                     case "3":
                         Console.Write("i = ");
                         n = Int32.Parse(Console.ReadLine());
+                        List<DBCustomer> customers = (List<DBCustomer>)customerService.FindAll();
 
-                        for (int i = 0; i < n; i++)
+                        if (!customers.Any())
                         {
-                            dt = DateTime.Now;
-                            DBCustomer u = new DBCustomer("TestIme", "TestPrezime", dt, "TestFon", "TestMail", "T", 123, customerService.Count());
-                            if (customerService.Save(u) == 1)
-                                Console.WriteLine("dodavanje uspesno");
+                            Console.WriteLine("Za formiranje Appointment-a potreban je makar jedan Customer");
+                        }
+                        else
+                        {
+
+                            for (int i = 0; i < n; i++)
+                            {
+                                datum = DateTime.Now;
+                                DBAppointment u = new DBAppointment(customers.ElementAt(i % customers.Count()).id, datum, 15.5);
+                                if (appointmentService.Save(u) == 1)
+                                    Console.WriteLine("dodavanje uspesno");
+                            }
                         }
                         break;
                     case "4":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
 
-                        if (customerService.ExistsById(n))
-                            Console.WriteLine("Data musterija postoji");
+                        if (appointmentService.ExistsById(n))
+                            Console.WriteLine("Termin postoji");
                         else
-                            Console.WriteLine("Data musterija ne postoji");
+                            Console.WriteLine("Termin ne postoji");
                         break;
                     case "5":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
 
-                        if (customerService.DeleteById(n) == 1)
+                        if (appointmentService.DeleteById(n) == 1)
                             Console.WriteLine("Brisanje uspesno");
                         else
                             Console.WriteLine("Brisanje neuspesno");
                         break;
                     case "6":
                         Console.WriteLine();
-                        //customerService.FindAll();
-                        Console.WriteLine(DBCustomer.GetHeader());
-                        foreach (DBCustomer musterija in customerService.FindAll())
+                        //appointmentService.FindAll();
+                        Console.WriteLine(DBAppointment.GetHeader());
+                        foreach (DBAppointment termina in appointmentService.FindAll())
                         {
-                            Console.WriteLine(musterija);
+                            Console.WriteLine(termina);
                         }
                         break;
                     case "7":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
+                        datum = DateTime.Now;
 
-                        dt = DateTime.Now;
-                        DBCustomer updateModel = new DBCustomer(n, "UpdateIme", "UpdatePrezime", dt, "UpdateFon", "UpdateMAil", "U", 321, customerService.Count()+1);
-                        if (customerService.Save(updateModel) == 1)
+                        DBAppointment updateModel = appointmentService.FindById(n);
+                        updateModel.dateTime = datum;
+                        updateModel.price += 1.1;
+                        if (appointmentService.Save(updateModel) == 1)
                             Console.WriteLine("Update uspesan");
                         break;
                     case "8":
@@ -99,19 +112,19 @@ namespace TestingCA.UIHandler
                             n = Int32.Parse(Console.ReadLine());
                             idList.Add(n);
                         } while (n != 0);
-                        //customerService.FindAllById(idList);
-                        Console.WriteLine(DBCustomer.GetHeader());
-                        foreach (DBCustomer musterija in customerService.FindAllById(idList))
+                        //appointmentService.FindAllById(idList);
+                        Console.WriteLine(DBAppointment.GetHeader());
+                        foreach (DBAppointment termina in appointmentService.FindAllById(idList))
                         {
-                            Console.WriteLine(musterija);
+                            Console.WriteLine(termina);
                         }
 
                         break;
                     case "9":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
-                        Console.WriteLine(DBCustomer.GetHeader());
-                        Console.WriteLine(customerService.FindById(n));
+                        Console.WriteLine(DBAppointment.GetHeader());
+                        Console.WriteLine(appointmentService.FindById(n));
                         break;
                     case "x":
                         return;
