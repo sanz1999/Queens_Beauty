@@ -115,7 +115,7 @@ namespace Model.FrontendModel
             this.PointsPrice = pointsPrice;
             this.PointsValue = pointsValue;
         }
-
+        /*
         public ServiceFront(string name, string category, int duration, double price, int pointsPrice, int pointsValue)
         {
             Id = 0;
@@ -125,7 +125,7 @@ namespace Model.FrontendModel
             this.Price = price;
             this.PointsPrice = pointsPrice;
             this.PointsValue = pointsValue;
-        }
+        }*/
         public static string GetHeader()
         {
             return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}",

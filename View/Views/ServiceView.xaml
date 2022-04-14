@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
              xmlns:serviceViewModels="clr-namespace:ViewModel.ViewModels.ServiceViewModels;assembly=ViewModel"
              xmlns:serviceViews="clr-namespace:View.Views.ServiceViews"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -41,6 +42,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                         Height="30"
@@ -52,14 +54,19 @@
                         Height="30"
                         Margin="5"
                         Content="Alter"
-                        IsEnabled="False"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="alter" />
+                        IsEnabled="{Binding CanAlter}"
+                        Command="{Binding AlterCommand}" />
                 <Button Grid.Column="2"
                         Height="30"
                         Margin="5"
                         Content="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="{Binding CanDelete}"
+                        Command="{Binding DeleteCommand}" />
+                <Button Grid.Column="3"
+                        Height="30"
+                        Margin="5"
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}" />
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentServiceViewModel}" />
@@ -71,20 +78,33 @@
                       SelectionMode="Single"
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
-                      CanUserReorderColumns="False">
+                      CanUserReorderColumns="False"
+                      ItemsSource="{Binding Services}"
+                      SelectedItem="{Binding SelectedItem}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name"
-                                        Width="*" />
+                                        Width="*" 
+                                        Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Category"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding Category}" />
                     <DataGridTextColumn Header="Duration (in minutes)"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding Duration}" />
                     <DataGridTextColumn Header="Price"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding Price}" />
                     <DataGridTextColumn Header="Price in points"
-                                        Width="0.5*" />
+                                        Width="0.5*"
+                                        Binding="{Binding PointsPrice}" />
                     <DataGridTextColumn Header="Value in points"
-                                        Width="0.5*" />
+                                        Width="0.5*"
+                                        Binding="{Binding PointsValue}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

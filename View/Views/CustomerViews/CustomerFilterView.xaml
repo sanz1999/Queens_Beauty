@@ -14,7 +14,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Filter by first name:" />
-            <TextBox Grid.Column="1" />
+            <TextBox Grid.Column="1"
+                     Text="{Binding FirstNameVM}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,7 +24,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Filter by last name:" />
-            <TextBox Grid.Column="1" />
+            <TextBox Grid.Column="1"
+                     Text="{Binding LastNameVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -40,13 +42,16 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Grid.Column="0"
                              Content="Male"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsMaleCheckedVM}"/>
                 <RadioButton Grid.Column="1"
                              Content="Female"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsFemaleCheckedVM}" />
                 <RadioButton Grid.Column="2"
                              Content="Other"
-                             GroupName="GenderRB" />
+                             GroupName="GenderRB"
+                             IsChecked="{Binding IsOtherCheckedVM}" />
             </Grid>
         </Grid>
         <Grid>
@@ -56,7 +61,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Filter by loyalty card ID:" />
-            <TextBox Grid.Column="1" />
+            <TextBox Grid.Column="1"
+                     Text="{Binding LoyaltyCardIdVM}" />
         </Grid>
     </StackPanel>
 </UserControl>

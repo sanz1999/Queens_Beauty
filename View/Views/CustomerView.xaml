@@ -76,7 +76,7 @@
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
                       ItemsSource="{Binding Customers}"
-                      SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                      SelectedItem="{Binding SelectedItem}"
                       >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
