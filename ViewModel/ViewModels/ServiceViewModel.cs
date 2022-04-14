@@ -1,4 +1,6 @@
-﻿using Common.Methods.CustomerMethodes;
+
+using Common.Methods.CRUD;
+
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,11 @@ namespace ViewModel.ViewModels
         private ServiceFilterViewModel serviceFilterViewModel = new ServiceFilterViewModel();
         private ServiceInfoViewModel serviceInfoViewModel = new ServiceInfoViewModel();
         private BindableBase currentServiceViewModel;
+
         private ServiceCRUD commonService = new ServiceCRUD();
+
+        private ServiceCRUD serviceCRUD = new ServiceCRUD();
+
 
         private ServiceFront selectedItem;
         private bool canAlter = false;
@@ -29,11 +35,15 @@ namespace ViewModel.ViewModels
 
         public static BindingList<ServiceFront> Services { get; private set; }
         public static BindingList<string> Categories { get; set; }
+
         
         public ServiceViewModel()
         {
             Services = new BindingList<ServiceFront>();
-            Services = commonService.LoadFromDataBase();
+
+            Services = serviceCRUD.LoadFromDataBase();
+            Categories = serviceCRUD.LoadCategories();
+
             serviceFilterViewModel.Categories = Categories;
             serviceAddViewModel.Categories = Categories;
 
@@ -48,9 +58,10 @@ namespace ViewModel.ViewModels
 
         private void OnCancel()
         {
-            if(CurrentServiceViewModel == serviceAddViewModel)
+            if (CurrentServiceViewModel == serviceAddViewModel)
             {
                 serviceAddViewModel.ClearInput();
+
                 
                 CanAlter = false;
                 CanDelete = false;
@@ -79,6 +90,7 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
+            serviceCRUD.DeleteFromDataBase(SelectedItem);
             Services.Remove(SelectedItem);
             CanAlter = false;
             canDelete = false;
@@ -87,7 +99,8 @@ namespace ViewModel.ViewModels
 
         private void OnAlter()
         {
-            if(CurrentServiceViewModel != serviceAddViewModel)
+
+            if (CurrentServiceViewModel != serviceAddViewModel)
             {
                 CurrentServiceViewModel = serviceAddViewModel;
                 serviceInfoViewModel.ClearInput();
@@ -101,9 +114,14 @@ namespace ViewModel.ViewModels
             }
             else
             {
+
+                ServiceFront selectedOne = SelectedItem;
                 ServiceFront service = serviceAddViewModel.GetService(SelectedItem.Id);
-                Services.Remove(SelectedItem);
-                Services.Add(service);
+                int index = Services.IndexOf(SelectedItem);
+                Services.RemoveAt(index);
+                Services.Insert(index,service);
+                serviceCRUD.UpdateInDataBase(service);
+
 
                 CanAlter = false;
                 CanDelete = false;
@@ -145,7 +163,8 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        Services.Add(serviceAddViewModel.GetService());
+                        serviceCRUD.AddToDataBase(serviceAddViewModel.GetService());
+                        Services.Add(serviceCRUD.FindLastAdded());
                         OnNav("filter");
 
                         CanAlter = false;

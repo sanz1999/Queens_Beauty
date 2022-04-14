@@ -84,6 +84,9 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"
+                                        Width="*"
+                                        Binding="{Binding CustomerId}"/>
                     <DataGridTextColumn Header="First Name"
                                         Width="*" 
                                         Binding="{Binding FirstName}"/>
