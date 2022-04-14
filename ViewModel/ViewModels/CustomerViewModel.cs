@@ -1,4 +1,4 @@
-﻿using Common.Methods.CustomerMethodes;
+﻿using Common.Methods.CRUD;
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;

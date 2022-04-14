@@ -27,13 +27,13 @@ namespace ViewModel.ViewModels.ServiceViewModels
 
         public ServiceFront GetService()
         {
-            ServiceFront serviceToAdd = new ServiceFront(IdCnt, NameVM, CategoryVM.ToString(), int.Parse(DurationVM), int.Parse(priceVM), int.Parse(PointsPriceVM), int.Parse(PointsValueVM));
+            ServiceFront serviceToAdd = new ServiceFront(IdCnt, NameVM, CategoryVM.ToString(), int.Parse(DurationVM), double.Parse(priceVM), int.Parse(PointsPriceVM), int.Parse(PointsValueVM));
             ClearInput();
             return serviceToAdd;
         }
         public ServiceFront GetService(int id)
         {
-            ServiceFront serviceToAdd = new ServiceFront(id, NameVM, CategoryVM.ToString(), int.Parse(DurationVM), int.Parse(priceVM), int.Parse(PointsPriceVM), int.Parse(PointsValueVM));
+            ServiceFront serviceToAdd = new ServiceFront(id, NameVM, CategoryVM.ToString(), int.Parse(DurationVM), double.Parse(priceVM), int.Parse(PointsPriceVM), int.Parse(PointsValueVM));
             ClearInput();
             return serviceToAdd;
         }

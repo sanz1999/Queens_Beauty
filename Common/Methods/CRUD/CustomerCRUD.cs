@@ -8,7 +8,7 @@ using Model.FrontendModel;
 using Model.DBModel;
 using DatabaseLogic.Services;
 
-namespace Common.Methods.CustomerMethodes
+namespace Common.Methods.CRUD
 {
 
     public class CustomerCRUD

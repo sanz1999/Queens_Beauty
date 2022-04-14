@@ -29,5 +29,9 @@ namespace Common.Methods.TransformSubclasses
 
             return new DBCustomer(utc.CustomerId, utc.FirstName, utc.LastName, utc.PhoneNumber, utc.Email, genderdecide, utc.Points, loyalID);
         }
+        public DBService Service(ServiceFront untrasformedService)
+        {
+            return new DBService(untrasformedService.Id, untrasformedService.Name, untrasformedService.Category, untrasformedService.Duration, untrasformedService.Price, untrasformedService.PointsPrice, untrasformedService.PointsValue);
+        }
     }
 }
