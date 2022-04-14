@@ -1,4 +1,5 @@
-﻿using Model.FrontendModel;
+﻿using Common.Methods.CustomerMethodes;
+using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace ViewModel.ViewModels
         private ServiceFilterViewModel serviceFilterViewModel = new ServiceFilterViewModel();
         private ServiceInfoViewModel serviceInfoViewModel = new ServiceInfoViewModel();
         private BindableBase currentServiceViewModel;
+        private ServiceCRUD commonService = new ServiceCRUD();
 
         private ServiceFront selectedItem;
         private bool canAlter = false;
@@ -26,17 +28,12 @@ namespace ViewModel.ViewModels
         public MyICommand CancelCommand { get; set; }
 
         public static BindingList<ServiceFront> Services { get; private set; }
-        public static BindingList<string> Categories = new BindingList<string>()
-        {
-            "Sisanje",
-            "Feniranje"
-            //Dopuniti
-        };
+        public static BindingList<string> Categories { get; set; }
         
         public ServiceViewModel()
         {
             Services = new BindingList<ServiceFront>();
-            Services.Add(new ServiceFront(0, "Sisanje", "Frizeraj", 30, 5, 10, 2));
+            Services = commonService.LoadFromDataBase();
             serviceFilterViewModel.Categories = Categories;
             serviceAddViewModel.Categories = Categories;
 
@@ -53,7 +50,14 @@ namespace ViewModel.ViewModels
         {
             if(CurrentServiceViewModel == serviceAddViewModel)
             {
+                serviceAddViewModel.ClearInput();
+                
+                CanAlter = false;
+                CanDelete = false;
 
+                SelectedItem = null;
+
+                OnNav("filter");
             }
             else if(CurrentServiceViewModel == serviceFilterViewModel)
             {
@@ -83,7 +87,29 @@ namespace ViewModel.ViewModels
 
         private void OnAlter()
         {
-            throw new NotImplementedException();
+            if(CurrentServiceViewModel != serviceAddViewModel)
+            {
+                CurrentServiceViewModel = serviceAddViewModel;
+                serviceInfoViewModel.ClearInput();
+
+                serviceAddViewModel.NameVM = SelectedItem.Name;
+                serviceAddViewModel.CategoryVM = SelectedItem.Category;
+                serviceAddViewModel.DurationVM = SelectedItem.Duration.ToString();
+                serviceAddViewModel.PriceVM = SelectedItem.Price.ToString();
+                serviceAddViewModel.PointsPriceVM = SelectedItem.PointsPrice.ToString();
+                serviceAddViewModel.PointsValueVM = SelectedItem.PointsValue.ToString();
+            }
+            else
+            {
+                ServiceFront service = serviceAddViewModel.GetService(SelectedItem.Id);
+                Services.Remove(SelectedItem);
+                Services.Add(service);
+
+                CanAlter = false;
+                CanDelete = false;
+
+                CurrentServiceViewModel = serviceFilterViewModel;
+            }
         }
 
         private void OnSelect()

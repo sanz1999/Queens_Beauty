@@ -42,6 +42,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                         Height="30"
@@ -53,14 +54,20 @@
                         Height="30"
                         Margin="5"
                         Content="Alter"
-                        IsEnabled="False"
-                        Command="{Binding NavCommand}"
+                        IsEnabled="{Binding CanAlter}"
+                        Command="{Binding AlterCommand}"
                         CommandParameter="alter" />
                 <Button Grid.Column="2"
                         Height="30"
                         Margin="5"
                         Content="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="{Binding CanDelete}"
+                        Command="{Binding DeleteCommand}"/>
+                <Button Grid.Column="3"
+                        Height="30"
+                        Margin="5"
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}" />
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentAppointmentViewModel}" />
