@@ -28,7 +28,8 @@ namespace ViewModel.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
 
-        public static BindingList<CustomerFront> Customers { get; private set; }
+        public static BindingList<CustomerFront> Customers { get; set; }
+
 
         public CustomerViewModel()
         {
@@ -77,6 +78,8 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
+
+            commonCustomer.DeleteFromDataBase(SelectedItem);
             Customers.Remove(SelectedItem);
             CanAlter = false;
             CanDelete = false;
@@ -113,9 +116,12 @@ namespace ViewModel.ViewModels
             }
             else
             {
-                CustomerFront customer = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
-                Customers.Remove(SelectedItem);
-                Customers.Add(customer);
+                CustomerFront selectedOne = SelectedItem;
+                CustomerFront newOne = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
+                int index = Customers.IndexOf(SelectedItem);
+                Customers.RemoveAt(index);
+                Customers.Insert(index,newOne);
+                commonCustomer.UpdateInDataBase(newOne);
 
                 //
                 //
@@ -177,9 +183,9 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        Customers.Add(customerAddViewModel.GetCustomer());
-                        OnNav("filter");
-
+                        commonCustomer.AddToDataBase(customerAddViewModel.GetCustomer());
+                        Customers.Add(commonCustomer.FindLastAdded());
+                        OnNav("filter");                       
                         //Could be an issue.
                         CanAlter = false;
                         CanDelete = false;

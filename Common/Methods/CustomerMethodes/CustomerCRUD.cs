@@ -24,6 +24,24 @@ namespace Common.Methods.CustomerMethodes
                 newList.Add(transform.DBToFE.Customer(dBCustomer));
             }
             return newList;
-        }    
+        }
+
+        public void AddToDataBase(CustomerFront customer) {
+            DBCustomer dBCustomer = transform.FEToDB.Customer(customer);
+            dBCustomer.id = 0;
+            customerService.Save(dBCustomer);
+        }
+        public CustomerFront FindLastAdded() {
+            List<DBCustomer> dBCustomers = (List<DBCustomer>)customerService.FindAll();
+            return transform.DBToFE.Customer( dBCustomers.Last());
+        }
+
+        public void DeleteFromDataBase(CustomerFront customer) {
+            customerService.Delete(transform.FEToDB.Customer(customer));
+        }
+        public void UpdateInDataBase(CustomerFront customer) {
+            DBCustomer dBCustomer = transform.FEToDB.Customer(customer);
+            customerService.Save(dBCustomer);
+        }
     }
 }

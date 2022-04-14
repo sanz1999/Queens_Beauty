@@ -25,12 +25,14 @@ namespace Common.Methods.TransformSubclasses
             {
                 genderdecide = "Other";
             }
-            else {
+            else
+            {
                 genderdecide = "Unspecified";
             }
             return new CustomerFront(untrasformedCustomer.id, untrasformedCustomer.name, untrasformedCustomer.surname, untrasformedCustomer.phoneNumber, untrasformedCustomer.email, genderdecide, untrasformedCustomer.points, untrasformedCustomer.loyaltyNumber.ToString());
         }
-        public ServiceFront Service(DBService untrasformedService) {
+        public ServiceFront Service(DBService untrasformedService)
+        {
             return new ServiceFront(untrasformedService.id, untrasformedService.name, untrasformedService.category, untrasformedService.duration, untrasformedService.price, untrasformedService.pointsPrice, untrasformedService.pointsValue);
         }
     }
