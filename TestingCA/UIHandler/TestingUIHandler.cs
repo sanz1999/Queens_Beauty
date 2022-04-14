@@ -27,6 +27,7 @@ namespace TestingCA.UIHandler
 
         private static readonly ServiceUIHandler usluga = new ServiceUIHandler();
         private static readonly Recognition funkcije = new Recognition();
+        int a = 0;
 
         public void HandleMainMenu()
         {
