@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestingCA.UIHandler
+namespace Common.Methods.ValidationSubclasses
 {
-    public class AppoinmentCRUDUIHandler
+    public class Appointment
     {
     }
 }

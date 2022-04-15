@@ -102,5 +102,9 @@ namespace DatabaseLogic.Services
             return uslugaDAO.SaveAll(entities);
         }
 
+        public int DeleteByIdLog(int id)
+        {
+            return uslugaDAO.DeleteByIdLog(id);
+        }
     }
 }

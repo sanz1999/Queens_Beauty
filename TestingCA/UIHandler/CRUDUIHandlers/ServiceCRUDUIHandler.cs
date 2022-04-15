@@ -83,7 +83,7 @@ namespace TestingCA.UIHandler
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
 
-                        DBService updateModel = new DBService(n, "Brijanje", "Brada", 42, 6.9, -5, 2);
+                        DBService updateModel = new DBService(n, "Brijanje", "Brada", 42, 6.9, 20, 2);
                         if (uslugaService.Save(updateModel) == 1)
                             Console.WriteLine("Update uspesan");
                         break;

@@ -97,7 +97,7 @@ namespace DatabaseLogic.DAO.Implementation
 
         public IEnumerable<DBService> FindAll()
         {
-            string query = "select sid, sname, scat, sdur, spri, sprip, sp from service order by sid";
+            string query = "select * from service order by sid";
             List<DBService> listaUsluga = new List<DBService>();
 
             using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
@@ -121,7 +121,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                        reader.GetInt32(3),
                                                        reader.GetDouble(4),
                                                        reader.GetInt32(5),
-                                                       reader.GetInt32(6));
+                                                       reader.GetInt32(6),
+                                                       reader.GetInt32(7));
 
                             listaUsluga.Add(usluga);
                         }
@@ -171,7 +172,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                                       reader.GetInt32(3),
                                                                       reader.GetDouble(4),
                                                                       reader.GetInt32(5),
-                                                                      reader.GetInt32(6));
+                                                                      reader.GetInt32(6),
+                                                                      reader.GetInt32(7));
                             serviceList.Add(service);
                         }
                     }
@@ -205,7 +207,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                         reader.GetInt32(3),
                                                         reader.GetDouble(4),
                                                         reader.GetInt32(5),
-                                                        reader.GetInt32(6));
+                                                        reader.GetInt32(6),
+                                                        reader.GetInt32(7));
                         }
                     }
                 }
@@ -276,6 +279,24 @@ namespace DatabaseLogic.DAO.Implementation
                 transaction.Commit();
 
                 return numSaved;
+            }
+        }
+
+        public int DeleteByIdLog(int id)
+        {
+            string query = "update service set sex = 0 where sid=:sid";
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    ParameterUtil.AddParameter(command, "sid", DbType.Int32);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "sid", id);
+                    return command.ExecuteNonQuery();
+                }
             }
         }
     }

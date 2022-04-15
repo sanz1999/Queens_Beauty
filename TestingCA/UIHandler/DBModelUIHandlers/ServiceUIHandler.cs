@@ -9,9 +9,10 @@ namespace TestingCA.UIHandler
 {
     public class ServiceUIHandler
     {
-        private static readonly ServiceService uslugaService = new ServiceService();
+        private static readonly ServiceService serviceService = new ServiceService();
         private static readonly ServiceCRUDUIHandler uslugaCRUDService = new ServiceCRUDUIHandler();
 
+        int n;
         public void MenuHandler()
         {
             string answer;
@@ -20,6 +21,7 @@ namespace TestingCA.UIHandler
                 Console.Clear();
                 Console.WriteLine("\nZa povratak na main menu uneti x\nOpcije:");
                 Console.WriteLine("1. CRUD TestMenu");
+                Console.WriteLine("2. Logicko brisanje iz baze");
 
                 answer = Console.ReadLine();
 
@@ -28,6 +30,16 @@ namespace TestingCA.UIHandler
                     case "1":
                         uslugaCRUDService.MenuHandler();
                         continue;
+                        case "2":
+                        Console.Write("id = ");
+                        n = Int32.Parse(Console.ReadLine());
+
+                        if (serviceService.DeleteByIdLog(n) == 1)
+                            Console.WriteLine("Brisanje uspesno");
+                        else
+                            Console.WriteLine("Brisanje neuspesno");
+
+                        break;
                     case "x":
                         return;
                 }
