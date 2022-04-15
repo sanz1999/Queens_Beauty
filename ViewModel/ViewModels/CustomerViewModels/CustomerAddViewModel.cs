@@ -38,6 +38,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
         public CustomerFront GetCustomer()
         {
             string gender = GetGender();
+            if (LoyaltyCardIdVM == "")
+                LoyaltyCardIdVM = "0";
             CustomerFront customerToAdd = 
                 new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, EmailVM, gender, 0, LoyaltyCardIdVM);
 

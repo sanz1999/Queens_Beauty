@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
              xmlns:appointmentViewModels="clr-namespace:ViewModel.ViewModels.AppointmentViewModels;assembly=ViewModel"
              xmlns:appointmentViews="clr-namespace:View.Views.AppointmentViews"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -79,14 +80,30 @@
                       SelectionMode="Single"
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
-                      CanUserReorderColumns="False">
+                      CanUserReorderColumns="False"
+                      ItemsSource="{Binding Appointments}"
+                      SelectedItem="{Binding SelectedItem}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Customer Name"
-                                        Width="*" />
+                    <DataGridTextColumn Header="Customer First Name"
+                                        Width="*"
+                                        Binding="{Binding Customer.FirstName}" />
+                    <DataGridTextColumn Header="Customer Last Name"
+                                        Width="*"
+                                        Binding="{Binding Customer.LastName}" />
                     <DataGridTextColumn Header="Date"
-                                        Width="*" />
-                    <DataGridTextColumn Header="Start and end time"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding AppointmentDate}"/>
+                    <DataGridTextColumn Header="Start time"
+                                        Width="*"
+                                        Binding="{Binding StartTime}" />
+                    <DataGridTextColumn Header="End time"
+                                        Width="*"
+                                        Binding="{Binding EndTime}" />
                     <DataGridTemplateColumn Header="Services"
                                             Width="3*">
                         <DataGridTemplateColumn.CellTemplate>
@@ -95,23 +112,29 @@
                                           SelectionMode="Single"
                                           AutoGenerateColumns="False"
                                           CanUserResizeColumns="False"
-                                          CanUserReorderColumns="False">
+                                          CanUserReorderColumns="False"
+                                          ItemsSource="{Binding ServiceList}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Name" 
-                                                            Width="*"/>
-                                        <DataGridTemplateColumn Header="Price"
-                                                                Width="0.5*" />
+                                                            Width="*"
+                                                            Binding="{Binding Name}"/>
+                                        <DataGridTextColumn Header="Price"
+                                                            Width="0.5*"
+                                                            Binding="{Binding Price}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Full price"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding SumCena}"/>
                     <DataGridTextColumn Header="Employee"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding Employee.Name}"/>
                     <DataGridTextColumn Header="State"
-                                        Width="*" />
+                                        Width="*"
+                                        Binding="{Binding State}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

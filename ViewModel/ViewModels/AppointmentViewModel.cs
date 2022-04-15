@@ -16,7 +16,7 @@ namespace ViewModel.ViewModels
         private AppointmentInfoViewModel appointmentInfoViewModel = new AppointmentInfoViewModel();
         private BindableBase currentAppointmentViewModel;
 
-        private ServiceFront selectedItem;
+        private AppointmentFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
 
@@ -29,11 +29,16 @@ namespace ViewModel.ViewModels
         public static BindingList<AppointmentFront> Appointments { get; private set; }
         public AppointmentViewModel()
         {
+            Appointments = new BindingList<AppointmentFront>();
+
+            appointmentInfoViewModel.ServiceList = new BindingList<ServiceFront>();
+
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);
             AlterCommand = new MyICommand(OnAlter);
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
+
 
             CurrentAppointmentViewModel = appointmentFilterViewModel;
         }
@@ -57,23 +62,92 @@ namespace ViewModel.ViewModels
             }
             else if(CurrentAppointmentViewModel == appointmentInfoViewModel)
             {
+                appointmentInfoViewModel.ClearInput();
 
+                CanAlter = false;
+                CanDelete = false;
+
+                SelectedItem = null;
+
+                OnNav("filter");
             }
         }
 
         private void OnDelete()
         {
-            throw new NotImplementedException();
+            if (SelectedItem == null)
+                return;
+
+            Appointments.Remove(SelectedItem);
+            CanAlter = false;
+            CanDelete = false;
+            OnNav("filter");
         }
 
         private void OnAlter()
         {
-            throw new NotImplementedException();
+            if(CurrentAppointmentViewModel != appointmentAddViewModel)
+            {
+                CurrentAppointmentViewModel = appointmentAddViewModel;
+                appointmentInfoViewModel.ClearInput();
+
+                appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
+                appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
+
+                appointmentAddViewModel.AddedServices.Clear();
+                foreach(ServiceFront service in SelectedItem.ServiceList)
+                {
+                    appointmentAddViewModel.AddedServices.Add(service);
+                }
+
+                appointmentAddViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
+
+                appointmentAddViewModel.StartTimeHour = SelectedItem.StartTime.Substring(0, 2);
+                appointmentAddViewModel.StartTimeMinute = SelectedItem.StartTime.Substring(3, 2);
+
+                appointmentAddViewModel.EndTimeHour = SelectedItem.EndTime.Substring(0, 2);
+                appointmentAddViewModel.EndTimeMinute = SelectedItem.EndTime.Substring(3, 2);
+
+                appointmentAddViewModel.StateVM = SelectedItem.State;
+            }
+            else
+            {
+                AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
+                int index = Appointments.IndexOf(SelectedItem);
+                Appointments.RemoveAt(index);
+                Appointments.Insert(index, newOne);
+
+                CanAlter = false;
+                CanDelete = false;
+
+                CurrentAppointmentViewModel = appointmentFilterViewModel;
+            }
         }
 
         private void OnSelect()
         {
-            throw new NotImplementedException();
+            if (SelectedItem == null)
+                return;
+
+            CanAlter = true;
+            CanDelete = true;
+            OnNav("info");
+
+            appointmentInfoViewModel.CustomerVM = SelectedItem.Customer;
+            appointmentInfoViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
+
+            appointmentInfoViewModel.StartTimeVM = SelectedItem.StartTime;
+            appointmentInfoViewModel.EndTimeVM = SelectedItem.EndTime;
+
+            appointmentInfoViewModel.StateVM = SelectedItem.State;
+            appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
+
+            appointmentInfoViewModel.ServiceList.Clear();
+            
+            foreach(ServiceFront service in SelectedItem.ServiceList)
+            {
+                appointmentInfoViewModel.ServiceList.Add(service);
+            }
         }
 
         private void OnNav(string obj)
@@ -92,7 +166,7 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        Appointments.Add(appointmentAddViewModel.GetService());
+                        Appointments.Add(appointmentAddViewModel.GetAppointment());
                         OnNav("filter");
 
                         CanAlter = false;
@@ -145,7 +219,7 @@ namespace ViewModel.ViewModels
             }
         }
 
-        public ServiceFront SelectedItem
+        public AppointmentFront SelectedItem
         {
             get { return selectedItem; }
             set
