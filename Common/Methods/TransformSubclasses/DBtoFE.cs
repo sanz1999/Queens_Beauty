@@ -29,11 +29,21 @@ namespace Common.Methods.TransformSubclasses
             {
                 genderdecide = "Unspecified";
             }
-            return new CustomerFront(untrasformedCustomer.id, untrasformedCustomer.name, untrasformedCustomer.surname, untrasformedCustomer.phoneNumber, untrasformedCustomer.email, genderdecide, untrasformedCustomer.points, untrasformedCustomer.loyaltyNumber.ToString());
+            return new CustomerFront(   untrasformedCustomer.id,
+                                        untrasformedCustomer.name,
+                                        untrasformedCustomer.surname,
+                                        untrasformedCustomer.phoneNumber,
+                                        untrasformedCustomer.dateOfBirth.ToShortDateString(),
+                                        untrasformedCustomer.email,
+                                        genderdecide,
+                                        untrasformedCustomer.points,
+                                        untrasformedCustomer.loyaltyNumber.ToString(),
+                                        untrasformedCustomer.exists
+                                        );
         }
         public ServiceFront Service(DBService untrasformedService)
         {
-            return new ServiceFront(untrasformedService.id, untrasformedService.name, untrasformedService.category, untrasformedService.duration, untrasformedService.price, untrasformedService.pointsPrice, untrasformedService.pointsValue);
+            return new ServiceFront(untrasformedService.id, untrasformedService.name, untrasformedService.category, untrasformedService.duration, untrasformedService.price, untrasformedService.pointsPrice, untrasformedService.pointsValue,untrasformedService.exists);
         }
     }
 }

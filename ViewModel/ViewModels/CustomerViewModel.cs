@@ -128,9 +128,13 @@ namespace ViewModel.ViewModels
             {
                 CustomerFront selectedOne = SelectedItem;
                 CustomerFront newOne = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
+
+                newOne.Exists = selectedOne.Exists;
+                newOne.DateOfBirth = selectedOne.DateOfBirth;
                 int index = CustomersSearch.IndexOf(SelectedItem);
                 CustomersSearch.RemoveAt(index);
                 CustomersSearch.Insert(index,newOne);
+
                 commonCustomer.UpdateInDataBase(newOne);
 
                 CanAlter = false;

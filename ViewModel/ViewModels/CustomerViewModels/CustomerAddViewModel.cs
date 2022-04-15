@@ -41,7 +41,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             if (LoyaltyCardIdVM == "")
                 LoyaltyCardIdVM = "0";
             CustomerFront customerToAdd = 
-                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, EmailVM, gender, 0, LoyaltyCardIdVM);
+                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, "11-11-1111", EmailVM, gender, 0, LoyaltyCardIdVM, 1);
 
             ClearInput();
 
@@ -52,7 +52,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         {
             string gender = GetGender();
             CustomerFront customerToAdd =
-                new CustomerFront(id, FirstNameVM, LastNameVM, PhoneNumberVM, EmailVM, gender, points, LoyaltyCardIdVM);
+                new CustomerFront(id, FirstNameVM, LastNameVM,  PhoneNumberVM, "11-11-1111", EmailVM, gender, points, LoyaltyCardIdVM, 1);
 
             ClearInput();
 

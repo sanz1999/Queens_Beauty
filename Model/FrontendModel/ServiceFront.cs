@@ -17,6 +17,7 @@ namespace Model.FrontendModel
         private double price;
         private int pointsPrice;
         private int pointsValue;
+        private int exists;
 
         public int Id
         {
@@ -27,6 +28,18 @@ namespace Model.FrontendModel
                 {
                     id = value;
                     RaisePropertyChanged("Id");
+                }
+            }
+        }
+        public int Exists
+        {
+            get { return exists; }
+            set
+            {
+                if (exists != value)
+                {
+                    exists = value;
+                    RaisePropertyChanged("Exists");
                 }
             }
         }
@@ -114,6 +127,17 @@ namespace Model.FrontendModel
             this.Price = price;
             this.PointsPrice = pointsPrice;
             this.PointsValue = pointsValue;
+        }
+        public ServiceFront(int id, string name, string category, int duration, double price, int pointsPrice, int pointsValue,int exists)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Category = category;
+            this.Duration = duration;
+            this.Price = price;
+            this.PointsPrice = pointsPrice;
+            this.PointsValue = pointsValue;
+            this.exists = exists;
         }
         /*
         public ServiceFront(string name, string category, int duration, double price, int pointsPrice, int pointsValue)

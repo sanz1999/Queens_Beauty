@@ -117,6 +117,7 @@ namespace ViewModel.ViewModels
 
                 ServiceFront selectedOne = SelectedItem;
                 ServiceFront service = serviceAddViewModel.GetService(SelectedItem.Id);
+                service.Exists = selectedOne.Exists;
                 int index = Services.IndexOf(SelectedItem);
                 Services.RemoveAt(index);
                 Services.Insert(index,service);
