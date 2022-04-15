@@ -278,5 +278,28 @@ namespace DatabaseLogic.DAO.Implementation
                 return numSaved;
             }
         }
+
+        public bool ExistsByLoyaltyNumber(int id)
+        {
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                return ExistsByLoyalty(id, connection);
+            }
+        }
+
+        private bool ExistsByLoyalty(int id, IDbConnection connection)
+        {
+            string query = "select * from customer where cloyal=:cloyal";
+
+            using (IDbCommand command = connection.CreateCommand())
+            {
+                command.CommandText = query;
+                ParameterUtil.AddParameter(command, "cloyal", DbType.Int32);
+                command.Prepare();
+                ParameterUtil.SetParameterValue(command, "cloyal", id);
+                return command.ExecuteScalar() != null;
+            }
+        }
     }
 }
