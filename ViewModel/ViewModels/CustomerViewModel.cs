@@ -118,6 +118,8 @@ namespace ViewModel.ViewModels
             {
                 CustomerFront selectedOne = SelectedItem;
                 CustomerFront newOne = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
+                newOne.Exists = selectedOne.Exists;
+                newOne.DateOfBirth = selectedOne.DateOfBirth;
                 int index = Customers.IndexOf(SelectedItem);
                 Customers.RemoveAt(index);
                 Customers.Insert(index,newOne);

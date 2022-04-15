@@ -14,36 +14,53 @@ namespace Model.FrontendModel
             private string firstName;
             private string lastName;
             private string phoneNumber;
+            private string dateOfBirth;
             private string email;
             private string gender;
             private int points;
             private string loyaltyCardId;
+            private int exists;
 
 
             public CustomerFront() { }
 
 
-            public CustomerFront(int customerId, string firstName, string lastName, string phoneNumber, string email, string gender, int points, string loyaltyCardId)
+            public CustomerFront(int customerId, string firstName, string lastName, string phoneNumber, string dateOfBirth, string email, string gender, int points, string loyaltyCardId, int exists)
             {
                 this.customerId = customerId;
                 this.firstName = firstName;
                 this.lastName = lastName;
                 this.phoneNumber = phoneNumber;
+                this.dateOfBirth = dateOfBirth;
                 this.email = email;
                 this.gender = gender;
                 this.points = points;
                 this.loyaltyCardId = loyaltyCardId;
+                this.exists = exists;
             }
-            
+
             public int CustomerId
             {
-                get { return customerId; }
+                get    { return customerId; }
                 set
                 {
                     if (customerId != value)
                     {
                         customerId = value;
                         RaisePropertyChanged("CustomerId");
+                    }
+                }
+            }
+
+            public int Exists
+            {
+                get { return exists; }
+                set
+                {
+                    if (exists != value)
+                    {
+                        exists = value;
+                        RaisePropertyChanged("Exists");
                     }
                 }
             }
@@ -68,6 +85,18 @@ namespace Model.FrontendModel
                     {
                         lastName = value;
                         RaisePropertyChanged("LastName");
+                    }
+                }
+            }
+            public string DateOfBirth
+        {
+                get { return dateOfBirth; }
+                set
+                {
+                    if (dateOfBirth != value)
+                    {
+                        dateOfBirth = value;
+                        RaisePropertyChanged("DateOfBirth");
                     }
                 }
             }
@@ -142,7 +171,10 @@ namespace Model.FrontendModel
                        email == customer.email &&
                        gender == customer.gender &&
                        points == customer.points &&
-                       loyaltyCardId == customer.loyaltyCardId;
+                       loyaltyCardId == customer.loyaltyCardId &&
+                       dateOfBirth == customer.dateOfBirth&&
+                       exists==customer.exists;
+                    
             }
 
             public override int GetHashCode()

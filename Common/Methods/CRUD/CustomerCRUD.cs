@@ -29,6 +29,7 @@ namespace Common.Methods.CRUD
         public void AddToDataBase(CustomerFront customer) {
             DBCustomer dBCustomer = transform.FEToDB.Customer(customer);
             dBCustomer.id = 0;
+            dBCustomer.exists = 1;
             customerService.Save(dBCustomer);
         }
         public CustomerFront FindLastAdded() {

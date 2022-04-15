@@ -47,6 +47,7 @@ namespace Common.Methods.CRUD
         public void AddToDataBase(ServiceFront service) { 
             DBService dBService = transform.FEToDB.Service(service);
             dBService.id = 0;
+            dBService.exists = 1;
             serviceService.Save(dBService);
         }
         public ServiceFront FindLastAdded() {

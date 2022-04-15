@@ -27,11 +27,20 @@ namespace Common.Methods.TransformSubclasses
             int loyalID;
             int.TryParse(utc.LoyaltyCardId, out loyalID);
 
-            return new DBCustomer(utc.CustomerId, utc.FirstName, utc.LastName, utc.PhoneNumber, utc.Email, genderdecide, utc.Points, loyalID);
+            return new DBCustomer(  utc.CustomerId,
+                                    utc.FirstName, 
+                                    utc.LastName,
+                                    Convert.ToDateTime( utc.DateOfBirth),
+                                    utc.PhoneNumber, 
+                                    utc.Email, 
+                                    genderdecide, 
+                                    utc.Points, 
+                                    loyalID,
+                                    utc.Exists);
         }
         public DBService Service(ServiceFront untrasformedService)
         {
-            return new DBService(untrasformedService.Id, untrasformedService.Name, untrasformedService.Category, untrasformedService.Duration, untrasformedService.Price, untrasformedService.PointsPrice, untrasformedService.PointsValue);
+            return new DBService(untrasformedService.Id, untrasformedService.Name, untrasformedService.Category, untrasformedService.Duration, untrasformedService.Price, untrasformedService.PointsPrice, untrasformedService.PointsValue,untrasformedService.Exists);
         }
     }
 }
