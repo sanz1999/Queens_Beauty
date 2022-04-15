@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Model.FrontendModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +18,9 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isMaleCheckedVM;
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
+
         public CustomerFilterViewModel()
-        {
+        { 
         }
 
         public void ClearInput()
