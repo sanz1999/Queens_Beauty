@@ -100,5 +100,10 @@ namespace DatabaseLogic.Services
         {
             return customerDAO.SaveAll(entities);
         }
+
+        public bool ExistsByLoyaltyNumber(int id)
+        {
+            return customerDAO.ExistsByLoyaltyNumber((int)id);
+        }
     }
 }

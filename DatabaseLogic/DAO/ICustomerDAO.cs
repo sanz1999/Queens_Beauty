@@ -9,5 +9,6 @@ namespace DatabaseLogic.DAO
 {
     public interface ICustomerDAO : ICRUDDAO<DBCustomer, int>
     {
+        bool ExistsByLoyaltyNumber(int id);
     }
 }
