@@ -1,4 +1,4 @@
-﻿using Common.Methods.CustomerMethodes;
+﻿using Common.Methods.CRUD;
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private string endTimeVM;
         private string sumCenaVM;
         private bool stateVM;
-        private string employeeNameVM;
+        private EmployeeFront employeeVM;
 
         private CustomerCRUD customerCRUD = new CustomerCRUD();
         private ServiceCRUD serviceCRUD = new ServiceCRUD();
@@ -33,6 +33,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         public BindingList<ServiceFront> ServicesSearch { get; private set; }
 
         public BindingList<ServiceFront> AddedServices { get; private set; }
+        
 
         public BindingList<string> Hours { get; private set; }
         public BindingList<string> Minutes { get; private set; }
@@ -53,6 +54,8 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private bool canAddService = false;
         private bool canRemoveAddedService = false;
 
+        private int idCnt = 0;
+
         public MyICommand CustomerSelectedCommand { get; set; }
         public MyICommand EmployeeSelectedCommand { get; set; }
         public MyICommand ServiceSelectedCommand { get; set; }
@@ -66,12 +69,21 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
             Customers = new BindingList<CustomerFront>();
             Services = new BindingList<ServiceFront>();
+            Employees = new BindingList<EmployeeFront>()
+            {
+                new EmployeeFront(1, "Dragan"),
+                new EmployeeFront(1, "Dragance")
+            };
+
+            AddedServices = new BindingList<ServiceFront>();
 
             CustomersSearch = new BindingList<CustomerFront>();
             ServicesSearch = new BindingList<ServiceFront>();
+            EmployeesSearch = new BindingList<EmployeeFront>();
 
             Customers = customerCRUD.LoadFromDataBase();
             Services = serviceCRUD.LoadFromDataBase();
+            //Employees = employeeCRUD.LoadFromDataBase();
 
             foreach(CustomerFront customer in Customers)
             {
@@ -81,42 +93,75 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             {
                 ServicesSearch.Add(service);
             }
+            foreach(EmployeeFront employee in Employees)
+            {
+                EmployeesSearch.Add(employee);
+            }
 
             Hours = new BindingList<string>() { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" };
             Minutes = new BindingList<string>() { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45",
                 "50", "55" };
 
-            CustomerSelectedCommand = new MyICommand(OnCustomerSelect);
-            EmployeeSelectedCommand = new MyICommand(OnEmployeeSelect);
             ServiceSelectedCommand = new MyICommand(OnServiceSelect);
-            AddServiceCommand = new MyICommand(OnAddedServiceSelect);
+            AddServiceCommand = new MyICommand(OnAddService);
             AddedServiceSelectedCommand = new MyICommand(OnAddedServiceSelect);
+            RemoveAddedServiceCommand = new MyICommand(OnRemoveAddedService);
+        }
+
+        private void OnRemoveAddedService()
+        {
+            AddedServices.Remove(SelectedAddedService);
+            CanRemoveAddedService = false;
+            SumCenaVM = "0";
         }
 
         private void OnAddedServiceSelect()
         {
-            throw new NotImplementedException();
+            CanRemoveAddedService = true;
         }
 
-        internal AppointmentFront GetService()
+        private void OnAddService()
         {
-            throw new NotImplementedException();
+            AddedServices.Add(SelectedService);
+            SumCenaVM = "0";
+            SumCenaVM = "1";
         }
 
         private void OnServiceSelect()
         {
-            throw new NotImplementedException();
+            CanAddService = true;
         }
 
-        private void OnEmployeeSelect()
+        public AppointmentFront GetAppointment()
         {
-            throw new NotImplementedException();
+            string startTime = StartTimeHour + ":" + StartTimeMinute;
+            string endTime = EndTimeHour + ":" + EndTimeMinute;
+            AppointmentFront appointmentToAdd =
+                new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+            foreach (ServiceFront service in AddedServices) {
+                appointmentToAdd.ServiceList.Add(service);
+            
+            }
+            ClearInput();
+
+            return appointmentToAdd;
         }
 
-        private void OnCustomerSelect()
+        public AppointmentFront GetAppointment(int id)
         {
-            throw new NotImplementedException();
+            string startTime = StartTimeHour + ":" + StartTimeMinute;
+            string endTime = EndTimeHour + ":" + EndTimeMinute;
+            AppointmentFront appointmentToAdd =
+                new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+            foreach (ServiceFront service in AddedServices)
+            {
+                appointmentToAdd.ServiceList.Add(service);
+
+            }
+            ClearInput();
+
+            return appointmentToAdd;
         }
 
         public void ClearInput()
@@ -128,9 +173,25 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             AppointmentDateVM = "";
             StartTimeVM = "";
             EndTimeVM = "";
-            SumCenaVM = "";
             StateVM = false;
-            EmployeeNameVM = "";
+            EmployeeVM = null;
+
+            StartTimeHour = "";
+            StartTimeMinute = "";
+            EndTimeHour = "";
+            EndTimeMinute = "";
+
+            AddedServices.Clear();
+
+            RaisePropertyChanged("SumCenaVM");
+            OnPropertyChanged("SumCenaVM");
+
+            SelectedCustomer = null;
+            SelectedEmployee = null;
+            SelectedService = null;
+
+            CanRemoveAddedService = false;
+            CanAddService = false;
         }
         public string FilterCustomerVM
         {
@@ -223,7 +284,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             {
                 if (sumCenaVM != value)
                 {
-                    sumCenaVM = value;
+                    double sumCena = 0;
+                    if(AddedServices.Count!=0)
+                        foreach(ServiceFront service in AddedServices)
+                        {
+                            sumCena += service.Price;
+                        }
+                    sumCenaVM = sumCena.ToString();
+                    SumCenaVM = sumCenaVM;
+                    //RaisePropertyChanged("SumCenaVM");
                     OnPropertyChanged("SumCenaVM");
                 }
             }
@@ -240,15 +309,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
-        public string EmployeeNameVM
+        public EmployeeFront EmployeeVM
         {
-            get { return employeeNameVM; }
+            get { return employeeVM; }
             set
             {
-                if (employeeNameVM != value)
+                if (employeeVM != value)
                 {
-                    employeeNameVM = value;
-                    OnPropertyChanged("EmployeeNameVM");
+                    employeeVM = value;
+                    OnPropertyChanged("EmployeeVM");
                 }
             }
         }
@@ -370,6 +439,17 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                     endTimeMinute = value;
                     OnPropertyChanged("EndTimeMinute");
                 }
+            }
+        }
+
+        public int IdCnt { get => idCnt; set => idCnt = value; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void RaisePropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
     }

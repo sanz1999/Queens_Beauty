@@ -123,12 +123,6 @@ namespace ViewModel.ViewModels
                 Customers.Insert(index,newOne);
                 commonCustomer.UpdateInDataBase(newOne);
 
-                //
-                //
-                // ~~ Needs to be sorted. Do not forget. Moze Sale ~~
-                //
-                //
-
                 CanAlter = false;
                 CanDelete = false;
 

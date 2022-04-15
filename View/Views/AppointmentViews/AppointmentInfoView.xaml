@@ -16,7 +16,8 @@
             <TextBlock Grid.Column="0"
                        Text="First name:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.FirstName}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -26,7 +27,8 @@
             <TextBlock Grid.Column="0"
                        Text="Last name:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.LastName}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -36,7 +38,8 @@
             <TextBlock Grid.Column="0"
                        Text="Phone number:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.PhoneNumber}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -46,7 +49,8 @@
             <TextBlock Grid.Column="0"
                        Text="Email:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.Email}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -56,7 +60,8 @@
             <TextBlock Grid.Column="0"
                        Text="Gender:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.Gender}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -66,7 +71,8 @@
             <TextBlock Grid.Column="0"
                        Text="Loyalty Card ID:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding CustomerVM.LoyaltyCardId}"/>
         </Grid>
         <TextBlock Text="Appointment information:" />
         <Grid>
@@ -77,29 +83,43 @@
             <TextBlock Grid.Column="0"
                        Text="Appointment Date:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding AppointmentDateVM}" />
         </Grid>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Pick start time:"
-                       Grid.Row="0"
-                       Grid.Column="0" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="0"
-                     IsEnabled="False"/>
-            <TextBlock Text="Pick end time:"
-                       Grid.Row="0"
-                       Grid.Column="1" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="1"
-                     IsEnabled="False"/>
+            <TextBlock Text="Start time:"
+                       Grid.Column="1"
+                       TextAlignment="Center" />
+            <TextBlock Text="End time:"
+                       Grid.Column="3"
+                       TextAlignment="Center" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1"
+                     IsEnabled="False"
+                     Text="{Binding StartTimeVM}"
+                     TextAlignment="Center"/>
+            <TextBlock Text="---"
+                       Grid.Column="2"
+                       TextAlignment="Center" />
+            <TextBox Grid.Column="3"
+                     IsEnabled="False"
+                     Text="{Binding EndTimeVM}"
+                     TextAlignment="Center" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -109,7 +129,9 @@
             <TextBlock Grid.Column="0"
                        Text="Check if appointment was done:" />
             <CheckBox Grid.Column="1"
-                      Content="Done" />
+                      Content="Done"
+                      IsChecked="{Binding StateVM}"
+                      IsEnabled="False"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -119,23 +141,30 @@
             <TextBlock Grid.Column="0"
                        Text="Total price:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SumCenaVM}"/>
         </Grid>
         <DataGrid Height="100"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
-                  CanUserReorderColumns="False">
+                  CanUserReorderColumns="False"
+                  ItemsSource="{Binding ServiceList}"
+                  SelectedItem="{Binding SelectedService}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"
-                                    Width="*" />
+                                    Width="*"
+                                    Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Category"
-                                    Width="*" />
+                                    Width="*"
+                                    Binding="{Binding Category}"/>
                 <DataGridTextColumn Header="Duration"
-                                    Width="*" />
+                                    Width="*"
+                                    Binding="{Binding Duration}"/>
                 <DataGridTextColumn Header="Price"
-                                    Width="*" />
+                                    Width="*"
+                                    Binding="{Binding Price}"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Text="Selected service information: " />
@@ -148,7 +177,8 @@
             <TextBlock Grid.Column="0"
                        Text="Name:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.Name}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -158,7 +188,8 @@
             <TextBlock Grid.Column="0"
                        Text="Category:" />
             <TextBox Grid.Column="1"
-                      IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.Category}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -168,7 +199,8 @@
             <TextBlock Grid.Column="0"
                        Text="Duration (in minutes):" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.Duration}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -178,7 +210,8 @@
             <TextBlock Grid.Column="0"
                        Text="Price:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.Price}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -188,7 +221,8 @@
             <TextBlock Grid.Column="0"
                        Text="Points cost:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.PointsPrice}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -198,7 +232,8 @@
             <TextBlock Grid.Column="0"
                        Text="Points reward:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False" />
+                     IsEnabled="False"
+                     Text="{Binding SelectedService.PointsValue}"/>
         </Grid>
     </StackPanel>
 </UserControl>

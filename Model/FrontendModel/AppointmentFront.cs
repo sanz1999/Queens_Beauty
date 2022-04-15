@@ -16,12 +16,12 @@ namespace Model.FrontendModel
         private DateOnly appointmentDate;
         private string startTime;
         private string endTime;
-        private int sumCena;
+        private double sumCena;
         private bool state;
-        private string employeeName;
+        private EmployeeFront employee;
         public BindingList<ServiceFront> ServiceList { get; private set; }
 
-        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, int sumCena, bool state, string employeeName, BindingList<ServiceFront> serviceList)
+        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state, EmployeeFront employee, BindingList<ServiceFront> serviceList)
         {
             this.appointmentId = appointmentId;
             this.customer = customer;
@@ -30,8 +30,8 @@ namespace Model.FrontendModel
             this.endTime = endTime;
             this.sumCena = sumCena;
             this.state = state;
-            this.employeeName = employeeName;
             ServiceList = serviceList;
+            this.employee = employee;
         }
 
 
@@ -72,7 +72,7 @@ namespace Model.FrontendModel
                 }
             }
         }
-        public int SumCena
+        public double SumCena
         {
             get { return sumCena; }
             set
@@ -120,15 +120,15 @@ namespace Model.FrontendModel
                 }
             }
         }
-        public string EmployeeName
+        public EmployeeFront Employee
         {
-            get { return employeeName; }
+            get { return employee; }
             set
             {
-                if (employeeName != value)
+                if (employee != value)
                 {
-                    employeeName = value;
-                    RaisePropertyChanged("EmployeeName");
+                    employee = value;
+                    RaisePropertyChanged("Employee");
                 }
             }
         }
@@ -153,7 +153,7 @@ namespace Model.FrontendModel
                    endTime == front.endTime &&
                    sumCena == front.sumCena &&
                    state == front.state &&
-                   employeeName == front.employeeName &&
+                   EqualityComparer<EmployeeFront>.Default.Equals(employee, front.employee) &&
                    EqualityComparer<BindingList<ServiceFront>>.Default.Equals(ServiceList, front.ServiceList);
         }
 
@@ -167,7 +167,7 @@ namespace Model.FrontendModel
             hash.Add(endTime);
             hash.Add(sumCena);
             hash.Add(state);
-            hash.Add(employeeName);
+            hash.Add(employee);
             hash.Add(ServiceList);
             return hash.ToHashCode();
         }
