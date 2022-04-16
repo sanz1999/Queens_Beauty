@@ -33,6 +33,9 @@ namespace ViewModel.ViewModels
 
         private Validation validation = new Validation(); 
 
+        private Validation validation = new Validation();
+
+
 
         public CustomerViewModel()
         {

@@ -40,7 +40,15 @@ namespace Common.Methods.TransformSubclasses
         }
         public DBService Service(ServiceFront untrasformedService)
         {
-            return new DBService(untrasformedService.Id, untrasformedService.Name, untrasformedService.Category, untrasformedService.Duration, untrasformedService.Price, untrasformedService.PointsPrice, untrasformedService.PointsValue,untrasformedService.Exists);
+            return new DBService(   untrasformedService.Id,
+                                    untrasformedService.Name,
+                                    untrasformedService.Category,
+                                    untrasformedService.Duration,   
+                                    untrasformedService.Price,
+                                    untrasformedService.PointsPrice,
+                                    untrasformedService.PointsValue,
+                                    untrasformedService.Exists
+                                    );
         }
     }
 }
