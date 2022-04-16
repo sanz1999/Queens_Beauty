@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.CustomerViewModels
 {
-    public class CustomerFilterViewModel : BindableBase
+    public class CustomerFilterViewModel : CustomerBindableBase
     {
         private string firstNameVM;
         private string lastNameVM;
@@ -20,7 +20,41 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isOtherCheckedVM;
 
         public CustomerFilterViewModel()
-        { 
+        {
+            Customers = new BindingList<CustomerFront>();
+            CustomersSearch = new BindingList<CustomerFront>();
+        }
+
+        private void Filter()
+        {
+            bool canAdd;
+            CustomersSearch.Clear();
+            foreach(CustomerFront customer in Customers)
+            {
+                canAdd = CanCustomerPassFilter(customer);
+                if (canAdd)
+                    CustomersSearch.Add(customer);
+            }
+        }
+
+        private bool CanCustomerPassFilter(CustomerFront customer)
+        {
+            if (FirstNameVM != null)
+                if (!customer.FirstName.Contains(FirstNameVM) && !FirstNameVM.Equals(""))
+                    return false;
+            if (LastNameVM != null)
+                if (!customer.LastName.Contains(LastNameVM) && !LastNameVM.Equals(""))
+                    return false;
+            if (LoyaltyCardIdVM != null)
+                if (!customer.LoyaltyCardId.Contains(LoyaltyCardIdVM) && !LoyaltyCardIdVM.Equals(""))
+                    return false;
+            if (IsMaleCheckedVM && !customer.Gender.Equals("Male"))
+                return false;
+            if (IsFemaleCheckedVM && !customer.Gender.Equals("Female"))
+                return false;
+            if (IsOtherCheckedVM && !customer.Gender.Equals("Other"))
+                return false;
+            return true;
         }
 
         public void ClearInput()
@@ -41,6 +75,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (firstNameVM != value)
                 {
                     firstNameVM = value;
+                    Filter();
                     OnPropertyChanged("FirstNameVM");
                 }
             }
@@ -53,6 +88,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (lastNameVM != value)
                 {
                     lastNameVM = value;
+                    Filter();
                     OnPropertyChanged("LastNameVM");
                 }
             }
@@ -77,6 +113,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (loyaltyCardIdVM != value)
                 {
                     loyaltyCardIdVM = value;
+                    Filter();
                     OnPropertyChanged("LoyaltyCardIdVM");
                 }
             }
@@ -90,6 +127,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (isMaleCheckedVM != value)
                 {
                     isMaleCheckedVM = value;
+                    Filter();
                     OnPropertyChanged("IsMaleCheckedVM");
                 }
             }
@@ -102,6 +140,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (isFemaleCheckedVM != value)
                 {
                     isFemaleCheckedVM = value;
+                    Filter();
                     OnPropertyChanged("IsFemaleCheckedVM");
                 }
             }
@@ -114,6 +153,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (isOtherCheckedVM != value)
                 {
                     isOtherCheckedVM = value;
+                    Filter();
                     OnPropertyChanged("IsOtherCheckedVM");
                 }
             }

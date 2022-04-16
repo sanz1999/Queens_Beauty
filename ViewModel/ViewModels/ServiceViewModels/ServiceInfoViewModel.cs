@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.ServiceViewModels
 {
-    public class ServiceInfoViewModel : BindableBase
+    public class ServiceInfoViewModel : ServiceBindableBase
     {
         //private int id;
         private string nameVM;

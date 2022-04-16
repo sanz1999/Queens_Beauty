@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.AppointmentViewModels
 {
-    public class AppointmentInfoViewModel : BindableBase
+    public class AppointmentInfoViewModel : AppointmentBindableBase
     {
         private CustomerFront customerVM;
         private string appointmentDateVM;

@@ -1,4 +1,5 @@
-﻿using Model.FrontendModel;
+﻿using Common.Methods;
+using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.CustomerViewModels
 {
-    public class CustomerAddViewModel : BindableBase
+    public class CustomerAddViewModel : CustomerBindableBase
     {
         //private int customerIdVM;
         private string firstNameVM;
@@ -23,7 +24,11 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
+        private string isFirstNameErrorVisible = "Collapsed";
+
         private int idCnt = 1;
+
+        private Validation validation = new Validation();
 
         public CustomerAddViewModel()
         {
@@ -39,7 +44,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         {
             string gender = GetGender();
             if (LoyaltyCardIdVM == "")
-                LoyaltyCardIdVM = "0";
+                LoyaltyCardIdVM = null;
             CustomerFront customerToAdd = 
                 new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, "11-11-1111", EmailVM, gender, 0, LoyaltyCardIdVM, 1);
 
@@ -51,6 +56,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
         public CustomerFront GetCustomer(int id, int points)
         {
             string gender = GetGender();
+            if (LoyaltyCardIdVM == "")
+                LoyaltyCardIdVM = null;
             CustomerFront customerToAdd =
                 new CustomerFront(id, FirstNameVM, LastNameVM,  PhoneNumberVM, "11-11-1111", EmailVM, gender, points, LoyaltyCardIdVM, 1);
 
@@ -79,6 +86,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (firstNameVM != value)
                 {
                     firstNameVM = value;
+                    if (!validation.customer.FirstName(FirstNameVM))
+                        IsFirstNameErrorVisible = "Visible";
                     OnPropertyChanged("FirstNameVM");
                 }
             }
@@ -172,7 +181,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 }
             }
         }
-
+        public string IsFirstNameErrorVisible
+        {
+            get { return isFirstNameErrorVisible; }
+            set
+            {
+                if (isFirstNameErrorVisible != value)
+                {
+                    isFirstNameErrorVisible = value;
+                    OnPropertyChanged("IsFirstNameErrorVisible");
+                }
+            }
+        }
         public int IdCnt { get => idCnt; set => idCnt = value; }
     }
 }

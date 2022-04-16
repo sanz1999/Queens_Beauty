@@ -9,12 +9,12 @@ using ViewModel.ViewModels.AppointmentViewModels;
 
 namespace ViewModel.ViewModels
 {
-    public class AppointmentViewModel : BindableBase
+    public class AppointmentViewModel : AppointmentBindableBase
     {
         private AppointmentAddViewModel appointmentAddViewModel = new AppointmentAddViewModel();
         private AppointmentFilterViewModel appointmentFilterViewModel = new AppointmentFilterViewModel();
         private AppointmentInfoViewModel appointmentInfoViewModel = new AppointmentInfoViewModel();
-        private BindableBase currentAppointmentViewModel;
+        private AppointmentBindableBase currentAppointmentViewModel;
 
         private AppointmentFront selectedItem;
         private bool canAlter = false;
@@ -185,7 +185,7 @@ namespace ViewModel.ViewModels
             }
         }
 
-        public BindableBase CurrentAppointmentViewModel
+        public AppointmentBindableBase CurrentAppointmentViewModel
         {
             get { return currentAppointmentViewModel; }
             set
