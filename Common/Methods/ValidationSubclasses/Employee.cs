@@ -11,7 +11,12 @@ namespace Common.Methods.ValidationSubclasses
         public bool Name(string name)
         {
             bool state = true;
-            if (name == "") { state = false; ; }
+            if (name == null) { state = false; }
+            else
+            {
+                name = name.Trim();
+                if (name.Equals("")) { state = false; }
+            }
             return state;
         }
     }

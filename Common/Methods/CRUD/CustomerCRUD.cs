@@ -26,7 +26,7 @@ namespace Common.Methods.CRUD
             return newList;
         }
 
-        public void AddToDataBase(CustomerFront customer) {
+        public void AddToDataBase(CustomerFront customer) {         //Proveriti zasto puca na dodavanju (PK violation)
             DBCustomer dBCustomer = transform.FEToDB.Customer(customer);
             dBCustomer.id = 0;
             dBCustomer.exists = 1;

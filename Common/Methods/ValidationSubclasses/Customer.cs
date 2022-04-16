@@ -15,26 +15,41 @@ namespace Common.Methods.ValidationSubclasses
 
         public bool FirstName(string name) {
             bool state = true;
-            if (name == "") { state = false;}
+            if (name == null) { state = false; }
+            else
+            {
+                name = name.Trim();
+                if (name.Equals("")) { state = false; }
+            }
             return state;
         }
 
         public bool LastName(string name)
         {
             bool state = true;
-            if (name == "") { state = false; ; }
+            if (name == null) { state = false; }
+            else
+            {
+                name = name.Trim();
+                if (name.Equals("")) { state = false; }
+            }
             return state;
         }
 
         public bool Email(string email) {
             var foo = new EmailAddressAttribute();
             bool state = true;
-            if (email == "") { 
-                state = false;
+            if (email == null) { state = false; }
+            else
+            {
+                email = email.Trim();
+                if (email.Equals("")) { state = false; }
+                else
+                {
+                    state = foo.IsValid(email);
+                }
             }
-            else {
-                state = foo.IsValid(email);
-            }
+            
             return state;
         }
         public bool PhoneNumber(string number) {
@@ -63,6 +78,7 @@ namespace Common.Methods.ValidationSubclasses
                 }
 
             }
+            lcard = lcard.Trim();
             if ((state != 0 ) && (lcard != ""))
             {
                 loyaltycard= int.Parse(lcard);
