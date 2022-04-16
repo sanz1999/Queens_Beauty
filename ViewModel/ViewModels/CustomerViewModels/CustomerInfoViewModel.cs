@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.CustomerViewModels
 {
-    public class CustomerInfoViewModel : BindableBase
+    public class CustomerInfoViewModel : CustomerBindableBase
     {
         //private int customerIdVM;
         private string firstNameVM;

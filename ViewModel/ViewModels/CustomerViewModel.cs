@@ -1,4 +1,5 @@
-﻿using Common.Methods.CRUD;
+﻿using Common.Methods;
+using Common.Methods.CRUD;
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,17 @@ using ViewModel.ViewModels.CustomerViewModels;
 
 namespace ViewModel.ViewModels
 {
-    public class CustomerViewModel : BindableBase
+    public class CustomerViewModel : CustomerBindableBase
     {
         private CustomerAddViewModel customerAddViewModel = new CustomerAddViewModel();
         private CustomerFilterViewModel customerFilterViewModel = new CustomerFilterViewModel();
         private CustomerInfoViewModel customerInfoViewModel = new CustomerInfoViewModel();
-        private BindableBase currentCustomerViewModel;
+        private CustomerBindableBase currentCustomerViewModel;
         private CustomerCRUD commonCustomer = new CustomerCRUD();
 
         private CustomerFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
-
-        private string filterVisibility = "Visible";
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -30,20 +29,20 @@ namespace ViewModel.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
 
-        public static BindingList<CustomerFront> Customers { get; set; }
-        public static BindingList<CustomerFront> CustomersSearch { get; set; }
+        public static BindingList<CustomerFront> proxy = new BindingList<CustomerFront>();
+
+        private Validation validation = new Validation(); 
 
 
         public CustomerViewModel()
         {
-            Customers = new BindingList<CustomerFront>();
-            Customers = commonCustomer.LoadFromDataBase();
+            proxy = commonCustomer.LoadFromDataBase();
 
-            CustomersSearch = new BindingList<CustomerFront>();
+            foreach (CustomerFront customer in proxy)
+                Customers.Add(customer);
+
             foreach(CustomerFront customer in Customers)
-            {
                 CustomersSearch.Add(customer);
-            }
 
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);
@@ -88,8 +87,10 @@ namespace ViewModel.ViewModels
             if (SelectedItem == null)
                 return;
 
+            CustomerFront customerToRemove = SelectedItem;
             commonCustomer.DeleteFromDataBase(SelectedItem);
-            CustomersSearch.Remove(SelectedItem);
+            CustomersSearch.Remove(customerToRemove);
+            Customers.Remove(customerToRemove);
             CanAlter = false;
             CanDelete = false;
             OnNav("filter");
@@ -99,7 +100,6 @@ namespace ViewModel.ViewModels
         {
             if(CurrentCustomerViewModel != customerAddViewModel)
             {
-                //FilterVisibility = "Collapsed";
                 CurrentCustomerViewModel = customerAddViewModel;
                 customerInfoViewModel.ClearInput();
 
@@ -132,8 +132,11 @@ namespace ViewModel.ViewModels
                 newOne.Exists = selectedOne.Exists;
                 newOne.DateOfBirth = selectedOne.DateOfBirth;
                 int index = CustomersSearch.IndexOf(SelectedItem);
+                int indexReal = Customers.IndexOf(SelectedItem);
                 CustomersSearch.RemoveAt(index);
                 CustomersSearch.Insert(index,newOne);
+                Customers.RemoveAt(indexReal);
+                Customers.Insert(indexReal, newOne);
 
                 commonCustomer.UpdateInDataBase(newOne);
 
@@ -193,28 +196,28 @@ namespace ViewModel.ViewModels
                     else
                     {
                         commonCustomer.AddToDataBase(customerAddViewModel.GetCustomer());
+
                         CustomersSearch.Add(commonCustomer.FindLastAdded());
-                        OnNav("filter");    
+                        Customers.Add(commonCustomer.FindLastAdded());
+
+                        OnNav("filter");
 
                         CanAlter = false;
                         CanDelete = false;
                     }
                     break;
                 case "filter":
-                    FilterVisibility = "Visible";
                     CurrentCustomerViewModel = customerFilterViewModel;
                     break;
                 case "info":
-                    FilterVisibility = "Collapsed";
                     CurrentCustomerViewModel = customerInfoViewModel;
                     break;
                 case "alter":
-                    FilterVisibility = "Collapsed";
                     CurrentCustomerViewModel = customerAddViewModel;
                     break;
             }
         }
-        public BindableBase CurrentCustomerViewModel
+        public CustomerBindableBase CurrentCustomerViewModel
         {
             get { return currentCustomerViewModel; }
             set
@@ -258,19 +261,6 @@ namespace ViewModel.ViewModels
                 {
                     selectedItem = value;
                     OnPropertyChanged("SelectedItem");
-                }
-            }
-        }
-
-        public string FilterVisibility
-        {
-            get { return filterVisibility; }
-            set
-            {
-                if (filterVisibility != value)
-                {
-                    filterVisibility = value;
-                    OnPropertyChanged("FilterVisibility");
                 }
             }
         }

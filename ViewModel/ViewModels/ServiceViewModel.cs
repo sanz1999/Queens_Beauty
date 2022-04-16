@@ -1,4 +1,5 @@
 
+using Common.Methods;
 using Common.Methods.CRUD;
 
 using Model.FrontendModel;
@@ -12,14 +13,12 @@ using ViewModel.ViewModels.ServiceViewModels;
 
 namespace ViewModel.ViewModels
 {
-    public class ServiceViewModel : BindableBase
+    public class ServiceViewModel : ServiceBindableBase
     {
         private ServiceAddViewModel serviceAddViewModel = new ServiceAddViewModel();
         private ServiceFilterViewModel serviceFilterViewModel = new ServiceFilterViewModel();
         private ServiceInfoViewModel serviceInfoViewModel = new ServiceInfoViewModel();
-        private BindableBase currentServiceViewModel;
-
-        private ServiceCRUD commonService = new ServiceCRUD();
+        private ServiceBindableBase currentServiceViewModel;
 
         private ServiceCRUD serviceCRUD = new ServiceCRUD();
 
@@ -33,16 +32,25 @@ namespace ViewModel.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
 
-        public static BindingList<ServiceFront> Services { get; private set; }
+        public static BindingList<ServiceFront> proxy = new BindingList<ServiceFront>();
         public static BindingList<string> Categories { get; set; }
 
-        
+        private Validation validation = new Validation();
+
         public ServiceViewModel()
         {
-            Services = new BindingList<ServiceFront>();
-
-            Services = serviceCRUD.LoadFromDataBase();
+            
+            //Services = new BindingList<ServiceFront>();
+            //ServicesSearch = new BindingList<ServiceFront>();
             Categories = serviceCRUD.LoadCategories();
+
+            proxy = serviceCRUD.LoadFromDataBase();
+
+            foreach (ServiceFront service in proxy)
+                Services.Add(service);
+
+            foreach (ServiceFront service in Services)
+                ServicesSearch.Add(service);
 
             serviceFilterViewModel.Categories = Categories;
             serviceAddViewModel.Categories = Categories;
@@ -53,7 +61,7 @@ namespace ViewModel.ViewModels
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
 
-            CurrentServiceViewModel = serviceFilterViewModel;
+            OnNav("filter");
         }
 
         private void OnCancel()
@@ -90,8 +98,11 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
+
+            ServiceFront serviceToRemove = SelectedItem;
             serviceCRUD.DeleteFromDataBase(SelectedItem);
-            Services.Remove(SelectedItem);
+            ServicesSearch.Remove(serviceToRemove);
+            Services.Remove(serviceToRemove);
             CanAlter = false;
             canDelete = false;
             OnNav("filter");
@@ -117,10 +128,14 @@ namespace ViewModel.ViewModels
 
                 ServiceFront selectedOne = SelectedItem;
                 ServiceFront service = serviceAddViewModel.GetService(SelectedItem.Id);
+                
                 service.Exists = selectedOne.Exists;
-                int index = Services.IndexOf(SelectedItem);
-                Services.RemoveAt(index);
-                Services.Insert(index,service);
+                int index = ServicesSearch.IndexOf(SelectedItem);
+                int indexReal = Services.IndexOf(SelectedItem);
+                ServicesSearch.RemoveAt(index);
+                ServicesSearch.Insert(index,service);
+                Services.RemoveAt(indexReal);
+                Services.Insert(indexReal, service);
                 serviceCRUD.UpdateInDataBase(service);
 
 
@@ -165,7 +180,9 @@ namespace ViewModel.ViewModels
                     else
                     {
                         serviceCRUD.AddToDataBase(serviceAddViewModel.GetService());
+                        ServicesSearch.Add(serviceCRUD.FindLastAdded());
                         Services.Add(serviceCRUD.FindLastAdded());
+
                         OnNav("filter");
 
                         CanAlter = false;
@@ -183,7 +200,7 @@ namespace ViewModel.ViewModels
                     break;
             }
         }
-        public BindableBase CurrentServiceViewModel
+        public ServiceBindableBase CurrentServiceViewModel
         {
             get { return currentServiceViewModel; }
             set
@@ -229,14 +246,5 @@ namespace ViewModel.ViewModels
                 }
             }
         }
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

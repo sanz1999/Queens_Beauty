@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ViewModel.ViewModels.AppointmentViewModels
 {
-    public class AppointmentAddViewModel : BindableBase
+    public class AppointmentAddViewModel : AppointmentBindableBase
     {
         //private int appointmentIdVM;
         private CustomerFront customerVM;
