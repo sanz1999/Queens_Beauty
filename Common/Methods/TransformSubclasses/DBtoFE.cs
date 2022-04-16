@@ -43,7 +43,15 @@ namespace Common.Methods.TransformSubclasses
         }
         public ServiceFront Service(DBService untrasformedService)
         {
-            return new ServiceFront(untrasformedService.id, untrasformedService.name, untrasformedService.category, untrasformedService.duration, untrasformedService.price, untrasformedService.pointsPrice, untrasformedService.pointsValue,untrasformedService.exists);
+            return new ServiceFront(    untrasformedService.id, 
+                                        untrasformedService.name, 
+                                        untrasformedService.category, 
+                                        untrasformedService.duration, 
+                                        untrasformedService.price, 
+                                        untrasformedService.pointsPrice, 
+                                        untrasformedService.pointsValue,
+                                        untrasformedService.exists
+                                        );
         }
     }
 }

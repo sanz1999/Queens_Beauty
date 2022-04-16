@@ -1,4 +1,5 @@
-﻿using Common.Methods.CRUD;
+﻿using Common.Methods;
+using Common.Methods.CRUD;
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,9 @@ namespace ViewModel.ViewModels
 
         public static BindingList<CustomerFront> Customers { get; set; }
         public static BindingList<CustomerFront> CustomersSearch { get; set; }
+
+        private Validation validation = new Validation();
+
 
 
         public CustomerViewModel()
