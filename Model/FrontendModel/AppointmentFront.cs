@@ -10,7 +10,6 @@ namespace Model.FrontendModel
     public class AppointmentFront : INotifyPropertyChanged
 
     {
-
         private int appointmentId;
         private CustomerFront customer;
         private DateOnly appointmentDate;
