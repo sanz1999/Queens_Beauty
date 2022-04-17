@@ -20,15 +20,28 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return workerDAO.Count();
+            int returnVal = -1;
+
+            try
+            {
+                returnVal = workerDAO.Count();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public int DeleteAll()
         {
-            int returnVal = 0;
+            int returnVal = -1;
             
             try { 
             returnVal = workerDAO.DeleteAll();            
@@ -40,6 +53,8 @@ namespace DatabaseLogic.Services
 
             return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -47,8 +62,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Save(DBWorker entity)
         {
-            return workerDAO.Save(entity);
+            int returnVal = -1;
+
+            try
+            {
+                returnVal = workerDAO.Save(entity);
+            }
+            catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -56,8 +84,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public bool ExistsById(int id)
         {
-            return workerDAO.ExistsById(id);
+            bool returnVal = false;
+
+            try
+            {
+                returnVal |= workerDAO.ExistsById(id);
+            }
+            catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -65,8 +106,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Delete(DBWorker entity)
         {
-            return workerDAO.Delete(entity);
+            int returnVal = -1;
+
+            try
+            {
+                returnVal = workerDAO.Delete(entity);
+            }
+            catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -74,16 +128,41 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int DeleteById(int id)
         {
-            return workerDAO.DeleteById(id);
+            int returnVal = -1;
+
+            try
+            {
+                returnVal = workerDAO.DeleteById(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public IEnumerable<DBWorker> FindAll()
         {
-            return workerDAO.FindAll();
+            IEnumerable<DBWorker> retVal = new List<DBWorker>();
+
+            try
+            {
+                retVal = workerDAO.FindAll();
+            } catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return retVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -91,8 +170,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public IEnumerable<DBWorker> FindAllById(IEnumerable<int> ids)
         {
-            return workerDAO.FindAllById(ids);
+            IEnumerable<DBWorker> ret = new List<DBWorker>();
+
+            try
+            {
+                ret = workerDAO.FindAllById(ids);
+            }catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -100,8 +191,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public DBWorker FindById(int id)
         {
-            return workerDAO.FindById(id);
+            DBWorker retVal = null;
+
+            try 
+            { 
+                retVal = workerDAO.FindById(id); 
+            }
+            catch (DbException ex) 
+            { 
+                Console.WriteLine(ex.Message); 
+            }
+
+            return retVal;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -109,12 +213,56 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBWorker> entities)
         {
-            return workerDAO.SaveAll(entities);
+            int returnVal = -1;
+            try
+            {
+                returnVal = workerDAO.SaveAll(entities);
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnVal;
         }
 
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int DeleteByIdLog(int id)
         {
-            return workerDAO.DeleteByIdLog(id);
+            int retVal = -1;
+
+            try 
+            { 
+                retVal = workerDAO.DeleteByIdLog(id); 
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return retVal;
+        }
+
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DBWorker> FindAllExisting()
+        {
+            IEnumerable<DBWorker> retVal = new List<DBWorker>();
+
+            try { 
+                retVal = workerDAO.FindAllExisting();
+            } catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return retVal;
         }
     }
 }

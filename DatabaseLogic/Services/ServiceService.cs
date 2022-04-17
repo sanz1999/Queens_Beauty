@@ -12,7 +12,7 @@ namespace DatabaseLogic.Services
 {
     public class ServiceService
     {
-        private static readonly IServiceDAO uslugaDAO = new ServiceDAOImpl();
+        private static readonly IServiceDAO serviceDAO = new ServiceDAOImpl();
 
         /// <summary>
         /// Vraca broj usluga u tabeli
@@ -20,7 +20,7 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return uslugaDAO.Count();
+            return serviceDAO.Count();
         }
         /// <summary>
         /// Brise sve iz tabele
@@ -28,7 +28,7 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca broj izbirsanih usluga</returns>
         public int DeleteAll()
         {
-            return uslugaDAO.DeleteAll();
+            return serviceDAO.DeleteAll();
         }
         /// <summary>
         /// Dodaje objekat tipa usluga u tabelu
@@ -37,7 +37,7 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 u slucaju uspesnog dodavanja</returns>
         public int Save(DBService entity)
         {
-            return uslugaDAO.Save(entity);
+            return serviceDAO.Save(entity);
         }
         /// <summary>
         /// Proverava dali usluga sa datim id-jem postoji u tabeli
@@ -46,7 +46,7 @@ namespace DatabaseLogic.Services
         /// <returns>True ako postoji, false ako ne</returns>
         public bool ExistsById(int id)
         {
-            return uslugaDAO.ExistsById(id);
+            return serviceDAO.ExistsById(id);
         }
         /// <summary>
         /// Brise prosledjenu uslugu
@@ -55,7 +55,7 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
         public int Delete(DBService entity)
         {
-            return uslugaDAO.Delete(entity);
+            return serviceDAO.Delete(entity);
         }
         /// <summary>
         /// Brise uslugu sa datim id-om
@@ -64,7 +64,7 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
         public int DeleteById(int id)
         {
-            return uslugaDAO.DeleteById(id);
+            return serviceDAO.DeleteById(id);
         }
         /// <summary>
         /// Nalazi sve usluge u tabeli
@@ -72,7 +72,7 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca listu usluga</returns>
         public IEnumerable<DBService> FindAll()
         {
-            return uslugaDAO.FindAll();
+            return serviceDAO.FindAll();
         }
         /// <summary>
         /// Nalazi sve usluge sa datim Id-jem.
@@ -81,7 +81,7 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public IEnumerable<DBService> FindAllById(IEnumerable<int> ids)
         {
-            return uslugaDAO.FindAllById(ids);
+            return serviceDAO.FindAllById(ids);
         }
         /// <summary>
         /// Nalazi i vraca uslugu kao objekat.
@@ -90,7 +90,7 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public DBService FindById(int id)
         {
-            return uslugaDAO.FindById(id);
+            return serviceDAO.FindById(id);
         }
         /// <summary>
         /// Koristi se za dodavanje/updatovanje liste prosledjenih usluga.
@@ -99,12 +99,17 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBService> entities)
         {
-            return uslugaDAO.SaveAll(entities);
+            return serviceDAO.SaveAll(entities);
         }
 
         public int DeleteByIdLog(int id)
         {
-            return uslugaDAO.DeleteByIdLog(id);
+            return serviceDAO.DeleteByIdLog(id);
+        }
+
+        public IEnumerable<DBService> FindAllExisting()
+        {
+            return serviceDAO.FindAllExisting();
         }
     }
 }

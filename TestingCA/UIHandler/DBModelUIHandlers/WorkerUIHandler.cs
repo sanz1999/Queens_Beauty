@@ -1,4 +1,5 @@
 ﻿using DatabaseLogic.Services;
+using Model.DBModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,7 @@ namespace TestingCA.UIHandler
                 Console.WriteLine("\nZa povratak na main menu uneti x\nOpcije:");
                 Console.WriteLine("1. CRUD TestMenu");
                 Console.WriteLine("2. Logicko brisanje iz baze");
-
-
+                Console.WriteLine("3. Ispis ne izbrisanih clanova");
 
                 answer = Console.ReadLine();
 
@@ -42,6 +42,15 @@ namespace TestingCA.UIHandler
                         else
                             Console.WriteLine("Brisanje neuspesno");
 
+                        break;
+                    case "3":
+                        Console.WriteLine();
+                        //customerService.FindAll();
+                        Console.WriteLine(DBWorker.GetHeader());
+                        foreach (DBWorker musterija in workerService.FindAllExisting())
+                        {
+                            Console.WriteLine(musterija);
+                        }
                         break;
                     case "x":
                         return;

@@ -356,7 +356,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                           reader.GetString(5),
                                                           reader.GetString(6),
                                                           reader.GetInt32(7),
-                                                          reader.GetInt32(8));
+                                                          reader.GetInt32(8),
+                                                          reader.GetInt32(9));
 
                             returnList.Add(o);
                         }

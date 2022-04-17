@@ -273,5 +273,36 @@ namespace DatabaseLogic.DAO.Implementation
                 }
             }
         }
+
+        public IEnumerable<DBWorker> FindAllExisting()
+        {
+            string query = "select * from worker where wex != 0 order by wid";
+            List<DBWorker> returnList = new List<DBWorker>();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.Prepare();
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DBWorker o = new DBWorker(reader.GetInt32(0),
+                                                      reader.GetString(1),
+                                                      reader.GetInt32(2));
+
+                            returnList.Add(o);
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
     }
 }
