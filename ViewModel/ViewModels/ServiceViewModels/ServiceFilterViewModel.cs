@@ -13,10 +13,17 @@ namespace ViewModel.ViewModels.ServiceViewModels
         private string nameVM;
         private object categoryVM;
         public BindingList<string> Categories { get; set; }
+        public MyICommand TextChangedCommand { get; set; }
         public ServiceFilterViewModel()
         {
             Services = new BindingList<ServiceFront>();
-            ServicesSearch = new BindingList<ServiceFront>();   
+            ServicesSearch = new BindingList<ServiceFront>();
+
+            TextChangedCommand = new MyICommand(OnTextChanged);
+        }
+        private void OnTextChanged()
+        {
+            Filter();
         }
         private void Filter()
         {
@@ -33,10 +40,10 @@ namespace ViewModel.ViewModels.ServiceViewModels
         private bool CanServicePassFilter(ServiceFront service)
         {
             if (NameVM != null)
-                if (!service.Name.Contains(NameVM) && !NameVM.Equals(""))
+                if (!service.Name.ToLower().Contains(NameVM.ToLower()) && !NameVM.ToLower().Equals(""))
                     return false;
             if (CategoryVM != null)
-                if (!service.Category.Contains(CategoryVM.ToString()) && !CategoryVM.ToString().Equals(""))
+                if (!service.Category.ToLower().Contains(CategoryVM.ToString().ToLower()) && !CategoryVM.ToString().ToLower().Equals(""))
                     return false;
             return true;
         }

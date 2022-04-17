@@ -31,8 +31,6 @@ namespace ViewModel.ViewModels
 
         public static BindingList<CustomerFront> proxy = new BindingList<CustomerFront>();
 
-        private Validation validation = new Validation(); 
-
         private Validation validation = new Validation();
 
 
