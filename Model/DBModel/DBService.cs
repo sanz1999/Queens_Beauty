@@ -60,11 +60,24 @@ namespace Model.DBModel
             return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
                 "S_ID", "S_NAME", "S_CATEGORY", "S_DURATION", "S_PRICE", "SP_PRICE", "SP_VALUE", "EXISTS");
         }
+
+        public static string GetHeaderWithoutEx()
+        {
+            return string.Format("\n{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
+                "S_ID", "S_NAME", "S_CATEGORY", "S_DURATION", "S_PRICE", "SP_PRICE", "SP_VALUE", "EXISTS");
+        }
         public override string ToString()
         {
-
+            if (exists == 1)
+            {
             return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
                 id, name, category, duration, price, pointsPrice, pointsValue, exists);
+            }
+            else
+            {
+                return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12}",
+                id, name, category, duration, price, pointsPrice, pointsValue);
+            }
         }
     }
 }

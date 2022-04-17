@@ -311,5 +311,60 @@ namespace DatabaseLogic.DAO.Implementation
                 return command.ExecuteScalar() != null;
             }
         }
+
+        public int DeleteByIdLog(int id)
+        {
+            string query = "update customer set cex = 0 where cid=:cid";
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    ParameterUtil.AddParameter(command, "cid", DbType.Int32);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "cid", id);
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public IEnumerable<DBCustomer> FindAllExisting()
+        {
+            string query = "select * from customer where cex != 0 order by cid";
+            List<DBCustomer> returnList = new List<DBCustomer>();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.Prepare();
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DBCustomer o = new DBCustomer(reader.GetInt32(0),
+                                                          reader.GetString(1),
+                                                          reader.GetString(2),
+                                                          reader.GetDateTime(3),
+                                                          reader.GetString(4),
+                                                          reader.GetString(5),
+                                                          reader.GetString(6),
+                                                          reader.GetInt32(7),
+                                                          reader.GetInt32(8));
+
+                            returnList.Add(o);
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
     }
 }

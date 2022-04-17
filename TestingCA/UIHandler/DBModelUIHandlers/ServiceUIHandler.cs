@@ -30,7 +30,7 @@ namespace TestingCA.UIHandler
                     case "1":
                         uslugaCRUDService.MenuHandler();
                         continue;
-                        case "2":
+                    case "2":
                         Console.Write("id = ");
                         n = Int32.Parse(Console.ReadLine());
 

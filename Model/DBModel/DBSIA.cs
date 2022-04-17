@@ -9,14 +9,13 @@ namespace Model.DBModel
     public class DBSIA
     {
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
-        public int appointmentId { get; set; }
-        public int serviceId { get; set; }
+        //1. polje je aid, 2. je sid
+        public Tuple<int,int> id { get; set; }
         public int workerId { get; set; }
 
-        public DBSIA(int appointmentId, int serviceId, int workerId)
+        public DBSIA(Tuple<int, int> id, int workerId)
         {
-            this.appointmentId = appointmentId;
-            this.serviceId = serviceId;
+            this.id = id;
             this.workerId = workerId;
         }
 
@@ -29,7 +28,7 @@ namespace Model.DBModel
         public override string ToString()
         {
             return string.Format("{0, -12} {1, -12} {2, -12}",
-                appointmentId, serviceId, workerId);
+                id.Item1, id.Item2, workerId);
         }
     }
 }

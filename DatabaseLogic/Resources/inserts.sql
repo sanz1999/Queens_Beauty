@@ -12,7 +12,7 @@ insert into customer (cid, cname, csname, cdob, cnum, cmail, csex, cp, cloyal) v
 insert into worker (wid, wname) values (1, 'Pacenik');
 
 
---insert into appointment (aid, cid, atime, aprice, astate) values (1, 1, TO_DATE('16:30 12-JAN-2022', 'HH24:MI DD-MON-YYYY', 'NLS_DATE_LANGUAGE=AMERICAN'), 14.69, 1);
+insert into appointment (aid, cid, atime, aprice, astate) values (1, 1, TO_DATE('16:30 12-JAN-2022', 'HH24:MI DD-MON-YYYY', 'NLS_DATE_LANGUAGE=AMERICAN'), 14.69, 1);
 
 
---insert into sia(aid, sid, wid) values (1, 1, 1);
+insert into sia(aid, sid, wid) values (1, 1, 1);
