@@ -16,16 +16,15 @@
             <TextBlock Grid.Column="0"
                        Text="First name:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding FirstNameVM}" />
+                     Text="{Binding FirstNameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100*" />
-                <ColumnDefinition Width="47*" />
-                <ColumnDefinition Width="153*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="1"
-                       Text="Invalid input!"
+                       Text="Cannot leave first name empty!"
                        Foreground="Red"
                        Visibility="{Binding IsFirstNameErrorVisible}"
                        Grid.ColumnSpan="2" />
@@ -38,7 +37,18 @@
             <TextBlock Grid.Column="0"
                        Text="Last name:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding LastNameVM}" />
+                     Text="{Binding LastNameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="Cannot leave last name empty!"
+                       Foreground="Red"
+                       Visibility="{Binding IsLastNameErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -48,7 +58,28 @@
             <TextBlock Grid.Column="0"
                        Text="Phone number:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding PhoneNumberVM}" />
+                     Text="{Binding PhoneNumberVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="Cannot have letters in phone number!"
+                       Foreground="Red"
+                       Visibility="{Binding IsFirstNameErrorVisible}"
+                       Grid.ColumnSpan="2" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Date of birth:" />
+            <DatePicker Grid.Column="1"
+                        Text="{Binding DateOfBirthVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -58,7 +89,7 @@
             <TextBlock Grid.Column="0"
                        Text="Email:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding EmailVM}" />
+                     Text="{Binding EmailVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -76,15 +107,15 @@
                 <RadioButton Grid.Column="0"
                              Content="Male"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsMaleCheckedVM}" />
+                             IsChecked="{Binding IsMaleCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <RadioButton Grid.Column="1"
                              Content="Female"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsFemaleCheckedVM}" />
+                             IsChecked="{Binding IsFemaleCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <RadioButton Grid.Column="2"
                              Content="Other"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsOtherCheckedVM}" />
+                             IsChecked="{Binding IsOtherCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Grid>
         <Grid>
@@ -95,7 +126,7 @@
             <TextBlock Grid.Column="0"
                        Text="Loyalty Card ID:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding LoyaltyCardIdVM}" />
+                     Text="{Binding LoyaltyCardIdVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
     </StackPanel>
 </UserControl>

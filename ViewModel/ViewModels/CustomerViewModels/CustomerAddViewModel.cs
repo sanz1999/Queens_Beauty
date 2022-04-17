@@ -15,6 +15,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private string firstNameVM;
         private string lastNameVM;
         private string phoneNumberVM;
+        private string dateOfBirthVM;
         private string emailVM;
         //private string genderVM;
         //private int pointsVM;
@@ -24,7 +25,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
-        private string isFirstNameErrorVisible = "Collapsed";
+        private string isFirstNameErrorVisible = "Hidden";
 
         private int idCnt = 1;
 
@@ -89,6 +90,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     firstNameVM = value;
                     if (!validation.customer.FirstName(FirstNameVM))
                         IsFirstNameErrorVisible = "Visible";
+                    else
+                        IsFirstNameErrorVisible = "Hidden";
                     OnPropertyChanged("FirstNameVM");
                 }
             }
@@ -118,6 +121,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
             }
         }
 
+        public string DateOfBirthVM
+        {
+            get { return dateOfBirthVM; }
+            set
+            {
+                if (dateOfBirthVM != value)
+                {
+                    dateOfBirthVM = value;
+                    OnPropertyChanged("DateOfBirthVM");
+                }
+            }
+        }
         public string EmailVM
         {
             get { return emailVM; }
