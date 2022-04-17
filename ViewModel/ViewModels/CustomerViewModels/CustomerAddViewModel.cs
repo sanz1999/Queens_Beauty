@@ -33,6 +33,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         public CustomerAddViewModel()
         {
         }
+
         private string GetGender()
         {
             if (IsMaleCheckedVM) return "Male";

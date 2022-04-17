@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:View.Views.CustomerViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
@@ -15,7 +16,13 @@
             <TextBlock Grid.Column="0"
                        Text="Filter by first name:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding FirstNameVM}"/>
+                     Text="{Binding FirstNameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,7 +32,13 @@
             <TextBlock Grid.Column="0"
                        Text="Filter by last name:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding LastNameVM}" />
+                     Text="{Binding LastNameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -43,15 +56,15 @@
                 <RadioButton Grid.Column="0"
                              Content="Male"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsMaleCheckedVM}"/>
+                             IsChecked="{Binding IsMaleCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <RadioButton Grid.Column="1"
                              Content="Female"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsFemaleCheckedVM}" />
+                             IsChecked="{Binding IsFemaleCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <RadioButton Grid.Column="2"
                              Content="Other"
                              GroupName="GenderRB"
-                             IsChecked="{Binding IsOtherCheckedVM}" />
+                             IsChecked="{Binding IsOtherCheckedVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Grid>
         <Grid>
@@ -62,7 +75,13 @@
             <TextBlock Grid.Column="0"
                        Text="Filter by loyalty card ID:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding LoyaltyCardIdVM}" />
+                     Text="{Binding LoyaltyCardIdVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
         </Grid>
     </StackPanel>
 </UserControl>

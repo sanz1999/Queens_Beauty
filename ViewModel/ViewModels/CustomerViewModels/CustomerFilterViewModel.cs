@@ -19,10 +19,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
+        public MyICommand TextChangedCommand { get; set; }
+
         public CustomerFilterViewModel()
         {
             Customers = new BindingList<CustomerFront>();
             CustomersSearch = new BindingList<CustomerFront>();
+
+            TextChangedCommand = new MyICommand(OnTextChanged);
+        }
+        private void OnTextChanged()
+        {
+            Filter();
         }
 
         private void Filter()
@@ -40,13 +48,13 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool CanCustomerPassFilter(CustomerFront customer)
         {
             if (FirstNameVM != null)
-                if (!customer.FirstName.Contains(FirstNameVM) && !FirstNameVM.Equals(""))
+                if (!customer.FirstName.ToLower().Contains(FirstNameVM.ToLower()) && !FirstNameVM.ToLower().Equals(""))
                     return false;
             if (LastNameVM != null)
-                if (!customer.LastName.Contains(LastNameVM) && !LastNameVM.Equals(""))
+                if (!customer.LastName.ToLower().Contains(LastNameVM.ToLower()) && !LastNameVM.ToLower().Equals(""))
                     return false;
             if (LoyaltyCardIdVM != null)
-                if (!customer.LoyaltyCardId.Contains(LoyaltyCardIdVM) && !LoyaltyCardIdVM.Equals(""))
+                if (!customer.LoyaltyCardId.ToLower().Contains(LoyaltyCardIdVM.ToLower()) && !LoyaltyCardIdVM.ToLower().Equals(""))
                     return false;
             if (IsMaleCheckedVM && !customer.Gender.Equals("Male"))
                 return false;
