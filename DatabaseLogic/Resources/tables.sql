@@ -52,12 +52,10 @@ CREATE TABLE appointment(
 	atime			DATE NOT NULL,
 	aprice			DECIMAL(38, 3),
 	astate			NUMBER(1) DEFAULT 0,
-	aex				NUMBER(1) DEFAULT 1,
 	CONSTRAINT appointment_pk PRIMARY KEY (aid),
     CONSTRAINT appointment_fk FOREIGN KEY (cid) REFERENCES customer(cid),
     CONSTRAINT appointment_ch CHECK (astate IN (0, 1)) ,
-    CONSTRAINT appointment_price_ch CHECK (aprice >= 0),
-	CONSTRAINT appointment_aex_ch CHECK (aex in (1,0))
+    CONSTRAINT appointment_price_ch CHECK (aprice >= 0)
 );
 
 CREATE TABLE sia(

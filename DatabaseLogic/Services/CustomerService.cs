@@ -105,5 +105,14 @@ namespace DatabaseLogic.Services
         {
             return customerDAO.ExistsByLoyaltyNumber((int)id);
         }
+        public int DeleteByIdLog(int id)
+        {
+            return customerDAO.DeleteByIdLog(id);
+        }
+
+        public IEnumerable<DBCustomer> FindAllExisting()
+        {
+            return customerDAO.FindAllExisting();
+        }
     }
 }

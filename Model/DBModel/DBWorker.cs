@@ -11,29 +11,55 @@ namespace Model.DBModel
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
         public int id { get; set; }
         public string name { get; set; }
+        public int exists { get; set; }
 
-        public DBWorker(int id, string name)
+
+        //Koristi se za preuzimanje svih podataka radi ispisa
+        public DBWorker(int id, string name, int exists)
         {
             this.id = id;
             this.name = name;
+            this.exists = exists;
         }
 
+        //Koristi se za pravljenje Worker-a sa poznatim id-em
+        public DBWorker(int id, string name)
+        {
+            this.id = id;
+            this.name = name;           
+        }
+
+        //Korisit se za pravljenje Worker-a kojem ce se id dodeliti automatski
         public DBWorker(string name)
         {
+            id = 0;
             this.name = name;
         }
 
         public static string GetHeader()
         {
-            return string.Format("\n{0, -12} {1, -12}}",
+            return string.Format("\n{0, -12} {1, -12} {2, -12}",
+                "W_ID", "W_NAME", "EXISTS");
+        }
+
+        public static string GetHeaderWithoutEx()
+        {
+            return string.Format("\n{0, -12} {1, -12}",
                 "W_ID", "W_NAME");
         }
 
         public override string ToString()
         {
-
-            return string.Format("{0, -12} {1, -12}",
+            if(exists == 1)
+            {
+            return string.Format("{0, -12} {1, -12} {2, -12}",
+                id, name, exists);
+            }
+            else
+            {
+                return string.Format("{0, -12} {1, -12}",
                 id, name);
+            }
         }
     }
 }

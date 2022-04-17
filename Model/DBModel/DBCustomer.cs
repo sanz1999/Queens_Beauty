@@ -68,12 +68,24 @@ namespace Model.DBModel
             return string.Format("\n{0, -12} {1, -20} {2, -20} {3, -12} {4, -20} {5, -20} {6, -6} {7, -12} {8, -12} {9, -12}",
                 "ID", "NAME", "SURNAME","BDY", "PHONE_NUMBER", "EMAIL", "GENDER", "POINTS", "LOYALTY_NUM", "EXISTS");
         }
+        public static string GetHeaderWithoutEx()
+        {
+            return string.Format("\n{0, -12} {1, -20} {2, -20} {3, -12} {4, -20} {5, -20} {6, -6} {7, -12} {8, -12}",
+                "ID", "NAME", "SURNAME", "BDY", "PHONE_NUMBER", "EMAIL", "GENDER", "POINTS", "LOYALTY_NUM");
+        }
 
         public override string ToString()
         {
-
-            return string.Format("{0, -12} {1, -20} {2, -20} {3, -12:dd/MM/yy} {4, -20} {5, -20} {6, -6} {7, -12} {8, -12} {9, -12}",
-                id, name, surname,dateOfBirth, phoneNumber, email, gender, points, loyaltyNumber, exists);
+            if(exists == 1)
+            {
+                return string.Format("{0, -12} {1, -20} {2, -20} {3, -12:dd/MM/yy} {4, -20} {5, -20} {6, -6} {7, -12} {8, -12} {9, -12}",
+                                        id, name, surname,dateOfBirth, phoneNumber, email, gender, points, loyaltyNumber, exists);
+            }
+            else
+            {
+                return string.Format("{0, -12} {1, -20} {2, -20} {3, -12:dd/MM/yy} {4, -20} {5, -20} {6, -6} {7, -12} {8, -12}",
+                                        id, name, surname, dateOfBirth, phoneNumber, email, gender, points, loyaltyNumber);
+            }
         }
     }
 }
