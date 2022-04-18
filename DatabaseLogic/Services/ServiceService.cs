@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Model;
 using Model.DBModel;
 using System.Data.Common;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DatabaseLogic.Services
 {
@@ -27,7 +28,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.Count();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -48,7 +49,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.DeleteAll();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -70,9 +71,10 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.Save(entity);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -92,7 +94,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.ExistsById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -114,9 +116,10 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.Delete(entity);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -136,9 +139,10 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.DeleteById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -157,7 +161,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.FindAll();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -179,7 +183,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.FindAllById(ids);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -201,7 +205,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.FindById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -223,7 +227,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.SaveAll(entities);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -245,7 +249,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.DeleteByIdLog(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -266,7 +270,7 @@ namespace DatabaseLogic.Services
             {
                 ret = serviceDAO.FindAllExisting();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }

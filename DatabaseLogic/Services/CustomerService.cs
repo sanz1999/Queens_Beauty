@@ -1,6 +1,7 @@
 ﻿using DatabaseLogic.DAO;
 using DatabaseLogic.DAO.Implementation;
 using Model.DBModel;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -25,7 +26,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = customerDAO.Count();
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -45,7 +46,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = customerDAO.DeleteAll();
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -67,9 +68,10 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.Save(entity);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -89,7 +91,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.ExistsById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -111,9 +113,10 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.Delete(entity);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
-                Console.WriteLine(ex.Message);                
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -133,9 +136,10 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.DeleteById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -154,7 +158,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.FindAll();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -176,7 +180,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.FindAllById(ids);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -198,7 +202,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.FindById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -220,7 +224,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.SaveAll(entities);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -242,7 +246,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.ExistsByLoyaltyNumber((int)id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -264,7 +268,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.DeleteByIdLog(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -285,7 +289,7 @@ namespace DatabaseLogic.Services
             {
                 ret = customerDAO.FindAllExisting();
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }

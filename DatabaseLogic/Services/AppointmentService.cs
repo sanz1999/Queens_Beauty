@@ -1,6 +1,7 @@
 ﻿using DatabaseLogic.DAO;
 using DatabaseLogic.DAO.Implementation;
 using Model.DBModel;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -25,7 +26,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.Count();
-            }catch(DbException ex)
+            }catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -45,7 +46,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.DeleteAll();
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -66,9 +67,10 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.Save(entity);
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -87,7 +89,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.ExistsById(id);
-            } catch (DbException ex)
+            } catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -108,9 +110,10 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.Delete(entity);
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -130,9 +133,10 @@ namespace DatabaseLogic.Services
             {
                 ret = appointmentDAO.DeleteById(id);
             }
-            catch (DbException ex)
+            catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
@@ -150,7 +154,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.FindAll();
-            } catch (DbException ex)
+            } catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -171,7 +175,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.FindAllById(ids);
-            } catch (DbException ex)
+            } catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -192,7 +196,7 @@ namespace DatabaseLogic.Services
             try
             {
                 ret = appointmentDAO.FindById(id);
-            } catch(DbException ex)
+            } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -214,9 +218,10 @@ namespace DatabaseLogic.Services
             {
                 ret = appointmentDAO.SaveAll(entities);
             }
-            catch(DbException ex)
+            catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
             }
 
             return ret;
