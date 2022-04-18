@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 using Model.DBModel;
+using System.Data.Common;
 
 namespace DatabaseLogic.Services
 {
@@ -20,16 +21,42 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return serviceDAO.Count();
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.Count();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise sve iz tabele
         /// </summary>
         /// <returns>Vraca broj izbirsanih usluga</returns>
         public int DeleteAll()
         {
-            return serviceDAO.DeleteAll();
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.DeleteAll();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Dodaje objekat tipa usluga u tabelu
         /// </summary>
@@ -37,8 +64,21 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 u slucaju uspesnog dodavanja</returns>
         public int Save(DBService entity)
         {
-            return serviceDAO.Save(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.Save(entity);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Proverava dali usluga sa datim id-jem postoji u tabeli
         /// </summary>
@@ -46,8 +86,21 @@ namespace DatabaseLogic.Services
         /// <returns>True ako postoji, false ako ne</returns>
         public bool ExistsById(int id)
         {
-            return serviceDAO.ExistsById(id);
+            bool ret = false;
+
+            try
+            {
+                ret = serviceDAO.ExistsById(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise prosledjenu uslugu
         /// </summary>
@@ -55,8 +108,21 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
         public int Delete(DBService entity)
         {
-            return serviceDAO.Delete(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.Delete(entity);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise uslugu sa datim id-om
         /// </summary>
@@ -64,16 +130,42 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca 1 ako je brisanje uspesno</returns>
         public int DeleteById(int id)
         {
-            return serviceDAO.DeleteById(id);
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.DeleteById(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Nalazi sve usluge u tabeli
         /// </summary>
         /// <returns>Vraca listu usluga</returns>
         public IEnumerable<DBService> FindAll()
         {
-            return serviceDAO.FindAll();
+            IEnumerable<DBService> ret = new List<DBService>();
+
+            try
+            {
+                ret = serviceDAO.FindAll();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Nalazi sve usluge sa datim Id-jem.
         /// </summary>
@@ -81,8 +173,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public IEnumerable<DBService> FindAllById(IEnumerable<int> ids)
         {
-            return serviceDAO.FindAllById(ids);
+            IEnumerable<DBService> ret = new List<DBService>();
+
+            try
+            {
+                ret = serviceDAO.FindAllById(ids);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Nalazi i vraca uslugu kao objekat.
         /// </summary>
@@ -90,8 +195,21 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public DBService FindById(int id)
         {
-            return serviceDAO.FindById(id);
+            DBService ret = null;
+
+            try
+            {
+                ret = serviceDAO.FindById(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Koristi se za dodavanje/updatovanje liste prosledjenih usluga.
         /// </summary>
@@ -99,17 +217,61 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBService> entities)
         {
-            return serviceDAO.SaveAll(entities);
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.SaveAll(entities);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
 
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int DeleteByIdLog(int id)
         {
-            return serviceDAO.DeleteByIdLog(id);
+            int ret = -1;
+
+            try
+            {
+                ret = serviceDAO.DeleteByIdLog(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
 
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<DBService> FindAllExisting()
         {
-            return serviceDAO.FindAllExisting();
+            IEnumerable<DBService> ret = new List<DBService>();
+
+            try
+            {
+                ret = serviceDAO.FindAllExisting();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
     }
 }
