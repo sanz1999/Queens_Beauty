@@ -3,6 +3,7 @@ using DatabaseLogic.DAO.Implementation;
 using Model.DBModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +20,40 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return appointmentDAO.Count();
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Count();
+            }catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public int DeleteAll()
         {
-            return appointmentDAO.DeleteAll();
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.DeleteAll();
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -36,8 +61,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Save(DBAppointment entity)
         {
-            return appointmentDAO.Save(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Save(entity);
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -45,8 +82,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public bool ExistsById(int id)
         {
-            return appointmentDAO.ExistsById(id);
+            bool ret = false;
+
+            try
+            {
+                ret = appointmentDAO.ExistsById(id);
+            } catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -54,8 +103,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Delete(DBAppointment entity)
         {
-            return appointmentDAO.Delete(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Delete(entity);
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -63,16 +124,41 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int DeleteById(int id)
         {
-            return appointmentDAO.DeleteById(id);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.DeleteById(id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public IEnumerable<DBAppointment> FindAll()
         {
-            return appointmentDAO.FindAll();
+            IEnumerable<DBAppointment> ret = new List<DBAppointment>();
+
+            try
+            {
+                ret = appointmentDAO.FindAll();
+            } catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -80,8 +166,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public IEnumerable<DBAppointment> FindAllById(IEnumerable<int> ids)
         {
-            return appointmentDAO.FindAllById(ids);
+            IEnumerable<DBAppointment> ret = new List<DBAppointment>();
+
+            try
+            {
+                ret = appointmentDAO.FindAllById(ids);
+            } catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -89,8 +187,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public DBAppointment FindById(int id)
         {
-            return appointmentDAO.FindById(id);
+            DBAppointment ret = null;
+
+            try
+            {
+                ret = appointmentDAO.FindById(id);
+            } catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -98,7 +208,18 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBAppointment> entities)
         {
-            return appointmentDAO.SaveAll(entities);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.SaveAll(entities);
+            }
+            catch(DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
     }
 }
