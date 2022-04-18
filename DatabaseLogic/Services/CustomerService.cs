@@ -113,7 +113,7 @@ namespace DatabaseLogic.Services
             }
             catch (DbException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);                
             }
 
             return ret;

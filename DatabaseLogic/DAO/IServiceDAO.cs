@@ -11,6 +11,6 @@ namespace DatabaseLogic.DAO
     public interface IServiceDAO : ICRUDDAO<DBService, int>
     {
         int DeleteByIdLog(int id);
-        public IEnumerable<DBService> FindAllExisting();
+        IEnumerable<DBService> FindAllExisting();
     }
 }
