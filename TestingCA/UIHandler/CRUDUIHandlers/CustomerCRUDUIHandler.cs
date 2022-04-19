@@ -54,7 +54,7 @@ namespace TestingCA.UIHandler
                             {
                                 loyal++;
                             }
-                            DBCustomer u = new DBCustomer("TestIme", "TestPrezime", dt, "TestFon", "TestMail", "T", 123, loyal);
+                            DBCustomer u = new DBCustomer("TestIme", "TestPrezime", dt, "TestFon", "TestMail", "T", 123, 0);
                             if (customerService.Save(u) == 1)
                                 Console.WriteLine("dodavanje uspesno");
                         }

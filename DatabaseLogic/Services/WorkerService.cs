@@ -72,7 +72,18 @@ namespace DatabaseLogic.Services
             catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if (ex.Number == 1)
+                {
+                    try
+                    {
+                        Console.WriteLine("Trying again...");
+                        returnVal = workerDAO.Save(entity);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
             }
 
             return returnVal;
@@ -117,7 +128,17 @@ namespace DatabaseLogic.Services
             catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if (ex.Number == 2292)
+                {
+                    try
+                    {
+                        returnVal = workerDAO.DeleteByIdLog(entity.id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
             }
 
             return returnVal;
@@ -140,7 +161,17 @@ namespace DatabaseLogic.Services
             catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if (ex.Number == 2292)
+                {
+                    try
+                    {
+                        returnVal = workerDAO.DeleteByIdLog(id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
             }
 
             return returnVal;
