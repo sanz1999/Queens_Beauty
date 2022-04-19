@@ -252,5 +252,22 @@ namespace DatabaseLogic.Services
 
             return ret;
         }
+
+        public int DeleteAllByAppointmentId(int id)
+        {
+            int ret = -1;
+
+            try
+            {
+                ret = siaDAO.DeleteAllByAppointmentId(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Number);
+            }
+
+            return ret;
+        }
     }
 }

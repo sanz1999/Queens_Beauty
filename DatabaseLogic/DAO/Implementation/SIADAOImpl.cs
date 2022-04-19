@@ -294,5 +294,23 @@ namespace DatabaseLogic.DAO.Implementation
 
             return returnList;
         }
+
+        public int DeleteAllByAppointmentId(int id)
+        {
+            string query = "delete from sia where aid =:aid";
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    ParameterUtil.AddParameter(command, "aid", DbType.Int32);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "aid", id);
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

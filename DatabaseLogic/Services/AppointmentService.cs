@@ -14,6 +14,7 @@ namespace DatabaseLogic.Services
     public class AppointmentService
     {
         private static readonly IAppointmentDAO appointmentDAO = new AppontmentDAOImpl();
+        private static readonly ISIADAO siaDAO = new SIADAOImpl();
 
         /// <summary>
         /// TODO
@@ -49,6 +50,27 @@ namespace DatabaseLogic.Services
             } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
+                if(ex.Number == 2292)
+                {
+                    Console.WriteLine("Pokrenuto brisanje SIA tabele nakon cega ce se funkcija ponoviti...");
+
+                    try
+                    {
+                        siaDAO.DeleteAll();
+                    } catch (OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.DeleteAll();
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
             }
 
             return ret;
@@ -70,7 +92,17 @@ namespace DatabaseLogic.Services
             } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if(ex.Number == 1)
+                {
+                    try
+                    {
+                        Console.WriteLine("Trying again...");
+                        ret = appointmentDAO.Save(entity);
+                    }catch(OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }                    
+                }
             }
 
             return ret;
@@ -113,7 +145,28 @@ namespace DatabaseLogic.Services
             } catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if (ex.Number == 2292)
+                {
+                    Console.WriteLine("Brisanje appointmenta iz SIA pokrenuto...");
+                    try
+                    {
+                        siaDAO.DeleteAllByAppointmentId(entity.appointmentId);
+                    }
+                    catch (OracleException ex2) 
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.Delete(entity);
+                    } catch(OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+
+                }
+                
             }
 
             return ret;
@@ -136,7 +189,27 @@ namespace DatabaseLogic.Services
             catch (OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                if (ex.Number == 2292)
+                {
+                    Console.WriteLine("Brisanje appointmenta iz SIA pokrenuto...");
+                    try
+                    {
+                        siaDAO.DeleteAllByAppointmentId(id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.DeleteById(id);
+                    }
+                    catch (OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+                }
             }
 
             return ret;
@@ -221,7 +294,7 @@ namespace DatabaseLogic.Services
             catch(OracleException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.Number);
+                //Console.WriteLine(ex.Number);
             }
 
             return ret;

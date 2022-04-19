@@ -10,5 +10,7 @@ namespace DatabaseLogic.DAO
     public interface ISIADAO : ICRUDDAO<DBSIA, Tuple<int,int>>
     {
         IEnumerable<Tuple<int,int>> GetAllServicesForId(int id);
+
+        int DeleteAllByAppointmentId(int id);
     }
 }

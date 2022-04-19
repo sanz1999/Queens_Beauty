@@ -11,6 +11,6 @@ namespace DatabaseLogic.DAO
     {
         bool ExistsByLoyaltyNumber(int id);
         int DeleteByIdLog(int id);
-        public IEnumerable<DBCustomer> FindAllExisting();
+        IEnumerable<DBCustomer> FindAllExisting();
     }
 }
