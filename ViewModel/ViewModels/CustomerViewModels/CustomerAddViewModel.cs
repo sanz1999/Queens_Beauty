@@ -24,7 +24,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
-        private string isFirstNameErrorVisible = "Collapsed";
+        private string isFirstNameErrorVisible = "Hidden";
 
         private int idCnt = 1;
 
@@ -89,6 +89,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     firstNameVM = value;
                     if (!validation.customer.FirstName(FirstNameVM))
                         IsFirstNameErrorVisible = "Visible";
+                    else
+                        IsFirstNameErrorVisible = "Hidden";
                     OnPropertyChanged("FirstNameVM");
                 }
             }

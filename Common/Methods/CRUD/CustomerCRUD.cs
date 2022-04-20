@@ -26,12 +26,13 @@ namespace Common.Methods.CRUD
             return newList;
         }
 
-        public void AddToDataBase(CustomerFront customer) {         //Proveriti zasto puca na dodavanju (PK violation)
+        public void AddToDataBase(CustomerFront customer) {        
             DBCustomer dBCustomer = transform.FEToDB.Customer(customer);
             dBCustomer.id = 0;
             dBCustomer.exists = 1;
             customerService.Save(dBCustomer);
         }
+
         public CustomerFront FindLastAdded() {
             List<DBCustomer> dBCustomers = (List<DBCustomer>)customerService.FindAll();
             return transform.DBToFE.Customer( dBCustomers.Last());

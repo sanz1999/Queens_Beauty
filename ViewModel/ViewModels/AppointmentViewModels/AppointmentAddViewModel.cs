@@ -137,12 +137,12 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
-            AppointmentFront appointmentToAdd =
-                new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
-            foreach (ServiceFront service in AddedServices) {
-                appointmentToAdd.ServiceList.Add(service);
-            
-            }
+            AppointmentFront appointmentToAdd = new AppointmentFront();
+      //          new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+      //      foreach (ServiceFront service in AddedServices) {
+       //         appointmentToAdd.ServiceList.Add(service);
+       //     
+       //    }
             ClearInput();
 
             return appointmentToAdd;
@@ -152,13 +152,13 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
-            AppointmentFront appointmentToAdd =
-                new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
-            foreach (ServiceFront service in AddedServices)
-            {
-                appointmentToAdd.ServiceList.Add(service);
-
-            }
+            AppointmentFront appointmentToAdd = new AppointmentFront();
+       //         new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+        //    foreach (ServiceFront service in AddedServices)
+        //    {
+       //         appointmentToAdd.ServiceList.Add(service);
+       //
+//      }
             ClearInput();
 
             return appointmentToAdd;

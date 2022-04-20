@@ -89,10 +89,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Customer First Name"
+                    <DataGridTextColumn Header="First Name"
                                         Width="*"
                                         Binding="{Binding Customer.FirstName}" />
-                    <DataGridTextColumn Header="Customer Last Name"
+                    <DataGridTextColumn Header="Last Name"
                                         Width="*"
                                         Binding="{Binding Customer.LastName}" />
                     <DataGridTextColumn Header="Date"
