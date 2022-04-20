@@ -299,5 +299,43 @@ namespace DatabaseLogic.DAO.Implementation
                 }
             }
         }
+
+        public IEnumerable<DBService> FindAllExisting()
+        {
+            string query = "select * from service where sex != 0 order by sid";
+            List<DBService> listaUsluga = new List<DBService>();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.Prepare();
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //Console.WriteLine("Debug");
+
+                            DBService usluga = new DBService(reader.GetInt32(0),
+                                                       reader.GetString(1),
+                                                       reader.GetString(2),
+                                                       reader.GetInt32(3),
+                                                       reader.GetDouble(4),
+                                                       reader.GetInt32(5),
+                                                       reader.GetInt32(6),
+                                                       reader.GetInt32(7));
+
+                            listaUsluga.Add(usluga);
+                        }
+                    }
+                }
+            }
+
+            return listaUsluga;
+        }
     }
 }
