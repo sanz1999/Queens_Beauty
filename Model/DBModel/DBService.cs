@@ -62,9 +62,8 @@ namespace Model.DBModel
         }
         public override string ToString()
         {
-
-            return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
-                id, name, category, duration, price, pointsPrice, pointsValue, exists);
+          return string.Format("{0, -12} {1, -12} {2, -12} {3, -12} {4, -12} {5, -12} {6, -12} {7, -12}",
+                id, name, category, duration, price, pointsPrice, pointsValue, exists);            
         }
     }
 }

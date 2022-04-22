@@ -25,6 +25,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
+
         private string phoneNumberErrorText;
         private string emailErrorText;
         private string loyaltyCardIdErrorText;
@@ -35,6 +36,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private string isBirthdayErrorVisible = "Hidden";
         private string isEmailErrorVisible = "Hidden";
         private string isLoyaltyCardIdErrorVisible = "Hidden";
+
 
         private int idCnt = 1;
 

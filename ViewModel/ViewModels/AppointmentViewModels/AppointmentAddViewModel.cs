@@ -195,12 +195,21 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
+/* uros
             AppointmentFront appointmentToAdd =
                 new AppointmentFront(IdCnt++, appointmentAddCustomerViewModel.SelectedItem, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, new EmployeeFront(1,"ds"), new BindingList<ServiceFront>());
             foreach (ServiceFront service in AddedServices) {
                 appointmentToAdd.ServiceList.Add(service);
             
             }
+*/
+            AppointmentFront appointmentToAdd = new AppointmentFront();   // sale
+      //          new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+      //      foreach (ServiceFront service in AddedServices) {
+       //         appointmentToAdd.ServiceList.Add(service);
+       //     
+       //    }
+
             ClearInput();
 
             return appointmentToAdd;
@@ -210,6 +219,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
+/* uros
             AppointmentFront appointmentToAdd =
                 new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, new EmployeeFront(1, ""), new BindingList<ServiceFront>());
             foreach (ServiceFront service in AddedServices)
@@ -217,6 +227,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 appointmentToAdd.ServiceList.Add(service);
 
             }
+*/
+            AppointmentFront appointmentToAdd = new AppointmentFront(); // sale
+       //         new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
+        //    foreach (ServiceFront service in AddedServices)
+        //    {
+       //         appointmentToAdd.ServiceList.Add(service);
+       //
+//      }
+
             ClearInput();
 
             return appointmentToAdd;

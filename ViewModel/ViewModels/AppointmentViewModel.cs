@@ -96,13 +96,18 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
 
+
                 appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
 
+        //        appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
+        //        appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
+
+
                 appointmentAddViewModel.AddedServices.Clear();
-                foreach(ServiceFront service in SelectedItem.ServiceList)
-                {
-                    appointmentAddViewModel.AddedServices.Add(service);
-                }
+        //        foreach(ServiceFront service in SelectedItem.ServiceList)
+        //        {
+       //             appointmentAddViewModel.AddedServices.Add(service);
+        //        }
 
                 appointmentAddViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
 
@@ -147,11 +152,11 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
             appointmentInfoViewModel.ServiceList.Clear();
-            
-            foreach(ServiceFront service in SelectedItem.ServiceList)
-            {
-                appointmentInfoViewModel.ServiceList.Add(service);
-            }
+     //       
+     //       foreach(ServiceFront service in SelectedItem.ServiceList)
+     //       {
+     //           appointmentInfoViewModel.ServiceList.Add(service);
+     //       }
         }
 
         private void OnNav(string obj)

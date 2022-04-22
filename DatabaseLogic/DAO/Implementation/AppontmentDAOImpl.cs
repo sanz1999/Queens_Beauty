@@ -113,8 +113,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
                                                                 reader.GetDouble(3),
-                                                                reader.GetInt32(4),
-                                                                reader.GetInt32(5));
+                                                                reader.GetInt32(4));
 
                             returnList.Add(o);
                         }
@@ -162,8 +161,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
                                                                 reader.GetDouble(3),
-                                                                reader.GetInt32(4),
-                                                                reader.GetInt32(5));
+                                                                reader.GetInt32(4));
                             returnList.Add(o);
                         }
                     }
@@ -195,8 +193,7 @@ namespace DatabaseLogic.DAO.Implementation
                                                   reader.GetInt32(1),
                                                   reader.GetDateTime(2),
                                                   reader.GetDouble(3),
-                                                  reader.GetInt32(4),
-                                                  reader.GetInt32(5));
+                                                  reader.GetInt32(4));
                         }
                     }
                 }
@@ -221,12 +218,12 @@ namespace DatabaseLogic.DAO.Implementation
             insertSql.Append("insert into appointment (");
             if (o.appointmentId != 0)
                 insertSql.Append("aid,");
-            insertSql.Append("cid, atime, aprice) values (");
+            insertSql.Append("cid, atime, aprice, astate) values (");
             if (o.appointmentId != 0)
                 insertSql.Append(":aid,");
-            insertSql.Append(":cid, :atime, :aprice)");
+            insertSql.Append(":cid, :atime, :aprice, :astate)");
 
-            string updateSql = "update appointment set cid=:cid, atime=:atime, aprice=:aprice where aid=:aid";
+            string updateSql = "update appointment set cid=:cid, atime=:atime, aprice=:aprice, astate=:astate where aid=:aid";
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = ExistsById(o.appointmentId, connection) ? updateSql : insertSql.ToString();
@@ -234,7 +231,8 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.AddParameter(command, "aid", DbType.Int32);
                 ParameterUtil.AddParameter(command, "cid", DbType.Int32);
                 ParameterUtil.AddParameter(command, "atime", DbType.DateTime);
-                ParameterUtil.AddParameter(command, "aprice", DbType.Double);                
+                ParameterUtil.AddParameter(command, "aprice", DbType.Double);
+                ParameterUtil.AddParameter(command, "astate", DbType.Int32);
                 if (command.CommandText.Equals(updateSql))
                     ParameterUtil.AddParameter(command, "aid", DbType.Int32);
 
@@ -243,11 +241,10 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.SetParameterValue(command, "aid", o.appointmentId);
                 ParameterUtil.SetParameterValue(command, "cid", o.customerId);
                 ParameterUtil.SetParameterValue(command, "atime", o.dateTime);
-                ParameterUtil.SetParameterValue(command, "aprice", o.price);                
+                ParameterUtil.SetParameterValue(command, "aprice", o.price);
+                ParameterUtil.SetParameterValue(command, "astate", o.state);
                 return command.ExecuteNonQuery();
             }
-
-            throw new NotImplementedException();
         }
 
         public int SaveAll(IEnumerable<DBAppointment> entities)

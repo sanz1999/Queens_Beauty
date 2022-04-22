@@ -17,10 +17,12 @@ namespace Model.FrontendModel
         private string endTime;
         private double sumCena;
         private bool state;
-        private EmployeeFront employee;
-        public BindingList<ServiceFront> ServiceList { get; private set; }
+        public BindingList<AppointmentItemFront> SIA { get;  set; }
+        //public BindingList<Tuple<ServiceFront, EmployeeFront>> SIA { get; private set; }
 
-        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state, EmployeeFront employee, BindingList<ServiceFront> serviceList)
+        public AppointmentFront() { }
+
+        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state)
         {
             this.appointmentId = appointmentId;
             this.customer = customer;
@@ -29,11 +31,7 @@ namespace Model.FrontendModel
             this.endTime = endTime;
             this.sumCena = sumCena;
             this.state = state;
-            ServiceList = serviceList;
-            this.employee = employee;
         }
-
-
 
         public int AppointmentId
         {
@@ -119,19 +117,7 @@ namespace Model.FrontendModel
                 }
             }
         }
-        public EmployeeFront Employee
-        {
-            get { return employee; }
-            set
-            {
-                if (employee != value)
-                {
-                    employee = value;
-                    RaisePropertyChanged("Employee");
-                }
-            }
-        }
-        
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void RaisePropertyChanged(string property)
@@ -151,24 +137,12 @@ namespace Model.FrontendModel
                    startTime == front.startTime &&
                    endTime == front.endTime &&
                    sumCena == front.sumCena &&
-                   state == front.state &&
-                   EqualityComparer<EmployeeFront>.Default.Equals(employee, front.employee) &&
-                   EqualityComparer<BindingList<ServiceFront>>.Default.Equals(ServiceList, front.ServiceList);
+                   state == front.state;
         }
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
-            hash.Add(appointmentId);
-            hash.Add(customer);
-            hash.Add(appointmentDate);
-            hash.Add(startTime);
-            hash.Add(endTime);
-            hash.Add(sumCena);
-            hash.Add(state);
-            hash.Add(employee);
-            hash.Add(ServiceList);
-            return hash.ToHashCode();
+            return HashCode.Combine(appointmentId, customer, appointmentDate, startTime, endTime, sumCena, state);
         }
     }
 }
