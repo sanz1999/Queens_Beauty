@@ -20,9 +20,13 @@ namespace Model.FrontendModel
         public BindingList<AppointmentItemFront> SIA { get;  set; }
         //public BindingList<Tuple<ServiceFront, EmployeeFront>> SIA { get; private set; }
 
-        public AppointmentFront() { }
+        public AppointmentFront() {
+            this.SIA = new BindingList<AppointmentItemFront>();
 
-        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state)
+
+        }
+
+        public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state,BindingList<AppointmentItemFront> lista)
         {
             this.appointmentId = appointmentId;
             this.customer = customer;
@@ -31,6 +35,8 @@ namespace Model.FrontendModel
             this.endTime = endTime;
             this.sumCena = sumCena;
             this.state = state;
+            this.SIA = lista;
+            
         }
 
         public int AppointmentId

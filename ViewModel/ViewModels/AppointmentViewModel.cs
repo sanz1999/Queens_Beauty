@@ -1,4 +1,5 @@
-﻿using Model.FrontendModel;
+﻿using Common.Methods.CRUD;
+using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace ViewModel.ViewModels
         private AppointmentFilterViewModel appointmentFilterViewModel = new AppointmentFilterViewModel();
         private AppointmentInfoViewModel appointmentInfoViewModel = new AppointmentInfoViewModel();
         private AppointmentBindableBase currentAppointmentViewModel;
+        private AppointmentCRUD appointmentCRUD = new AppointmentCRUD();
 
         private AppointmentFront selectedItem;
         private bool canAlter = false;
@@ -27,12 +29,20 @@ namespace ViewModel.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
 
+        public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
+
         public static BindingList<AppointmentFront> Appointments { get; private set; }
         public AppointmentViewModel()
         {
             Appointments = new BindingList<AppointmentFront>();
 
             appointmentInfoViewModel.ServiceList = new BindingList<ServiceFront>();
+
+            proxy = appointmentCRUD.LoadFromDataBase();
+
+            foreach (AppointmentFront x in proxy) {
+                Appointments.Add(x);
+            }
 
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);

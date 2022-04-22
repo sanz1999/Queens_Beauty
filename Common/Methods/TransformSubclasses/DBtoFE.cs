@@ -3,6 +3,7 @@ using Model.DBModel;
 using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,23 +69,20 @@ namespace Common.Methods.TransformSubclasses
             app.EndTime = TimeOnly.FromDateTime(utapp.dateTime).ToString(); // Izracunati nekako
             app.SumCena = utapp.price;
             app.State = (utapp.state == 1) ? true:false ;
-            app.SIA = (System.ComponentModel.BindingList<AppointmentItemFront>)AppointmentItem(ursia);
+            app.SIA = AppointmentItems(ursia);
             return app;
         }
 
-        public  AppointmentItemFront AppointmentItem(Tuple<int,int> dba) {
-            AppointmentItemFront aitem = new AppointmentItemFront();
-            aitem.Service = Service(serviceService.FindById(dba.Item1));
-            aitem.Employee = Employee(workerService.FindById(dba.Item2));
-            return aitem;
+  
 
-        }
-
-        public  IEnumerable<AppointmentItemFront> AppointmentItem(IEnumerable<Tuple<int, int>> dba)
+        public  BindingList<AppointmentItemFront> AppointmentItems(List<Tuple<int, int>> dba)
         {
-             List<AppointmentItemFront> aitem = new List<AppointmentItemFront>();
-            foreach (Tuple<int, int> d in dba) { 
-                aitem.Add(AppointmentItem(d));
+             BindingList<AppointmentItemFront> aitem = new BindingList<AppointmentItemFront>();
+            foreach (Tuple<int, int> d in dba) {
+                AppointmentItemFront aitemx = new AppointmentItemFront();
+                aitemx.Service = Service(serviceService.FindById(d.Item1));
+                aitemx.Employee = Employee(workerService.FindById(d.Item2));
+                aitem.Add(aitemx);
             }
             return aitem;
         }
