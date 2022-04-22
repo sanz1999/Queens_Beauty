@@ -16,7 +16,18 @@
             <TextBlock Grid.Column="0"
                        Text="Name:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding NameVM}"/>
+                     Text="{Binding NameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="Cannot leave name empty!"
+                       Foreground="Red"
+                       Visibility="{Binding IsNameErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,7 +38,18 @@
                        Text="Category:" />
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding Categories}"
-                      SelectedItem="{Binding CategoryVM}"/>
+                      SelectedItem="{Binding CategoryVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="Cannot leave category empty!"
+                       Foreground="Red"
+                       Visibility="{Binding IsCategoryErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,7 +59,18 @@
             <TextBlock Grid.Column="0"
                        Text="Duration (in minutes):" />
             <TextBox Grid.Column="1"
-                     Text="{Binding DurationVM}" />
+                     Text="{Binding DurationVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding DurationErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsDurationErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -47,7 +80,18 @@
             <TextBlock Grid.Column="0"
                        Text="Price:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding PriceVM}" />
+                     Text="{Binding PriceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding PriceErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsPriceErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -57,7 +101,18 @@
             <TextBlock Grid.Column="0"
                        Text="Points cost:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding PointsPriceVM}" />
+                     Text="{Binding PointsPriceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding PointsPriceErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsPointsPriceErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -67,7 +122,18 @@
             <TextBlock Grid.Column="0"
                        Text="Points reward:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding PointsValueVM}" />
+                     Text="{Binding PointsValueVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding PointsRewardErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsPointsRewardErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
     </StackPanel>
 </UserControl>

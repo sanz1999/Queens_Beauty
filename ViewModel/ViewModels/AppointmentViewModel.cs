@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModel.ViewModels.AppointmentViewModels;
+using ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels;
 
 namespace ViewModel.ViewModels
 {
@@ -54,6 +55,10 @@ namespace ViewModel.ViewModels
 
                 SelectedItem = null;
 
+                appointmentAddViewModel.IsAddServiceVisible = "Visible";
+                appointmentAddViewModel.IsSelectCustomerVisible = "Visible";
+                appointmentAddViewModel.CurrentAppointmentAddViewModel = new AppointmentAddDisplayViewModel();
+
                 OnNav("filter");
             }
             else if(CurrentAppointmentViewModel == appointmentFilterViewModel)
@@ -91,8 +96,12 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
 
+
+                appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
+
         //        appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
         //        appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
+
 
                 appointmentAddViewModel.AddedServices.Clear();
         //        foreach(ServiceFront service in SelectedItem.ServiceList)

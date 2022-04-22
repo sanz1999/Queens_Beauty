@@ -77,6 +77,7 @@ namespace ViewModel.ViewModels
                 SelectedItem = null;
 
                 OnNav("filter");
+                ValidationReset();
             }
             else if(CurrentServiceViewModel == serviceFilterViewModel)
             {
@@ -92,6 +93,16 @@ namespace ViewModel.ViewModels
 
                 OnNav("filter");
             }
+        }
+
+        private void ValidationReset()
+        {
+            serviceAddViewModel.IsNameErrorVisible = "Hidden";
+            serviceAddViewModel.IsCategoryErrorVisible = "Hidden";
+            serviceAddViewModel.IsDurationErrorVisible = "Hidden";
+            serviceAddViewModel.IsPriceErrorVisible = "Hidden";
+            serviceAddViewModel.IsPointsPriceErrorVisible = "Hidden";
+            serviceAddViewModel.IsPointsRewardErrorVisible = "Hidden";
         }
 
         private void OnDelete()

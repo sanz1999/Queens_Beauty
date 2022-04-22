@@ -12,6 +12,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private string firstNameVM;
         private string lastNameVM;
         private string phoneNumberVM;
+        private string dateOfBirthVM;
         private string emailVM;
         //private string genderVM;
         //private int pointsVM;
@@ -29,6 +30,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             FirstNameVM = "";
             LastNameVM = "";
             PhoneNumberVM = "";
+            DateOfBirthVM = "";
             EmailVM = "";
             LoyaltyCardIdVM = "";
             IsMaleCheckedVM = false;
@@ -72,7 +74,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 }
             }
         }
-
+        public string DateOfBirthVM
+        {
+            get { return dateOfBirthVM; }
+            set
+            {
+                if (dateOfBirthVM != value)
+                {
+                    dateOfBirthVM = value;
+                    OnPropertyChanged("DateOfBirthVM");
+                }
+            }
+        }
         public string EmailVM
         {
             get { return emailVM; }
