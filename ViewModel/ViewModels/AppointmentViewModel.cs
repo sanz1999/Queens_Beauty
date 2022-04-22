@@ -92,8 +92,9 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
-
-            Appointments.Remove(SelectedItem);
+            AppointmentFront appointmentToRemove = SelectedItem;
+            appointmentCRUD.DeleteFromDataBase(appointmentToRemove);
+            Appointments.Remove(appointmentToRemove);
             CanAlter = false;
             CanDelete = false;
             OnNav("filter");
@@ -130,11 +131,15 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.StateVM = SelectedItem.State;
             }
             else
-            {
+            {   //update treba da se zavrsi
+
+                AppointmentFront selectedOne = SelectedItem;
                 AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
                 int index = Appointments.IndexOf(SelectedItem);
+                appointmentCRUD.UpdateInDataBase(newOne);
                 Appointments.RemoveAt(index);
                 Appointments.Insert(index, newOne);
+
 
                 CanAlter = false;
                 CanDelete = false;
@@ -185,7 +190,9 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        Appointments.Add(appointmentAddViewModel.GetAppointment());
+                        AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
+                        appointmentCRUD.AddToDataBase(newAppointment);
+                        Appointments.Add(appointmentCRUD.FindLastAdded());
                         OnNav("filter");
 
                         CanAlter = false;
