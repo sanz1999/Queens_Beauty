@@ -20,9 +20,9 @@ namespace Common.Methods.CRUD
             BindingList<AppointmentFront> newlist = new BindingList<AppointmentFront>();
             List<DBAppointment> dBAppointments = (List<DBAppointment>)appointmentService.FindAll();
             foreach (DBAppointment app in dBAppointments) { 
-                List<DBSIA> dBSIAs = new List<DBSIA>();
+                List<Tuple<int,int>> dBSIAs = new List<Tuple<int, int>>();
                 dBSIAs.Clear();
-                dBSIAs = (List<DBSIA>)sIAService.GetAllServicesForId(app.appointmentId);
+                dBSIAs = (List<Tuple<int, int>>)sIAService.GetAllServicesForId(app.appointmentId);
                 newlist.Add(transform.DBToFE.Appointment(app, dBSIAs));
             }
 

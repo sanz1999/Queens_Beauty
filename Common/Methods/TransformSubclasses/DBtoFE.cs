@@ -59,7 +59,7 @@ namespace Common.Methods.TransformSubclasses
                                         );
         }
 
-        public  AppointmentFront Appointment(DBAppointment utapp, List<DBSIA> ursia) {
+        public  AppointmentFront Appointment(DBAppointment utapp, List<Tuple<int, int>> ursia) {
             AppointmentFront app = new AppointmentFront();
             app.AppointmentId = utapp.appointmentId;
             app.Customer =  Customer(customerService.FindById(utapp.customerId)); //find customer
@@ -72,18 +72,18 @@ namespace Common.Methods.TransformSubclasses
             return app;
         }
 
-        public  AppointmentItemFront AppointmentItem(DBSIA dba) {
+        public  AppointmentItemFront AppointmentItem(Tuple<int,int> dba) {
             AppointmentItemFront aitem = new AppointmentItemFront();
-            aitem.Service = Service(serviceService.FindById(dba.id.Item2));
-            aitem.Employee = Employee(workerService.FindById(dba.workerId));
+            aitem.Service = Service(serviceService.FindById(dba.Item1));
+            aitem.Employee = Employee(workerService.FindById(dba.Item2));
             return aitem;
 
         }
 
-        public  IEnumerable<AppointmentItemFront> AppointmentItem(IEnumerable<DBSIA> dba)
+        public  IEnumerable<AppointmentItemFront> AppointmentItem(IEnumerable<Tuple<int, int>> dba)
         {
              List<AppointmentItemFront> aitem = new List<AppointmentItemFront>();
-            foreach (DBSIA d in dba) { 
+            foreach (Tuple<int, int> d in dba) { 
                 aitem.Add(AppointmentItem(d));
             }
             return aitem;
