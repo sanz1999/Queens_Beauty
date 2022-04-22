@@ -22,6 +22,8 @@ namespace Common.Methods.CRUD
             foreach (DBAppointment app in dBAppointments) { 
                 List<DBSIA> dBSIAs = new List<DBSIA>();
                 dBSIAs.Clear();
+                dBSIAs = (List<DBSIA>)sIAService.GetAllServicesForId(app.appointmentId);
+                newlist.Add(transform.DBToFE.Appointment(app, dBSIAs));
             }
 
             return newlist;
@@ -30,15 +32,19 @@ namespace Common.Methods.CRUD
         public void AddToDataBase(AppointmentFront appointment) { 
         }
 
-        public AppointmentFront FindLastAdded() {
+        public AppointmentFront FindLastAdded() {       // ovo treba implementirati
             AppointmentFront last = new AppointmentFront();
-            return last;
+                return last;
         }
 
-        public void DeleteFromDataBase(AppointmentFront appointment) { 
+        public void DeleteFromDataBase(AppointmentFront appointment) {
+         //   appointmentService.Delete(transformm.FEToDB.Appointment(appointment));
         }
 
         public void UpdateInDataBase(AppointmentFront appointment) { 
         }
     }
 }
+
+// ubaciti appointment pa onda sve sia u bazu, ali zato kad se brise samo se brise 
+//appointment a stefan ce sve ostalo

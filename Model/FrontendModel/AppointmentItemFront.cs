@@ -12,6 +12,10 @@ namespace Model.FrontendModel
         private ServiceFront service = new ServiceFront();
         private EmployeeFront employee = new EmployeeFront();
 
+        public AppointmentItemFront()
+        {
+        }
+
         public AppointmentItemFront(ServiceFront service, EmployeeFront employee)
         {
             this.Service = service;

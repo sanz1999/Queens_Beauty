@@ -1,0 +1,15 @@
+﻿Things to do : 
+
+	1: Language Pack  ---   PRIORITY 3
+
+	2: Death Switch		--- PRIORITY 2 
+
+	3: Log Tracer	---PRIORITY 1
+
+	4: DataBase Backup  --- PRIORITY 1
+
+	5: Birthday Announcer   ---- PRIORITY 1 
+
+	6: Print forme		---  PRIORITY 2
+
+	7: Version Control    --- PRIORITY 3 

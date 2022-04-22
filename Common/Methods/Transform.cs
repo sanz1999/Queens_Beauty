@@ -7,9 +7,9 @@ using Common.Methods.TransformSubclasses;
 
 namespace Common.Methods
 {
-    public class Transform
-    {
-        public DBtoFE DBToFE= new DBtoFE();
-        public FEtoDB FEToDB = new FEtoDB();
+    public  class Transform
+    { 
+        public  DBtoFE DBToFE= new DBtoFE();
+        public  FEtoDB FEToDB = new FEtoDB();
     }
 }

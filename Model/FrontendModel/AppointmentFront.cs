@@ -17,8 +17,8 @@ namespace Model.FrontendModel
         private string endTime;
         private double sumCena;
         private bool state;
-        public BindingList<AppointmentItemFront> SIA { get; private set; }
-       //public BindingList<Tuple<ServiceFront, EmployeeFront>> SIA { get; private set; }
+        public BindingList<AppointmentItemFront> SIA { get;  set; }
+        //public BindingList<Tuple<ServiceFront, EmployeeFront>> SIA { get; private set; }
 
         public AppointmentFront() { }
 
