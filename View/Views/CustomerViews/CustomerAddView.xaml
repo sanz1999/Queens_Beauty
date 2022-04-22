@@ -66,9 +66,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="1"
-                       Text="Cannot have letters in phone number!"
+                       Text="{Binding PhoneNumberErrorText}"
                        Foreground="Red"
-                       Visibility="{Binding IsFirstNameErrorVisible}"
+                       Visibility="{Binding IsPhoneNumberErrorVisible}"
                        Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
@@ -86,10 +86,32 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="Date not in proper format!"
+                       Foreground="Red"
+                       Visibility="{Binding IsBirthdayErrorVisible}"
+                       Grid.ColumnSpan="2" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Email:" />
             <TextBox Grid.Column="1"
                      Text="{Binding EmailVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding EmailErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsEmailErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -123,10 +145,30 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text=""
+                       Grid.ColumnSpan="2" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Loyalty Card ID:" />
             <TextBox Grid.Column="1"
                      Text="{Binding LoyaltyCardIdVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding LoyaltyCardIdErrorText}"
+                       Foreground="Red"
+                       Visibility="{Binding IsLoyaltyCardIdErrorVisible}"
+                       Grid.ColumnSpan="2" />
         </Grid>
     </StackPanel>
 </UserControl>

@@ -66,6 +66,7 @@ namespace ViewModel.ViewModels
                 SelectedItem = null;
 
                 OnNav("filter");
+                ValidationReset();
             }
             else if(CurrentCustomerViewModel == customerFilterViewModel)
             {
@@ -81,6 +82,16 @@ namespace ViewModel.ViewModels
 
                 OnNav("filter");
             }
+        }
+
+        private void ValidationReset()
+        {
+            customerAddViewModel.IsFirstNameErrorVisible = "Hidden";
+            customerAddViewModel.IsLastNameErrorVisible = "Hidden";
+            customerAddViewModel.IsPhoneNumberErrorVisible = "Hidden";
+            customerAddViewModel.IsBirthdayErrorVisible = "Hidden";
+            customerAddViewModel.IsEmailErrorVisible = "Hidden";
+            customerAddViewModel.IsLoyaltyCardIdErrorVisible = "Hidden";
         }
 
         private void OnDelete()
@@ -160,6 +171,7 @@ namespace ViewModel.ViewModels
             customerInfoViewModel.FirstNameVM = SelectedItem.FirstName;
             customerInfoViewModel.LastNameVM = SelectedItem.LastName;
             customerInfoViewModel.PhoneNumberVM = SelectedItem.PhoneNumber;
+            customerInfoViewModel.DateOfBirthVM = SelectedItem.DateOfBirth;
             customerInfoViewModel.EmailVM = SelectedItem.Email;
             customerInfoViewModel.LoyaltyCardIdVM = SelectedItem.LoyaltyCardId;
 

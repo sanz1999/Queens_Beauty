@@ -30,6 +30,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             FirstNameVM = "";
             LastNameVM = "";
             PhoneNumberVM = "";
+            DateOfBirthVM = "";
             EmailVM = "";
             LoyaltyCardIdVM = "";
             IsMaleCheckedVM = false;

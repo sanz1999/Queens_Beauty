@@ -9,68 +9,38 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 {
     public class AppointmentFilterViewModel : AppointmentBindableBase
     {
-        private string appointmentDateVM;
-
-        private bool isDayVM;
-        private bool isWeekVM;
-        private bool isMonthVM;
+        private string startDate;
+        private string endDate;
         public AppointmentFilterViewModel()
         {
         }
 
         public void ClearInput()
         {
-            AppointmentDateVM = "";
-            IsDayVM = false;
-            IsWeekVM = false;
-            IsMonthVM = false;
+            StartDate = "";
+            EndDate = "";
         }
-
-        public string AppointmentDateVM
+        public string StartDate
         {
-            get { return appointmentDateVM; }
+            get { return startDate; }
             set
             {
-                if (appointmentDateVM != value)
+                if (startDate != value)
                 {
-                    appointmentDateVM = value;
-                    OnPropertyChanged("AppointmentDateVM");
+                    startDate = value;
+                    OnPropertyChanged("StartDate");
                 }
             }
         }
-        public bool IsDayVM
+        public string EndDate
         {
-            get { return isDayVM; }
+            get { return endDate; }
             set
             {
-                if (isDayVM != value)
+                if (endDate != value)
                 {
-                    isDayVM = value;
-                    OnPropertyChanged("IsDayVM");
-                }
-            }
-        }
-        public bool IsWeekVM
-        {
-            get { return isWeekVM; }
-            set
-            {
-                if (isWeekVM != value)
-                {
-                    isWeekVM = value;
-                    OnPropertyChanged("IsWeekVM");
-                }
-            }
-        }
-        public bool IsMonthVM
-        {
-            get { return isMonthVM; }
-            set
-            {
-                if (isMonthVM != value)
-                {
-                    isMonthVM = value;
-                    OnPropertyChanged("IsMonthVM");
+                    endDate = value;
+                    OnPropertyChanged("EndDate");
                 }
             }
         }

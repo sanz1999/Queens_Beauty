@@ -89,10 +89,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Customer First Name"
+                    <DataGridTextColumn Header="First Name"
                                         Width="*"
                                         Binding="{Binding Customer.FirstName}" />
-                    <DataGridTextColumn Header="Customer Last Name"
+                    <DataGridTextColumn Header="Last Name"
                                         Width="*"
                                         Binding="{Binding Customer.LastName}" />
                     <DataGridTextColumn Header="Date"
@@ -121,6 +121,8 @@
                                         <DataGridTextColumn Header="Price"
                                                             Width="0.5*"
                                                             Binding="{Binding Price}"/>
+                                        <DataGridTextColumn Header="Employee"
+                                                            Width="*" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
@@ -129,9 +131,6 @@
                     <DataGridTextColumn Header="Full price"
                                         Width="*"
                                         Binding="{Binding SumCena}"/>
-                    <DataGridTextColumn Header="Employee"
-                                        Width="*"
-                                        Binding="{Binding Employee.Name}"/>
                     <DataGridTextColumn Header="State"
                                         Width="*"
                                         Binding="{Binding State}"/>
