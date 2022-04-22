@@ -29,22 +29,39 @@ namespace Common.Methods.CRUD
             return newlist;
         }
 
-        public void AddToDataBase(AppointmentFront appointment) { 
+        public void AddToDataBase(AppointmentFront appointment) {
+            DBAppointment dBAppointment = transform.FEToDB.Appointment(appointment);
+            dBAppointment.appointmentId = 0;
+            appointmentService.Save(dBAppointment);
+            foreach (AppointmentItemFront x in appointment.SIA) {
+                sIAService.Save(transform.FEToDB.AppointmentItem(new Tuple<int,AppointmentItemFront>(appointment.AppointmentId, x)));
+            }
         }
 
-        public AppointmentFront FindLastAdded() {       // ovo treba implementirati
-            AppointmentFront last = new AppointmentFront();
-                return last;
+        public AppointmentFront FindLastAdded() {
+            List<DBAppointment> bAppointments = new List<DBAppointment>();
+            bAppointments = (List<DBAppointment>)appointmentService.FindAll();
+            List<Tuple<int, int>> dBSIAs = new List<Tuple<int, int>>();
+            dBSIAs = (List<Tuple<int, int>>)sIAService.GetAllServicesForId(bAppointments.Last().appointmentId);
+
+            return transform.DBToFE.Appointment(bAppointments.Last(),dBSIAs);
         }
 
         public void DeleteFromDataBase(AppointmentFront appointment) {
-         //   appointmentService.Delete(transformm.FEToDB.Appointment(appointment));
+            appointmentService.Delete(transform.FEToDB.Appointment(appointment));
         }
 
-        public void UpdateInDataBase(AppointmentFront appointment) { 
+        public void UpdateInDataBase(AppointmentFront appointment) {
+            DBAppointment dBAppointment = transform.FEToDB.Appointment(appointment);
+
+            sIAService.DeleteAllByAppointmentId(appointment.AppointmentId);
+
+            appointmentService.Save(dBAppointment);
+            foreach (AppointmentItemFront x in appointment.SIA)
+            {
+                sIAService.Save(transform.FEToDB.AppointmentItem(new Tuple<int, AppointmentItemFront>(appointment.AppointmentId, x)));
+            }
         }
     }
 }
 
-// ubaciti appointment pa onda sve sia u bazu, ali zato kad se brise samo se brise 
-//appointment a stefan ce sve ostalo
