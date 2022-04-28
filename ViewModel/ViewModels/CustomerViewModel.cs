@@ -33,8 +33,6 @@ namespace ViewModel.ViewModels
 
         private Validation validation = new Validation();
 
-
-
         public CustomerViewModel()
         {
             proxy = commonCustomer.LoadFromDataBase();
@@ -136,7 +134,7 @@ namespace ViewModel.ViewModels
                         break;
                 }
             }
-            else
+            else if(CheckValidation())
             {
                 CustomerFront selectedOne = SelectedItem;
                 CustomerFront newOne = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
@@ -206,7 +204,7 @@ namespace ViewModel.ViewModels
                             break;
                         SelectedItem = null;
                     }
-                    else
+                    else if(CheckValidation())
                     {
                         commonCustomer.AddToDataBase(customerAddViewModel.GetCustomer());
 
@@ -230,6 +228,26 @@ namespace ViewModel.ViewModels
                     break;
             }
         }
+
+        private bool CheckValidation()
+        {
+            if (customerAddViewModel.FirstNameVM == null ||
+                customerAddViewModel.LastNameVM == null ||
+                customerAddViewModel.PhoneNumberVM == null ||
+                customerAddViewModel.LoyaltyCardIdVM == null ||
+                customerAddViewModel.DateOfBirthVM == null ||
+                customerAddViewModel.EmailVM == null)
+                return false;
+            else if (!customerAddViewModel.IsFirstNameErrorVisible.Equals("Hidden") ||
+                !customerAddViewModel.IsLastNameErrorVisible.Equals("Hidden") ||
+                !customerAddViewModel.IsPhoneNumberErrorVisible.Equals("Hidden") ||
+                !customerAddViewModel.IsBirthdayErrorVisible.Equals("Hidden") ||
+                !customerAddViewModel.IsEmailErrorVisible.Equals("Hidden") ||
+                !customerAddViewModel.IsLoyaltyCardIdErrorVisible.Equals("Hidden"))
+                return false;
+            return true;
+        }
+
         public CustomerBindableBase CurrentCustomerViewModel
         {
             get { return currentCustomerViewModel; }
@@ -263,7 +281,6 @@ namespace ViewModel.ViewModels
                 }
             }
         }
-
 
         public CustomerFront SelectedItem
         {

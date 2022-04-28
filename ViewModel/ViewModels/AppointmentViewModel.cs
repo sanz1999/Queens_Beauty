@@ -31,17 +31,19 @@ namespace ViewModel.ViewModels
 
         public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
 
-        public static BindingList<AppointmentFront> Appointments { get; private set; }
         public AppointmentViewModel()
         {
-            Appointments = new BindingList<AppointmentFront>();
-
-            appointmentInfoViewModel.ServiceList = new BindingList<ServiceFront>();
+            appointmentInfoViewModel.ServiceList = new BindingList<AppointmentItemFront>();
 
             proxy = appointmentCRUD.LoadFromDataBase();
 
-            foreach (AppointmentFront x in proxy) {
-                Appointments.Add(x);
+            foreach(AppointmentFront appointment in proxy)
+            {
+                Appointments.Add(appointment);
+            }
+            foreach(AppointmentFront appointment in Appointments)
+            {
+                AppointmentsSearch.Add(appointment);
             }
 
             NavCommand = new MyICommand<string>(OnNav);
@@ -49,7 +51,6 @@ namespace ViewModel.ViewModels
             AlterCommand = new MyICommand(OnAlter);
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
-
 
             CurrentAppointmentViewModel = appointmentFilterViewModel;
         }
@@ -136,10 +137,12 @@ namespace ViewModel.ViewModels
                 AppointmentFront selectedOne = SelectedItem;
                 AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
                 int index = Appointments.IndexOf(SelectedItem);
+                int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
                 appointmentCRUD.UpdateInDataBase(newOne);
                 Appointments.RemoveAt(index);
                 Appointments.Insert(index, newOne);
-
+                AppointmentsSearch.RemoveAt(indexSearch);
+                AppointmentsSearch.Insert(indexSearch, newOne);
 
                 CanAlter = false;
                 CanDelete = false;
@@ -193,6 +196,7 @@ namespace ViewModel.ViewModels
                         AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
                         appointmentCRUD.AddToDataBase(newAppointment);
                         Appointments.Add(appointmentCRUD.FindLastAdded());
+                        AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
                         OnNav("filter");
 
                         CanAlter = false;

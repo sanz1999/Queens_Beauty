@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.FrontendModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private string endDate;
         public AppointmentFilterViewModel()
         {
+            Appointments = new BindingList<AppointmentFront>();
+            AppointmentsSearch = new BindingList<AppointmentFront>();
         }
 
         public void ClearInput()

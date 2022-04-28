@@ -17,9 +17,9 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private bool stateVM;
         private string sumCenaVM;
 
-        public BindingList<ServiceFront> ServiceList { get; set; }
+        public BindingList<AppointmentItemFront> ServiceList { get; set; }
 
-        private ServiceFront selectedService;
+        private AppointmentItemFront selectedService;
 
         public AppointmentInfoViewModel()
         {
@@ -109,7 +109,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
-        public ServiceFront SelectedService
+        public AppointmentItemFront SelectedService
         {
             get { return selectedService; }
             set

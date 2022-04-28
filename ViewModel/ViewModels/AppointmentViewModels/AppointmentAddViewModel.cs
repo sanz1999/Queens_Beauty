@@ -210,6 +210,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             //     
             //    }
             AppointmentFront appointmentToAdd = new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, new BindingList<AppointmentItemFront>());
+            appointmentToAdd.SIA.Add(new AppointmentItemFront(new ServiceFront(99, "Ime", "Kat", 60, 100, 10, 10), new EmployeeFront(99, "Gas")));
             ClearInput();
 
             return appointmentToAdd;

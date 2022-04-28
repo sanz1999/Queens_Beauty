@@ -81,7 +81,7 @@
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
-                      ItemsSource="{Binding Appointments}"
+                      ItemsSource="{Binding AppointmentsSearch}"
                       SelectedItem="{Binding SelectedItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -113,15 +113,16 @@
                                           AutoGenerateColumns="False"
                                           CanUserResizeColumns="False"
                                           CanUserReorderColumns="False"
-                                          ItemsSource="{Binding ServiceList}">
+                                          ItemsSource="{Binding SIA}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Name" 
                                                             Width="*"
-                                                            Binding="{Binding Name}"/>
+                                                            Binding="{Binding Service.Name}"/>
                                         <DataGridTextColumn Header="Price"
                                                             Width="0.5*"
-                                                            Binding="{Binding Price}"/>
+                                                            Binding="{Binding Service.Price}"/>
                                         <DataGridTextColumn Header="Employee"
+                                                            Binding="{Binding Employee.Name}"
                                                             Width="*" />
                                     </DataGrid.Columns>
                                 </DataGrid>
