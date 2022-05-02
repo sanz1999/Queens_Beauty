@@ -32,7 +32,8 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             StartTimeVM = "";
             EndTimeVM = "";
             StateVM = false;
-            SIAList.Clear();
+            if(SIAList != null)
+                SIAList.Clear();
         }
 
         public CustomerFront CustomerVM

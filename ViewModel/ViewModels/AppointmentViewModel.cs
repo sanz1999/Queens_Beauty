@@ -112,15 +112,9 @@ namespace ViewModel.ViewModels
 
                 appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
 
-        //        appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
-        //        appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
 
 
                 appointmentAddViewModel.AddedSIA.Clear();
-        //        foreach(ServiceFront service in SelectedItem.ServiceList)
-        //        {
-       //             appointmentAddViewModel.AddedServices.Add(service);
-        //        }
 
                 appointmentAddViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
 
@@ -131,6 +125,11 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.EndTimeMinute = SelectedItem.EndTime.Substring(3, 2);
 
                 appointmentAddViewModel.StateVM = SelectedItem.State;
+
+                foreach(AppointmentItemFront sia in SelectedItem.SIA)
+                {
+                    appointmentAddViewModel.AddedSIA.Add(sia);
+                }
             }
             else
             {   //update treba da se zavrsi
