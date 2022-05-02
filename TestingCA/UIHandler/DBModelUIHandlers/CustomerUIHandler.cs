@@ -23,6 +23,7 @@ namespace TestingCA.UIHandler
                 Console.WriteLine("\nZa povratak na main menu uneti x\nOpcije:");
                 Console.WriteLine("1. CRUD TestMenu");
                 Console.WriteLine("2. Logicko brisanje iz baze");
+                Console.WriteLine("3. Ispis ne izbrisanih clanova");
 
                 answer = Console.ReadLine();
 
@@ -44,7 +45,7 @@ namespace TestingCA.UIHandler
                     case "3":
                         Console.WriteLine();
                         //customerService.FindAll();
-                        Console.WriteLine(DBCustomer.GetHeaderWithoutEx());
+                        Console.WriteLine(DBCustomer.GetHeader());
                         foreach (DBCustomer musterija in customerService.FindAllExisting())
                         {
                             Console.WriteLine(musterija);

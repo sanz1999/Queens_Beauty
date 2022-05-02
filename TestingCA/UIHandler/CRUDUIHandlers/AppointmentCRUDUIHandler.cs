@@ -98,6 +98,11 @@ namespace TestingCA.UIHandler
                         datum = DateTime.Now;
 
                         DBAppointment updateModel = appointmentService.FindById(n);
+                        if(updateModel == null)
+                        {
+                            Console.WriteLine("Nema termina sa datim id-jem da bude update-ovan");
+                            break;
+                        }
                         updateModel.dateTime = datum;
                         updateModel.price += 1.1;
                         if (appointmentService.Save(updateModel) == 1)

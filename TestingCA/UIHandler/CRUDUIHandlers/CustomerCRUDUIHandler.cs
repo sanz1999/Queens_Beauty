@@ -14,7 +14,7 @@ namespace TestingCA.UIHandler
         public void MenuHandler()
         {
             string answer;
-            int n;
+            int n, loyal;
             DateTime dt;
 
             do
@@ -49,7 +49,12 @@ namespace TestingCA.UIHandler
                         for (int i = 0; i < n; i++)
                         {
                             dt = DateTime.Now;
-                            DBCustomer u = new DBCustomer("TestIme", "TestPrezime", dt, "TestFon", "TestMail", "T", 123, customerService.Count());
+                            loyal = customerService.Count();
+                            while (customerService.ExistsByLoyaltyNumber(loyal))
+                            {
+                                loyal++;
+                            }
+                            DBCustomer u = new DBCustomer("TestIme", "TestPrezime", dt, "TestFon", "TestMail", "T", 123, 0);
                             if (customerService.Save(u) == 1)
                                 Console.WriteLine("dodavanje uspesno");
                         }

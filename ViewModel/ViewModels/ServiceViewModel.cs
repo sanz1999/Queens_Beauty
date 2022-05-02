@@ -77,6 +77,7 @@ namespace ViewModel.ViewModels
                 SelectedItem = null;
 
                 OnNav("filter");
+                ValidationReset();
             }
             else if(CurrentServiceViewModel == serviceFilterViewModel)
             {
@@ -92,6 +93,16 @@ namespace ViewModel.ViewModels
 
                 OnNav("filter");
             }
+        }
+
+        private void ValidationReset()
+        {
+            serviceAddViewModel.IsNameErrorVisible = "Hidden";
+            serviceAddViewModel.IsCategoryErrorVisible = "Hidden";
+            serviceAddViewModel.IsDurationErrorVisible = "Hidden";
+            serviceAddViewModel.IsPriceErrorVisible = "Hidden";
+            serviceAddViewModel.IsPointsPriceErrorVisible = "Hidden";
+            serviceAddViewModel.IsPointsRewardErrorVisible = "Hidden";
         }
 
         private void OnDelete()
@@ -123,7 +134,7 @@ namespace ViewModel.ViewModels
                 serviceAddViewModel.PointsPriceVM = SelectedItem.PointsPrice.ToString();
                 serviceAddViewModel.PointsValueVM = SelectedItem.PointsValue.ToString();
             }
-            else
+            else if(CheckValidation())
             {
 
                 ServiceFront selectedOne = SelectedItem;
@@ -145,6 +156,7 @@ namespace ViewModel.ViewModels
                 CurrentServiceViewModel = serviceFilterViewModel;
             }
         }
+
 
         private void OnSelect()
         {
@@ -177,7 +189,7 @@ namespace ViewModel.ViewModels
                             break;
                         SelectedItem = null;
                     }
-                    else
+                    else if(CheckValidation())
                     {
                         serviceCRUD.AddToDataBase(serviceAddViewModel.GetService());
                         ServicesSearch.Add(serviceCRUD.FindLastAdded());
@@ -199,6 +211,24 @@ namespace ViewModel.ViewModels
                     CurrentServiceViewModel = serviceAddViewModel;
                     break;
             }
+        }
+        private bool CheckValidation()
+        {
+            if (serviceAddViewModel.NameVM == null ||
+                serviceAddViewModel.CategoryVM == null ||
+                serviceAddViewModel.DurationVM == null ||
+                serviceAddViewModel.PointsPriceVM == null ||
+                serviceAddViewModel.PointsValueVM == null ||
+                serviceAddViewModel.PriceVM == null)
+                return false;
+            else if (!serviceAddViewModel.IsNameErrorVisible.Equals("Hidden") ||
+                !serviceAddViewModel.IsCategoryErrorVisible.Equals("Hidden") ||
+                !serviceAddViewModel.IsDurationErrorVisible.Equals("Hidden") ||
+                !serviceAddViewModel.IsPriceErrorVisible.Equals("Hidden") ||
+                !serviceAddViewModel.IsPointsPriceErrorVisible.Equals("Hidden") ||
+                !serviceAddViewModel.IsPointsRewardErrorVisible.Equals("Hidden"))
+                return false;
+            return true;
         }
         public ServiceBindableBase CurrentServiceViewModel
         {

@@ -10,5 +10,6 @@ namespace DatabaseLogic.DAO
     public interface IWorkerDAO : ICRUDDAO<DBWorker, int>
     {
         int DeleteByIdLog(int id);
+        IEnumerable<DBWorker> FindAllExisting();
     }
 }

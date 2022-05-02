@@ -42,24 +42,10 @@ namespace Model.DBModel
                 "W_ID", "W_NAME", "EXISTS");
         }
 
-        public static string GetHeaderWithoutEx()
-        {
-            return string.Format("\n{0, -12} {1, -12}",
-                "W_ID", "W_NAME");
-        }
-
         public override string ToString()
         {
-            if(exists == 1)
-            {
             return string.Format("{0, -12} {1, -12} {2, -12}",
-                id, name, exists);
-            }
-            else
-            {
-                return string.Format("{0, -12} {1, -12}",
-                id, name);
-            }
+                id, name, exists);            
         }
     }
 }

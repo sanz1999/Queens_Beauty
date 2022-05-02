@@ -221,7 +221,7 @@ namespace DatabaseLogic.DAO.Implementation
             string updateSql = "update sia set wid=:wid where aid=:aid and sid=:sid";
             using (IDbCommand command = connection.CreateCommand())
             {
-                command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql.ToString();
+                command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql;
                 if (command.CommandText.Equals(insertSql))
                 {
                     ParameterUtil.AddParameter(command, "aid", DbType.Int32);
@@ -260,6 +260,56 @@ namespace DatabaseLogic.DAO.Implementation
                 transaction.Commit();
 
                 return numSaved;
+            }
+        }
+
+        public IEnumerable<Tuple<int, int>> GetAllServicesForId(int id)
+        {
+            string query = "select * from sia where aid =:aid order by sid";
+            List<Tuple<int,int>> returnList = new List<Tuple<int, int>>();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    ParameterUtil.AddParameter(command, "aid", DbType.Int32);
+
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "aid", id);
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Tuple<int, int> temp = new Tuple<int, int>(reader.GetInt32(1), reader.GetInt32(2));
+                            
+                            returnList.Add(temp);
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
+
+        public int DeleteAllByAppointmentId(int id)
+        {
+            string query = "delete from sia where aid =:aid";
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    ParameterUtil.AddParameter(command, "aid", DbType.Int32);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "aid", id);
+                    return command.ExecuteNonQuery();
+                }
             }
         }
     }

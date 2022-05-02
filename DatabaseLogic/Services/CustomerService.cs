@@ -1,8 +1,10 @@
 ﻿using DatabaseLogic.DAO;
 using DatabaseLogic.DAO.Implementation;
 using Model.DBModel;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +21,40 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return customerDAO.Count();
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.Count();
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise sve iz tabele
         /// </summary>
         /// <returns>Vraca broj izbirsanih Customer-a</returns>
         public int DeleteAll()
         {
-            return customerDAO.DeleteAll();
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.DeleteAll();
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Dodaje objekat tipa Customer u bazu
         /// </summary>
@@ -36,8 +62,33 @@ namespace DatabaseLogic.Services
         /// <returns>1 u slucaju uspesnog dodavanja, 0 ako Save nije uspesan</returns>
         public int Save(DBCustomer entity)
         {
-            return customerDAO.Save(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.Save(entity);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Number == 1)
+                {
+                    try
+                    {
+                        Console.WriteLine("Trying again...");
+                        ret = customerDAO.Save(entity);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Proverava dali Customer sa datim id-jem postoji u bazi
         /// </summary>
@@ -45,8 +96,21 @@ namespace DatabaseLogic.Services
         /// <returns>True ako postoji, false ako ne</returns>
         public bool ExistsById(int id)
         {
-            return customerDAO.ExistsById(id);
+            bool ret = false;
+
+            try
+            {
+                ret = customerDAO.ExistsById(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise prosledjenog Customer-a
         /// </summary>
@@ -54,8 +118,32 @@ namespace DatabaseLogic.Services
         /// <returns>1 ako je brisanje uspesno, 0 ako nije</returns>
         public int Delete(DBCustomer entity)
         {
-            return customerDAO.Delete(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.Delete(entity);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Number == 2292)
+                {
+                    try
+                    {
+                        ret = customerDAO.DeleteByIdLog(entity.id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Brise Customer-a sa prosledjenim id-om
         /// </summary>
@@ -63,16 +151,53 @@ namespace DatabaseLogic.Services
         /// <returns>1 ako je brisanje uspesno, 0 ako nije</returns>
         public int DeleteById(int id)
         {
-            return customerDAO.DeleteById(id);
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.DeleteById(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Number == 2292)
+                {
+                    try
+                    {
+                        ret = customerDAO.DeleteByIdLog(id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Nalazi sve Customer-e u tabeli
         /// </summary>
         /// <returns>Vraca listu Customer-a</returns>
         public IEnumerable<DBCustomer> FindAll()
         {
-            return customerDAO.FindAll();
+            IEnumerable<DBCustomer> ret = new List<DBCustomer>();
+
+            try
+            {
+                ret = customerDAO.FindAll();
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Nalazi sve Customer-e sa prosledjenim Id-evima.
         /// </summary>
@@ -80,8 +205,21 @@ namespace DatabaseLogic.Services
         /// <returns>Vraca listu pronadjenih Customer-a</returns>
         public IEnumerable<DBCustomer> FindAllById(IEnumerable<int> ids)
         {
-            return customerDAO.FindAllById(ids);
+            IEnumerable<DBCustomer> ret = new List<DBCustomer>();
+
+            try
+            {
+                ret = customerDAO.FindAllById(ids);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// Pretrazuje bazu Customer po id-u.
         /// </summary>
@@ -89,8 +227,21 @@ namespace DatabaseLogic.Services
         /// <returns>Objekat tipa Customer</returns>
         public DBCustomer FindById(int id)
         {
-            return customerDAO.FindById(id);
+            DBCustomer ret = null;
+
+            try
+            {
+                ret = customerDAO.FindById(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -98,21 +249,83 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBCustomer> entities)
         {
-            return customerDAO.SaveAll(entities);
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.SaveAll(entities);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
 
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool ExistsByLoyaltyNumber(int id)
         {
-            return customerDAO.ExistsByLoyaltyNumber((int)id);
-        }
-        public int DeleteByIdLog(int id)
-        {
-            return customerDAO.DeleteByIdLog(id);
+            bool ret = false;
+
+            try
+            {
+                ret = customerDAO.ExistsByLoyaltyNumber((int)id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
 
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteByIdLog(int id)
+        {
+            int ret = -1;
+
+            try
+            {
+                ret = customerDAO.DeleteByIdLog(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
+        }
+
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<DBCustomer> FindAllExisting()
         {
-            return customerDAO.FindAllExisting();
+            IEnumerable<DBCustomer> ret = new List<DBCustomer>();
+
+            try
+            {
+                ret = customerDAO.FindAllExisting();
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
     }
 }

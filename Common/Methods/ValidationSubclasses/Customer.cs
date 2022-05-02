@@ -63,15 +63,19 @@ namespace Common.Methods.ValidationSubclasses
                 }
                     
             }
+            if (number.Equals(""))
+                state = false;
 
             return state;
         }
         public int LoyalCard(string lcard) {
             int state = 1;
             int loyaltycard = 0;
+            if (lcard == null)
+                return 1;
             foreach (char c in lcard)
             {
-                if (c < '0' || c > '9')
+              if (c < '0' || c > '9')
                 {
                     state = 0;
                     break;
@@ -96,6 +100,17 @@ namespace Common.Methods.ValidationSubclasses
             }
             return state;
         }
-
+        public bool Birthday(string birthday)
+        {
+            try
+            {
+                DateOnly.Parse(birthday);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
