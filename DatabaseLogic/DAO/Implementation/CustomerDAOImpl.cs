@@ -277,7 +277,7 @@ namespace DatabaseLogic.DAO.Implementation
                 ParameterUtil.AddParameter(command, "cp", DbType.Int32);
                 if(entity.loyaltyNumber != 0)
                     ParameterUtil.AddParameter(command, "cloyal", DbType.Int32);
-                if (command.CommandText.Equals(updateSql))
+                if (command.CommandText.Equals(updateSql.ToString()))
                     ParameterUtil.AddParameter(command, "cid", DbType.Int32);
 
                 command.Prepare();
