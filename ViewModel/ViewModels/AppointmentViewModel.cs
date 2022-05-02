@@ -33,7 +33,7 @@ namespace ViewModel.ViewModels
 
         public AppointmentViewModel()
         {
-            appointmentInfoViewModel.ServiceList = new BindingList<AppointmentItemFront>();
+            appointmentInfoViewModel.SIAList = new BindingList<AppointmentItemFront>();
 
             proxy = appointmentCRUD.LoadFromDataBase();
 
@@ -96,6 +96,7 @@ namespace ViewModel.ViewModels
             AppointmentFront appointmentToRemove = SelectedItem;
             appointmentCRUD.DeleteFromDataBase(appointmentToRemove);
             Appointments.Remove(appointmentToRemove);
+            AppointmentsSearch.Remove(appointmentToRemove);
             CanAlter = false;
             CanDelete = false;
             OnNav("filter");
@@ -115,7 +116,7 @@ namespace ViewModel.ViewModels
         //        appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
 
 
-                appointmentAddViewModel.AddedServices.Clear();
+                appointmentAddViewModel.AddedSIA.Clear();
         //        foreach(ServiceFront service in SelectedItem.ServiceList)
         //        {
        //             appointmentAddViewModel.AddedServices.Add(service);
@@ -169,7 +170,7 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.StateVM = SelectedItem.State;
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
-            appointmentInfoViewModel.ServiceList.Clear();
+            appointmentInfoViewModel.SIAList.Clear();
      //       
      //       foreach(ServiceFront service in SelectedItem.ServiceList)
      //       {

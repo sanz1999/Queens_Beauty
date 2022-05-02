@@ -26,7 +26,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Width="100"
                     Grid.Column="0"
@@ -48,14 +48,20 @@
                     Visibility="{Binding IsAddServiceVisible}" />
         </Grid>
         <TextBlock Text="Services added to appointment:" />
+        <Button Height="20"
+                Width="160"
+                Content="Remove service from list"
+                Command="{Binding RemoveAddedServiceCommand}"
+                IsEnabled="{Binding CanRemoveAddedService}" />
+        <TextBlock Text="Select date of the appointment: " />
         <DataGrid Height="130"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
-                  ItemsSource="{Binding AddedServices}"
-                  SelectedItem="{Binding SelectedAddedService}">
+                  ItemsSource="{Binding AddedSIA}"
+                  SelectedItem="{Binding SelectedAddedSIA}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding AddedServiceSelectedCommand}" />
@@ -64,24 +70,21 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"
                                     Width="*"
-                                    Binding="{Binding Name}" />
+                                    Binding="{Binding Service.Name}" />
                 <DataGridTextColumn Header="Category"
                                     Width="*"
-                                    Binding="{Binding Category}" />
+                                    Binding="{Binding Service.Category}" />
                 <DataGridTextColumn Header="Duration"
                                     Width="*"
-                                    Binding="{Binding Duration}" />
+                                    Binding="{Binding Service.Duration}" />
                 <DataGridTextColumn Header="Price"
                                     Width="*"
-                                    Binding="{Binding Price}" />
+                                    Binding="{Binding Service.Price}" />
+                <DataGridTextColumn Header="Employee"
+                                    Width="*"
+                                    Binding="{Binding Employee.Name}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Height="20"
-                Width="160"
-                Content="Remove service from list"
-                Command="{Binding RemoveAddedServiceCommand}"
-                IsEnabled="{Binding CanRemoveAddedService}" />
-        <TextBlock Text="Select date of the appointment: " />
         <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay}" />
         <Grid>
             <Grid.ColumnDefinitions>
@@ -93,7 +96,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Pick start time:"
                        Grid.Column="1"
-                       TextAlignment="Center"/>
+                       TextAlignment="Center" />
             <TextBlock Text="Pick end time:"
                        Grid.Column="3"
                        TextAlignment="Center" />
@@ -112,25 +115,25 @@
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding Hours}"
-                      SelectedItem="{Binding StartTimeHour}"/>
+                      SelectedItem="{Binding StartTimeHour}" />
             <TextBlock Text=":"
                        Grid.Column="2"
-                       TextAlignment="Center"/>
+                       TextAlignment="Center" />
             <ComboBox Grid.Column="3"
                       ItemsSource="{Binding Minutes}"
-                      SelectedItem="{Binding StartTimeMinute}"/>
+                      SelectedItem="{Binding StartTimeMinute}" />
             <TextBlock Text="---"
                        Grid.Column="4"
                        TextAlignment="Center" />
             <ComboBox Grid.Column="5"
                       ItemsSource="{Binding Hours}"
-                      SelectedItem="{Binding EndTimeHour}"/>
+                      SelectedItem="{Binding EndTimeHour}" />
             <TextBlock Text=":"
                        Grid.Column="6"
                        TextAlignment="Center" />
             <ComboBox Grid.Column="7"
                       ItemsSource="{Binding Minutes}"
-                      SelectedItem="{Binding EndTimeMinute}"/>
+                      SelectedItem="{Binding EndTimeMinute}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -141,7 +144,7 @@
                        Text="Check if appointment was done:" />
             <CheckBox Grid.Column="1"
                       Content="Done"
-                      IsChecked="{Binding StateVM}"/>
+                      IsChecked="{Binding StateVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>

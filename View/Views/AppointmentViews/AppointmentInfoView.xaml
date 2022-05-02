@@ -150,21 +150,24 @@
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
-                  ItemsSource="{Binding ServiceList}"
-                  SelectedItem="{Binding SelectedService}">
+                  ItemsSource="{Binding SIAList}"
+                  SelectedItem="{Binding SelectedSIA}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"
                                     Width="*"
-                                    Binding="{Binding Name}"/>
+                                    Binding="{Binding Service.Name}"/>
                 <DataGridTextColumn Header="Category"
                                     Width="*"
-                                    Binding="{Binding Category}"/>
+                                    Binding="{Binding Service.Category}"/>
                 <DataGridTextColumn Header="Duration"
                                     Width="*"
-                                    Binding="{Binding Duration}"/>
+                                    Binding="{Binding Service.Duration}"/>
                 <DataGridTextColumn Header="Price"
                                     Width="*"
-                                    Binding="{Binding Price}"/>
+                                    Binding="{Binding Service.Price}" />
+                <DataGridTextColumn Header="Employee"
+                                    Width="*"
+                                    Binding="{Binding Employee.Name}" />
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Text="Selected service information: " />
@@ -178,7 +181,7 @@
                        Text="Name:" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.Name}"/>
+                     Text="{Binding SelectedSIA.Service.Name}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -189,7 +192,7 @@
                        Text="Category:" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.Category}"/>
+                     Text="{Binding SelectedSIA.Service.Category}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -200,7 +203,7 @@
                        Text="Duration (in minutes):" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.Duration}"/>
+                     Text="{Binding SelectedSIA.Service.Duration}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -211,7 +214,7 @@
                        Text="Price:" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.Price}"/>
+                     Text="{Binding SelectedSIA.Service.Price}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -222,7 +225,7 @@
                        Text="Points cost:" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.PointsPrice}"/>
+                     Text="{Binding SelectedSIA.Service.PointsPrice}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -233,7 +236,18 @@
                        Text="Points reward:" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
-                     Text="{Binding SelectedService.PointsValue}"/>
+                     Text="{Binding SelectedSIA.Service.PointsValue}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="Employee name:" />
+            <TextBox Grid.Column="1"
+                     IsEnabled="False"
+                     Text="{Binding SelectedSIA.Employee.Name}" />
         </Grid>
     </StackPanel>
 </UserControl>
