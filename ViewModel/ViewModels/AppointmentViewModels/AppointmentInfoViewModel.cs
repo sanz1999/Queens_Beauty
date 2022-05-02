@@ -17,9 +17,9 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private bool stateVM;
         private string sumCenaVM;
 
-        public BindingList<AppointmentItemFront> ServiceList { get; set; }
+        public BindingList<AppointmentItemFront> SIAList { get; set; }
 
-        private AppointmentItemFront selectedService;
+        private AppointmentItemFront selectedSIA;
 
         public AppointmentInfoViewModel()
         {
@@ -32,7 +32,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             StartTimeVM = "";
             EndTimeVM = "";
             StateVM = false;
-            ServiceList.Clear();
+            SIAList.Clear();
         }
 
         public CustomerFront CustomerVM
@@ -109,15 +109,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
-        public AppointmentItemFront SelectedService
+        public AppointmentItemFront SelectedSIA
         {
-            get { return selectedService; }
+            get { return selectedSIA; }
             set
             {
-                if (selectedService != value)
+                if (selectedSIA != value)
                 {
-                    selectedService = value;
-                    OnPropertyChanged("SelectedService");
+                    selectedSIA = value;
+                    OnPropertyChanged("SelectedSIA");
                 }
             }
         }
