@@ -111,15 +111,11 @@ namespace ViewModel.ViewModels
 
                 appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
 
-        //        appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
-        //        appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
+
 
 
                 appointmentAddViewModel.AddedServices.Clear();
-        //        foreach(ServiceFront service in SelectedItem.ServiceList)
-        //        {
-       //             appointmentAddViewModel.AddedServices.Add(service);
-        //        }
+   
 
                 appointmentAddViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
 
@@ -170,11 +166,7 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
             appointmentInfoViewModel.ServiceList.Clear();
-     //       
-     //       foreach(ServiceFront service in SelectedItem.ServiceList)
-     //       {
-     //           appointmentInfoViewModel.ServiceList.Add(service);
-     //       }
+
         }
 
         private void OnNav(string obj)
@@ -195,8 +187,10 @@ namespace ViewModel.ViewModels
                     {
                         AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
                         appointmentCRUD.AddToDataBase(newAppointment);
-                        Appointments.Add(appointmentCRUD.FindLastAdded());
-                        AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
+                        //Appointments.Add(appointmentCRUD.FindLastAdded());
+                        Appointments.Add(newAppointment);
+                        //AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
+                        AppointmentsSearch.Add(newAppointment);
                         OnNav("filter");
 
                         CanAlter = false;

@@ -32,9 +32,13 @@ namespace Common.Methods.CRUD
         public void AddToDataBase(AppointmentFront appointment) {
             DBAppointment dBAppointment = transform.FEToDB.Appointment(appointment);
             dBAppointment.appointmentId = 0;
+            DBSIA cuvati = new DBSIA();
             appointmentService.Save(dBAppointment);
+            appointment = FindLastAdded();
             foreach (AppointmentItemFront x in appointment.SIA) {
-                sIAService.Save(transform.FEToDB.AppointmentItem(new Tuple<int,AppointmentItemFront>(appointment.AppointmentId, x)));
+                 cuvati = transform.FEToDB.AppointmentItem(new Tuple<int, AppointmentItemFront>(appointment.AppointmentId, x));
+                    
+                sIAService.Save(cuvati);
             }
         }
 

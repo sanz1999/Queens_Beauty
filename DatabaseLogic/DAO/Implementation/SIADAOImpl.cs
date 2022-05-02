@@ -221,7 +221,7 @@ namespace DatabaseLogic.DAO.Implementation
             string updateSql = "update sia set wid=:wid where aid=:aid and sid=:sid";
             using (IDbCommand command = connection.CreateCommand())
             {
-                command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql.ToString();
+                command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql;
                 if (command.CommandText.Equals(insertSql))
                 {
                     ParameterUtil.AddParameter(command, "aid", DbType.Int32);

@@ -13,3 +13,6 @@
 	6: Print forme				---		PRIORITY 2
 
 	7: Version Control			---		PRIORITY 3 (Chromejob)
+
+	8:Cloud (Client-Server)		---     PRIORITY X
+
