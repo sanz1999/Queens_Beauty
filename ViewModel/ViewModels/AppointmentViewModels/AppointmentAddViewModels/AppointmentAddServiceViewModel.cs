@@ -16,6 +16,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels
         private EmployeeFront selectedEmployee;
         private ServiceFront selectedService;
         private ServiceCRUD serviceCRUD = new ServiceCRUD();
+        private  EmployeeCRUD employeeCRUD = new EmployeeCRUD();
         public BindingList<EmployeeFront> Employees { get; private set; }
         public BindingList<EmployeeFront> EmployeesSearch { get; private set; }
         public BindingList<ServiceFront> Services { get; private set; }
@@ -27,7 +28,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels
         public AppointmentAddServiceViewModel()
         {
             Services = serviceCRUD.LoadFromDataBase();
-            Employees = new BindingList<EmployeeFront>() { new EmployeeFront(1, "Dragan"), new EmployeeFront(2, "Perca") };
+            Employees = employeeCRUD.LoadFromDataBase();
 
             ServicesSearch = new BindingList<ServiceFront>();
             EmployeesSearch = new BindingList<EmployeeFront>();

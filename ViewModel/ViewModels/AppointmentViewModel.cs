@@ -33,7 +33,7 @@ namespace ViewModel.ViewModels
 
         public AppointmentViewModel()
         {
-            appointmentInfoViewModel.SIAList = new BindingList<AppointmentItemFront>();
+            //appointmentInfoViewModel.SIAList = new BindingList<AppointmentItemFront>();
 
             proxy = appointmentCRUD.LoadFromDataBase();
 
@@ -170,7 +170,7 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.StateVM = SelectedItem.State;
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
-            appointmentInfoViewModel.SIAList.Clear();
+            //appointmentInfoViewModel.SIAList.Clear();
      //       
      //       foreach(ServiceFront service in SelectedItem.ServiceList)
      //       {
