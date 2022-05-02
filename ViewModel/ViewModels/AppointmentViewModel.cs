@@ -1,4 +1,5 @@
-﻿using Model.FrontendModel;
+﻿using Common.Methods.CRUD;
+using Model.FrontendModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModel.ViewModels.AppointmentViewModels;
+using ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels;
 
 namespace ViewModel.ViewModels
 {
@@ -15,6 +17,7 @@ namespace ViewModel.ViewModels
         private AppointmentFilterViewModel appointmentFilterViewModel = new AppointmentFilterViewModel();
         private AppointmentInfoViewModel appointmentInfoViewModel = new AppointmentInfoViewModel();
         private AppointmentBindableBase currentAppointmentViewModel;
+        private AppointmentCRUD appointmentCRUD = new AppointmentCRUD();
 
         private AppointmentFront selectedItem;
         private bool canAlter = false;
@@ -26,19 +29,28 @@ namespace ViewModel.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
 
-        public static BindingList<AppointmentFront> Appointments { get; private set; }
+        public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
+
         public AppointmentViewModel()
         {
-            Appointments = new BindingList<AppointmentFront>();
+            //appointmentInfoViewModel.SIAList = new BindingList<AppointmentItemFront>();
 
-            appointmentInfoViewModel.ServiceList = new BindingList<ServiceFront>();
+            proxy = appointmentCRUD.LoadFromDataBase();
+
+            foreach(AppointmentFront appointment in proxy)
+            {
+                Appointments.Add(appointment);
+            }
+            foreach(AppointmentFront appointment in Appointments)
+            {
+                AppointmentsSearch.Add(appointment);
+            }
 
             NavCommand = new MyICommand<string>(OnNav);
             ItemSelectedCommand = new MyICommand(OnSelect);
             AlterCommand = new MyICommand(OnAlter);
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
-
 
             CurrentAppointmentViewModel = appointmentFilterViewModel;
         }
@@ -53,6 +65,10 @@ namespace ViewModel.ViewModels
                 CanDelete = false;
 
                 SelectedItem = null;
+
+                appointmentAddViewModel.IsAddServiceVisible = "Visible";
+                appointmentAddViewModel.IsSelectCustomerVisible = "Visible";
+                appointmentAddViewModel.CurrentAppointmentAddViewModel = new AppointmentAddDisplayViewModel();
 
                 OnNav("filter");
             }
@@ -77,8 +93,10 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
-
-            Appointments.Remove(SelectedItem);
+            AppointmentFront appointmentToRemove = SelectedItem;
+            appointmentCRUD.DeleteFromDataBase(appointmentToRemove);
+            Appointments.Remove(appointmentToRemove);
+            AppointmentsSearch.Remove(appointmentToRemove);
             CanAlter = false;
             CanDelete = false;
             OnNav("filter");
@@ -91,14 +109,12 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
 
-                appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
-                appointmentAddViewModel.SelectedEmployee = SelectedItem.Employee;
 
-                appointmentAddViewModel.AddedServices.Clear();
-                foreach(ServiceFront service in SelectedItem.ServiceList)
-                {
-                    appointmentAddViewModel.AddedServices.Add(service);
-                }
+                appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
+
+
+
+                appointmentAddViewModel.AddedSIA.Clear();
 
                 appointmentAddViewModel.AppointmentDateVM = SelectedItem.AppointmentDate.ToString();
 
@@ -109,13 +125,24 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.EndTimeMinute = SelectedItem.EndTime.Substring(3, 2);
 
                 appointmentAddViewModel.StateVM = SelectedItem.State;
+
+                foreach(AppointmentItemFront sia in SelectedItem.SIA)
+                {
+                    appointmentAddViewModel.AddedSIA.Add(sia);
+                }
             }
             else
-            {
+            {   //update treba da se zavrsi
+
+                AppointmentFront selectedOne = SelectedItem;
                 AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
                 int index = Appointments.IndexOf(SelectedItem);
+                int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
+                appointmentCRUD.UpdateInDataBase(newOne);
                 Appointments.RemoveAt(index);
                 Appointments.Insert(index, newOne);
+                AppointmentsSearch.RemoveAt(indexSearch);
+                AppointmentsSearch.Insert(indexSearch, newOne);
 
                 CanAlter = false;
                 CanDelete = false;
@@ -142,12 +169,12 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.StateVM = SelectedItem.State;
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
-            appointmentInfoViewModel.ServiceList.Clear();
-            
-            foreach(ServiceFront service in SelectedItem.ServiceList)
-            {
-                appointmentInfoViewModel.ServiceList.Add(service);
-            }
+            //appointmentInfoViewModel.SIAList.Clear();
+     //       
+     //       foreach(ServiceFront service in SelectedItem.ServiceList)
+     //       {
+     //           appointmentInfoViewModel.ServiceList.Add(service);
+     //       }
         }
 
         private void OnNav(string obj)
@@ -166,7 +193,10 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        Appointments.Add(appointmentAddViewModel.GetAppointment());
+                        AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
+                        appointmentCRUD.AddToDataBase(newAppointment);
+                        Appointments.Add(appointmentCRUD.FindLastAdded());
+                        AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
                         OnNav("filter");
 
                         CanAlter = false;

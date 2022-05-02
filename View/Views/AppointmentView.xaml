@@ -81,7 +81,7 @@
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
-                      ItemsSource="{Binding Appointments}"
+                      ItemsSource="{Binding AppointmentsSearch}"
                       SelectedItem="{Binding SelectedItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -89,10 +89,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Customer First Name"
+                    <DataGridTextColumn Header="First Name"
                                         Width="*"
                                         Binding="{Binding Customer.FirstName}" />
-                    <DataGridTextColumn Header="Customer Last Name"
+                    <DataGridTextColumn Header="Last Name"
                                         Width="*"
                                         Binding="{Binding Customer.LastName}" />
                     <DataGridTextColumn Header="Date"
@@ -113,14 +113,17 @@
                                           AutoGenerateColumns="False"
                                           CanUserResizeColumns="False"
                                           CanUserReorderColumns="False"
-                                          ItemsSource="{Binding ServiceList}">
+                                          ItemsSource="{Binding SIA}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Name" 
                                                             Width="*"
-                                                            Binding="{Binding Name}"/>
+                                                            Binding="{Binding Service.Name}"/>
                                         <DataGridTextColumn Header="Price"
                                                             Width="0.5*"
-                                                            Binding="{Binding Price}"/>
+                                                            Binding="{Binding Service.Price}"/>
+                                        <DataGridTextColumn Header="Employee"
+                                                            Binding="{Binding Employee.Name}"
+                                                            Width="*" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
@@ -129,9 +132,6 @@
                     <DataGridTextColumn Header="Full price"
                                         Width="*"
                                         Binding="{Binding SumCena}"/>
-                    <DataGridTextColumn Header="Employee"
-                                        Width="*"
-                                        Binding="{Binding Employee.Name}"/>
                     <DataGridTextColumn Header="State"
                                         Width="*"
                                         Binding="{Binding State}"/>

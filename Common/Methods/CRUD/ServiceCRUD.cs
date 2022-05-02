@@ -24,21 +24,11 @@ namespace Common.Methods.CRUD
             }
             return newList;
         }
-        public BindingList<string> LoadCategories() { 
-            BindingList<string> newList = new BindingList<string>();
-            //now it will be done with on array, but later need to implement including from some file from resources
-            List<string> categories = new List<string>();
-            categories.Add("Smile SPA");
-            categories.Add("Nageldesigne");
-            categories.Add("Maderotherapie");
-            categories.Add("Gesichtbehandlung");
-            categories.Add("Fusspflege");
-            categories.Add("Wimpern");
-            categories.Add("Augenbraun");
-            categories.Add("Wachsen");
-            categories.Add("Paraffin");
-            categories.Add("QUEEN & KING");
-
+        public BindingList<string> LoadCategories()
+        {
+            BindingList<string> newList = new BindingList<string>();  
+            string DestPath = System.IO.Directory.GetCurrentDirectory() + @"\..\..\..\..\" + @"ViewModel\Resources\ServiceCategories.txt";
+            List<string> categories = new List<string>(System.IO.File.ReadAllLines(DestPath));
             foreach (string x in categories) {
                 newList.Add(x);
             }

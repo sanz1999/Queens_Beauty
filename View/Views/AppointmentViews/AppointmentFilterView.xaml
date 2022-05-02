@@ -6,30 +6,33 @@
              xmlns:local="clr-namespace:View.Views.AppointmentViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    <Grid>
-        <StackPanel>
-         
-            <TextBlock Text="Select filter timespan"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <RadioButton Grid.Column="0"
-                             Content="Day" 
-                             GroupName="IntervalRB"
-                             IsChecked="{Binding IsDayVM}"/>
-                <RadioButton Grid.Column="1"
-                             Content="Week"
-                             GroupName="IntervalRB"
-                             IsChecked="{Binding IsWeekVM}" />
-                <RadioButton Grid.Column="2"
-                             Content="Month"
-                             GroupName="IntervalRB"
-                             IsChecked="{Binding IsMonthVM}" />
-            </Grid>
-            <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay}"/>
-        </StackPanel>
-    </Grid>
+    <StackPanel>
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Select timespan:" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Start date:"
+                       TextAlignment="Center"/>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="End date:"
+                       TextAlignment="Center" />
+            <DatePicker Grid.Row="1"
+                        Grid.Column="0"
+                        Text="{Binding StartDate}"/>
+            <DatePicker Grid.Row="1" 
+                        Grid.Column="1"
+                        Text="{Binding EndDate}"/>
+        </Grid>
+    </StackPanel>
 </UserControl>

@@ -19,6 +19,10 @@ namespace Model.DBModel
             this.workerId = workerId;
         }
 
+        public DBSIA()
+        {
+        }
+
         public static string GetHeader()
         {
             return string.Format("\n{0, -12} {1, -12} {2, -12}",

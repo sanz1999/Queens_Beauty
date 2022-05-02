@@ -5,131 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:View.Views.AppointmentViews"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:views="clr-namespace:View.Views.AppointmentViews.AppointmentAddViews"
+             xmlns:viewModels="clr-namespace:ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels;assembly=ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="550"
              d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type viewModels:AppointmentAddCustomerViewModel}">
+            <views:AppointmentAddCustomerView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AppointmentAddDisplayViewModel}">
+            <views:AppointmentAddDisplayView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AppointmentAddServiceViewModel}">
+            <views:AppointmentAddServiceView />
+        </DataTemplate>
+    </UserControl.Resources>
     <StackPanel>
-
+        <ContentControl Content="{Binding CurrentAppointmentAddViewModel}" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                       Text="Filter customers by input:" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding FilterCustomerVM}" />
-        </Grid>
-        <DataGrid Height="80"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  AutoGenerateColumns="False"
-                  CanUserResizeColumns="False"
-                  CanUserReorderColumns="False"
-                  ItemsSource="{Binding CustomersSearch}"
-                  SelectedItem="{Binding SelectedCustomer}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding CustomerSelectedCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name"
-                                    Width="*"
-                                    Binding="{Binding FirstName}" />
-                <DataGridTextColumn Header="Last Name"
-                                    Width="*"
-                                    Binding="{Binding LastName}" />
-                <DataGridTextColumn Header="Phone"
-                                    Width="*"
-                                    Binding="{Binding PhoneNumber}" />
-                <DataGridTextColumn Header="Loyalty Card ID"
-                                    Width="*"
-                                    Binding="{Binding LoyaltyCardId}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid>
-            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                       Text="Filter employees by name:" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding FilterEmployeesVM}" />
+            <Button Width="100"
+                    Grid.Column="0"
+                    Content="Select Customer"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="customer"
+                    Visibility="{Binding IsSelectCustomerVisible}" />
+            <Button Width="100"
+                    Grid.Column="0"
+                    Content="Finish adding services"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="display"
+                    Visibility="{Binding IsFinishVisible}" />
+            <Button Width="100"
+                    Grid.Column="1"
+                    Content="Add Services"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="services"
+                    Visibility="{Binding IsAddServiceVisible}" />
         </Grid>
-        <DataGrid Height="80"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  AutoGenerateColumns="False"
-                  CanUserResizeColumns="False"
-                  CanUserReorderColumns="False"
-                  ItemsSource="{Binding EmployeesSearch}"
-                  SelectedItem="{Binding SelectedEmployee}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding EmployeeSelectedCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"
-                                    Width="*"
-                                    Binding="{Binding Name}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <TextBlock Text="Add services to appointment:" />
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                       Text="Filter services by input:" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding FilterServicesVM}" />
-        </Grid>
-        <DataGrid Height="80"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  AutoGenerateColumns="False"
-                  CanUserResizeColumns="False"
-                  CanUserReorderColumns="False"
-                  ItemsSource="{Binding ServicesSearch}"
-                  SelectedItem="{Binding SelectedService}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ServiceSelectedCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"
-                                    Width="*"
-                                    Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Category"
-                                    Width="*"
-                                    Binding="{Binding Category}" />
-                <DataGridTextColumn Header="Duration"
-                                    Width="*"
-                                    Binding="{Binding Duration}" />
-                <DataGridTextColumn Header="Price"
-                                    Width="*"
-                                    Binding="{Binding Price}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Height="20"
-                Width="130"
-                Content="Add service to list"
-                Command="{Binding AddServiceCommand}"
-                IsEnabled="{Binding CanAddService}" />
         <TextBlock Text="Services added to appointment:" />
-        <DataGrid Height="60"
+        <Button Height="20"
+                Width="160"
+                Content="Remove service from list"
+                Command="{Binding RemoveAddedServiceCommand}"
+                IsEnabled="{Binding CanRemoveAddedService}" />
+        <TextBlock Text="Select date of the appointment: " />
+        <DataGrid Height="130"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
-                  ItemsSource="{Binding AddedServices}"
-                  SelectedItem="{Binding SelectedAddedService}">
+                  ItemsSource="{Binding AddedSIA}"
+                  SelectedItem="{Binding SelectedAddedSIA}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding AddedServiceSelectedCommand}" />
@@ -138,24 +70,21 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"
                                     Width="*"
-                                    Binding="{Binding Name}" />
+                                    Binding="{Binding Service.Name}" />
                 <DataGridTextColumn Header="Category"
                                     Width="*"
-                                    Binding="{Binding Category}" />
+                                    Binding="{Binding Service.Category}" />
                 <DataGridTextColumn Header="Duration"
                                     Width="*"
-                                    Binding="{Binding Duration}" />
+                                    Binding="{Binding Service.Duration}" />
                 <DataGridTextColumn Header="Price"
                                     Width="*"
-                                    Binding="{Binding Price}" />
+                                    Binding="{Binding Service.Price}" />
+                <DataGridTextColumn Header="Employee"
+                                    Width="*"
+                                    Binding="{Binding Employee.Name}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Height="20"
-                Width="160"
-                Content="Remove service from list"
-                Command="{Binding RemoveAddedServiceCommand}"
-                IsEnabled="{Binding CanRemoveAddedService}" />
-        <TextBlock Text="Select date of the appointment: " />
         <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay}" />
         <Grid>
             <Grid.ColumnDefinitions>
@@ -167,7 +96,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Pick start time:"
                        Grid.Column="1"
-                       TextAlignment="Center"/>
+                       TextAlignment="Center" />
             <TextBlock Text="Pick end time:"
                        Grid.Column="3"
                        TextAlignment="Center" />
@@ -175,36 +104,36 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding Hours}"
-                      SelectedItem="{Binding StartTimeHour}"/>
+                      SelectedItem="{Binding StartTimeHour}" />
             <TextBlock Text=":"
                        Grid.Column="2"
-                       TextAlignment="Center"/>
+                       TextAlignment="Center" />
             <ComboBox Grid.Column="3"
                       ItemsSource="{Binding Minutes}"
-                      SelectedItem="{Binding StartTimeMinute}"/>
+                      SelectedItem="{Binding StartTimeMinute}" />
             <TextBlock Text="---"
                        Grid.Column="4"
                        TextAlignment="Center" />
             <ComboBox Grid.Column="5"
                       ItemsSource="{Binding Hours}"
-                      SelectedItem="{Binding EndTimeHour}"/>
+                      SelectedItem="{Binding EndTimeHour}" />
             <TextBlock Text=":"
                        Grid.Column="6"
                        TextAlignment="Center" />
             <ComboBox Grid.Column="7"
                       ItemsSource="{Binding Minutes}"
-                      SelectedItem="{Binding EndTimeMinute}"/>
+                      SelectedItem="{Binding EndTimeMinute}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -215,7 +144,7 @@
                        Text="Check if appointment was done:" />
             <CheckBox Grid.Column="1"
                       Content="Done"
-                      IsChecked="{Binding StateVM}"/>
+                      IsChecked="{Binding StateVM}" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -225,7 +154,6 @@
             <TextBlock Grid.Column="0"
                        Text="Total price:" />
             <TextBox Grid.Column="1"
-                     IsEnabled="False"
                      Text="{Binding SumCenaVM}" />
         </Grid>
     </StackPanel>

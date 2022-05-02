@@ -50,5 +50,30 @@ namespace Common.Methods.TransformSubclasses
                                     untrasformedService.Exists
                                     );
         }
+
+        public DBAppointment Appointment(AppointmentFront app) {
+            TimeOnly timeOnly = TimeStringToOnlyTime(app.StartTime );
+            DateTime termin = new DateTime(app.AppointmentDate.Year, app.AppointmentDate.Month, app.AppointmentDate.Day,timeOnly.Hour,timeOnly.Minute,timeOnly.Second);
+
+            return new DBAppointment(app.AppointmentId, app.Customer.CustomerId, termin, app.SumCena, (app.State) ? 1:0) ;
+            
+        }
+
+        public TimeOnly TimeStringToOnlyTime(string time) { 
+            int hour,minute, second=0,index=time.IndexOf(":");
+            hour = Convert.ToInt32(time.Substring(0,index));
+            minute = Convert.ToInt32(time.Substring(index+1,2));
+            second = 0;
+            return new TimeOnly(hour, minute, second);
+        }
+
+        public DBSIA AppointmentItem(Tuple<int, AppointmentItemFront> SIA ) {
+            DBSIA x = new DBSIA();
+            x.id = new Tuple<int, int>(SIA.Item1,SIA.Item2.Service.Id);
+            x.workerId = SIA.Item2.Employee.EmployeeId;
+            return x;
+
+        }
     }
+
 }

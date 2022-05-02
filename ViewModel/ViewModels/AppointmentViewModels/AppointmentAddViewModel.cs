@@ -6,11 +6,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels;
 
 namespace ViewModel.ViewModels.AppointmentViewModels
 {
     public class AppointmentAddViewModel : AppointmentBindableBase
     {
+        AppointmentAddDisplayViewModel appointmentAddDisplayViewModel = new AppointmentAddDisplayViewModel();
+        AppointmentAddCustomerViewModel appointmentAddCustomerViewModel = new AppointmentAddCustomerViewModel();
+        AppointmentAddServiceViewModel appointmentAddServiceViewModel = new AppointmentAddServiceViewModel();
+        BindableBase currentAppointmentAddViewModel;
+
         //private int appointmentIdVM;
         private CustomerFront customerVM;
         private string appointmentDateVM;
@@ -27,24 +33,16 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         public BindingList<CustomerFront> Customers { get; private set; }
         public BindingList<CustomerFront> CustomersSearch { get; private set; }
-        public BindingList<EmployeeFront> Employees { get; private set; }
-        public BindingList<EmployeeFront> EmployeesSearch { get; private set; }
-        public BindingList<ServiceFront> Services { get; private set; }
-        public BindingList<ServiceFront> ServicesSearch { get; private set; }
 
-        public BindingList<ServiceFront> AddedServices { get; private set; }
+        public BindingList<AppointmentItemFront> AddedSIA { get; private set; }
         
 
         public BindingList<string> Hours { get; private set; }
         public BindingList<string> Minutes { get; private set; }
 
         private string filterCustomerVM;
-        private string filterEmployeesVM;
-        private string filterServicesVM;
         private CustomerFront selectedCustomer;
-        private EmployeeFront selectedEmployee;
-        private ServiceFront selectedService;
-        private ServiceFront selectedAddedService;
+        private AppointmentItemFront selectedAddedSIA;
 
         private string startTimeHour;
         private string startTimeMinute;
@@ -53,6 +51,10 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         private bool canAddService = false;
         private bool canRemoveAddedService = false;
+
+        private string isSelectCustomerVisible = "Visible";
+        private string isAddServiceVisible = "Visible";
+        private string isFinishVisible = "Collapsed";
 
         private int idCnt = 0;
 
@@ -63,39 +65,27 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         public MyICommand AddedServiceSelectedCommand { get; set; }
         public MyICommand RemoveAddedServiceCommand { get; set; }
 
+        private string name;
+
+        public MyICommand<string> NavCommand { get; set; }
+
         public AppointmentAddViewModel()
         {
+            CurrentAppointmentAddViewModel = appointmentAddDisplayViewModel;
+
             ServiceList = new BindingList<ServiceFront>();
 
             Customers = new BindingList<CustomerFront>();
-            Services = new BindingList<ServiceFront>();
-            Employees = new BindingList<EmployeeFront>()
-            {
-                new EmployeeFront(1, "Dragan"),
-                new EmployeeFront(1, "Dragance")
-            };
 
-            AddedServices = new BindingList<ServiceFront>();
+            AddedSIA = new BindingList<AppointmentItemFront>();
 
             CustomersSearch = new BindingList<CustomerFront>();
-            ServicesSearch = new BindingList<ServiceFront>();
-            EmployeesSearch = new BindingList<EmployeeFront>();
 
             Customers = customerCRUD.LoadFromDataBase();
-            Services = serviceCRUD.LoadFromDataBase();
-            //Employees = employeeCRUD.LoadFromDataBase();
-
+            
             foreach(CustomerFront customer in Customers)
             {
                 CustomersSearch.Add(customer);
-            }
-            foreach(ServiceFront service in Services)
-            {
-                ServicesSearch.Add(service);
-            }
-            foreach(EmployeeFront employee in Employees)
-            {
-                EmployeesSearch.Add(employee);
             }
 
             Hours = new BindingList<string>() { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
@@ -107,11 +97,78 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             AddServiceCommand = new MyICommand(OnAddService);
             AddedServiceSelectedCommand = new MyICommand(OnAddedServiceSelect);
             RemoveAddedServiceCommand = new MyICommand(OnRemoveAddedService);
+            NavCommand = new MyICommand<string>(OnNav);
         }
 
+        private void OnNav(string obj)
+        {
+            switch (obj)
+            {
+                case "customer":
+                    if (CurrentAppointmentAddViewModel != appointmentAddCustomerViewModel)
+                    {
+                        IsAddServiceVisible = "Collapsed";
+                        IsSelectCustomerVisible = "Visible";
+                        IsFinishVisible = "Collapsed";
+                        CurrentAppointmentAddViewModel = appointmentAddCustomerViewModel;
+                    }
+                    else
+                    {
+                        SelectedCustomer = appointmentAddCustomerViewModel.SelectedItem;
+                        appointmentAddDisplayViewModel.Name = SelectedCustomer.FirstName + " " + SelectedCustomer.LastName;
+                        OnNav("display");
+                    }
+                    break;
+                case "services":
+                    if (CurrentAppointmentAddViewModel != appointmentAddServiceViewModel)
+                    {
+                        CurrentAppointmentAddViewModel = appointmentAddServiceViewModel;
+                        IsSelectCustomerVisible = "Collapsed";
+                        IsAddServiceVisible = "Visible";
+                        IsFinishVisible = "Visible";
+                    }
+                    else
+                    {
+                        OnAddService();
+                    }
+                    break;
+                case "display":
+                    CurrentAppointmentAddViewModel = appointmentAddDisplayViewModel;
+                    IsSelectCustomerVisible = "Visible";
+                    IsAddServiceVisible = "Visible";
+                    IsFinishVisible = "Collapsed";
+                    appointmentAddServiceViewModel.SelectedEmployee = null;
+                    appointmentAddServiceViewModel.SelectedService = null;
+                    break;
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        public BindableBase CurrentAppointmentAddViewModel
+        {
+            get { return currentAppointmentAddViewModel; }
+            set
+            {
+                if (currentAppointmentAddViewModel != value)
+                {
+                    currentAppointmentAddViewModel = value;
+                    OnPropertyChanged("CurrentAppointmentAddViewModel");
+                }
+            }
+        }
         private void OnRemoveAddedService()
         {
-            AddedServices.Remove(SelectedAddedService);
+            AddedSIA.Remove(SelectedAddedSIA);
             CanRemoveAddedService = false;
             SumCenaVM = "0";
         }
@@ -123,9 +180,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         private void OnAddService()
         {
-            AddedServices.Add(SelectedService);
+            AppointmentItemFront SIAToAdd = new AppointmentItemFront(appointmentAddServiceViewModel.SelectedService, appointmentAddServiceViewModel.SelectedEmployee);
+            AddedSIA.Add(SIAToAdd);
             SumCenaVM = "0";
             SumCenaVM = "1";
+            appointmentAddServiceViewModel.SelectedService = null;
         }
 
         private void OnServiceSelect()
@@ -137,12 +196,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
-            AppointmentFront appointmentToAdd =
-                new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
-            foreach (ServiceFront service in AddedServices) {
-                appointmentToAdd.ServiceList.Add(service);
             
-            }
+            AppointmentFront appointmentToAdd = new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), 
+                startTime, endTime, double.Parse(SumCenaVM), StateVM, new BindingList<AppointmentItemFront>());
+            foreach (AppointmentItemFront sia in AddedSIA)
+                appointmentToAdd.SIA.Add(sia);
             ClearInput();
 
             return appointmentToAdd;
@@ -152,13 +210,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
             string endTime = EndTimeHour + ":" + EndTimeMinute;
-            AppointmentFront appointmentToAdd =
-                new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), startTime, endTime, double.Parse(SumCenaVM), StateVM, SelectedEmployee, new BindingList<ServiceFront>());
-            foreach (ServiceFront service in AddedServices)
-            {
-                appointmentToAdd.ServiceList.Add(service);
 
-            }
+            AppointmentFront appointmentToAdd = new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), 
+                startTime, endTime, double.Parse(SumCenaVM), StateVM, new BindingList<AppointmentItemFront>());
+            foreach (AppointmentItemFront sia in AddedSIA)
+                appointmentToAdd.SIA.Add(sia);
             ClearInput();
 
             return appointmentToAdd;
@@ -167,8 +223,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         public void ClearInput()
         {
             FilterCustomerVM = "";
-            FilterEmployeesVM = "";
-            FilterServicesVM = "";
             CustomerVM = null;
             AppointmentDateVM = "";
             StartTimeVM = "";
@@ -181,14 +235,12 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             EndTimeHour = "";
             EndTimeMinute = "";
 
-            AddedServices.Clear();
+            AddedSIA.Clear();
 
             RaisePropertyChanged("SumCenaVM");
             OnPropertyChanged("SumCenaVM");
 
             SelectedCustomer = null;
-            SelectedEmployee = null;
-            SelectedService = null;
 
             CanRemoveAddedService = false;
             CanAddService = false;
@@ -202,30 +254,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 {
                     filterCustomerVM = value;
                     OnPropertyChanged("FilterCustomerVM");
-                }
-            }
-        }
-        public string FilterEmployeesVM
-        {
-            get { return filterEmployeesVM; }
-            set
-            {
-                if (filterEmployeesVM != value)
-                {
-                    filterEmployeesVM = value;
-                    OnPropertyChanged("FilterEmployeesVM");
-                }
-            }
-        }
-        public string FilterServicesVM
-        {
-            get { return filterServicesVM; }
-            set
-            {
-                if (filterServicesVM != value)
-                {
-                    filterServicesVM = value;
-                    OnPropertyChanged("FilterServicesVM");
                 }
             }
         }
@@ -285,10 +313,10 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (sumCenaVM != value)
                 {
                     double sumCena = 0;
-                    if(AddedServices.Count!=0)
-                        foreach(ServiceFront service in AddedServices)
+                    if(AddedSIA.Count!=0)
+                        foreach(AppointmentItemFront sia in AddedSIA)
                         {
-                            sumCena += service.Price;
+                            sumCena += sia.Service.Price;
                         }
                     sumCenaVM = sumCena.ToString();
                     SumCenaVM = sumCenaVM;
@@ -333,39 +361,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
-        public EmployeeFront SelectedEmployee
+        public AppointmentItemFront SelectedAddedSIA
         {
-            get { return selectedEmployee; }
+            get { return selectedAddedSIA; }
             set
             {
-                if (selectedEmployee != value)
+                if (selectedAddedSIA != value)
                 {
-                    selectedEmployee = value;
-                    OnPropertyChanged("SelectedEmployee");
-                }
-            }
-        }
-        public ServiceFront SelectedService
-        {
-            get { return selectedService; }
-            set
-            {
-                if (selectedService != value)
-                {
-                    selectedService = value;
-                    OnPropertyChanged("SelectedService");
-                }
-            }
-        }
-        public ServiceFront SelectedAddedService
-        {
-            get { return selectedAddedService; }
-            set
-            {
-                if (selectedAddedService != value)
-                {
-                    selectedAddedService = value;
-                    OnPropertyChanged("SelectedAddedService");
+                    selectedAddedSIA = value;
+                    OnPropertyChanged("SelectedAddedSIA");
                 }
             }
         }
@@ -441,7 +445,42 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
-
+        public string IsSelectCustomerVisible
+        {
+            get { return isSelectCustomerVisible; }
+            set
+            {
+                if (isSelectCustomerVisible != value)
+                {
+                    isSelectCustomerVisible = value;
+                    OnPropertyChanged("IsSelectCustomerVisible");
+                }
+            }
+        }
+        public string IsAddServiceVisible
+        {
+            get { return isAddServiceVisible; }
+            set
+            {
+                if (isAddServiceVisible != value)
+                {
+                    isAddServiceVisible = value;
+                    OnPropertyChanged("IsAddServiceVisible");
+                }
+            }
+        }
+        public string IsFinishVisible
+        {
+            get { return isFinishVisible; }
+            set
+            {
+                if (isFinishVisible != value)
+                {
+                    isFinishVisible = value;
+                    OnPropertyChanged("IsFinishVisible");
+                }
+            }
+        }
         public int IdCnt { get => idCnt; set => idCnt = value; }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -15,6 +15,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private string firstNameVM;
         private string lastNameVM;
         private string phoneNumberVM;
+        private string dateOfBirthVM;
         private string emailVM;
         //private string genderVM;
         //private int pointsVM;
@@ -24,7 +25,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isFemaleCheckedVM;
         private bool isOtherCheckedVM;
 
-        private string isFirstNameErrorVisible = "Collapsed";
+
+        private string phoneNumberErrorText;
+        private string emailErrorText;
+        private string loyaltyCardIdErrorText;
+
+        private string isFirstNameErrorVisible = "Hidden";
+        private string isLastNameErrorVisible = "Hidden";
+        private string isPhoneNumberErrorVisible = "Hidden";
+        private string isBirthdayErrorVisible = "Hidden";
+        private string isEmailErrorVisible = "Hidden";
+        private string isLoyaltyCardIdErrorVisible = "Hidden";
+
 
         private int idCnt = 1;
 
@@ -47,7 +59,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             if (LoyaltyCardIdVM == "")
                 LoyaltyCardIdVM = null;
             CustomerFront customerToAdd = 
-                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, "11-11-1111", EmailVM, gender, 0, LoyaltyCardIdVM, 1);
+                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, DateOfBirthVM, EmailVM, gender, 0, LoyaltyCardIdVM, 1);
 
             ClearInput();
 
@@ -60,7 +72,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             if (LoyaltyCardIdVM == "")
                 LoyaltyCardIdVM = null;
             CustomerFront customerToAdd =
-                new CustomerFront(id, FirstNameVM, LastNameVM,  PhoneNumberVM, "11-11-1111", EmailVM, gender, points, LoyaltyCardIdVM, 1);
+                new CustomerFront(id, FirstNameVM, LastNameVM,  PhoneNumberVM, DateOfBirthVM, EmailVM, gender, points, LoyaltyCardIdVM, 1);
 
             ClearInput();
 
@@ -72,6 +84,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             FirstNameVM = "";
             LastNameVM = "";
             PhoneNumberVM = "";
+            DateOfBirthVM = "";
             EmailVM = "";
             LoyaltyCardIdVM = "";
             IsMaleCheckedVM = false;
@@ -89,6 +102,8 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     firstNameVM = value;
                     if (!validation.customer.FirstName(FirstNameVM))
                         IsFirstNameErrorVisible = "Visible";
+                    else
+                        IsFirstNameErrorVisible = "Hidden";
                     OnPropertyChanged("FirstNameVM");
                 }
             }
@@ -101,6 +116,10 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (lastNameVM != value)
                 {
                     lastNameVM = value;
+                    if (!validation.customer.LastName(LastNameVM))
+                        IsLastNameErrorVisible = "Visible";
+                    else
+                        IsLastNameErrorVisible = "Hidden";
                     OnPropertyChanged("LastNameVM");
                 }
             }
@@ -113,11 +132,37 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (phoneNumberVM != value)
                 {
                     phoneNumberVM = value;
+                    if (!validation.customer.PhoneNumber(PhoneNumberVM))
+                    {
+                        if (PhoneNumberVM.Equals(""))
+                            PhoneNumberErrorText = "Cannot leave phone number empty!";
+                        else
+                            PhoneNumberErrorText = "Phone number cannot have letters!";
+                        IsPhoneNumberErrorVisible = "Visible";
+                    }
+                    else
+                        IsPhoneNumberErrorVisible = "Hidden";
                     OnPropertyChanged("PhoneNumberVM");
                 }
             }
         }
 
+        public string DateOfBirthVM
+        {
+            get { return dateOfBirthVM; }
+            set
+            {
+                if (dateOfBirthVM != value)
+                {
+                    dateOfBirthVM = value;
+                    if (!validation.customer.Birthday(DateOfBirthVM))
+                        IsBirthdayErrorVisible = "Visible";
+                    else
+                        IsBirthdayErrorVisible = "Hidden";
+                    OnPropertyChanged("DateOfBirthVM");
+                }
+            }
+        }
         public string EmailVM
         {
             get { return emailVM; }
@@ -126,6 +171,16 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (emailVM != value)
                 {
                     emailVM = value;
+                    if (!validation.customer.Email(EmailVM))
+                    {
+                        if (EmailVM.Equals(""))
+                            EmailErrorText = "Cannot leave email empty!";
+                        else
+                            EmailErrorText = "Email not in correct format!";
+                        IsEmailErrorVisible = "Visible";
+                    }
+                    else
+                        IsEmailErrorVisible = "Hidden";
                     OnPropertyChanged("EmailVM");
                 }
             }
@@ -140,6 +195,18 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 if (loyaltyCardIdVM != value)
                 {
                     loyaltyCardIdVM = value;
+                    if (validation.customer.LoyalCard(LoyaltyCardIdVM) == 0)
+                    {
+                        LoyaltyCardIdErrorText = "Cannot have letters in loyalty card ID!";
+                        IsLoyaltyCardIdErrorVisible = "Visible";
+                    }
+                    else if (validation.customer.LoyalCard(LoyaltyCardIdVM) == -1)
+                    {
+                        LoyaltyCardIdErrorText = "ID already assigned to a customer!";
+                        IsLoyaltyCardIdErrorVisible = "Visible";
+                    }
+                    else
+                        IsLoyaltyCardIdErrorVisible = "Hidden";
                     OnPropertyChanged("LoyaltyCardIdVM");
                 }
             }
@@ -194,6 +261,102 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 }
             }
         }
+        public string IsLastNameErrorVisible
+        {
+            get { return isLastNameErrorVisible; }
+            set
+            {
+                if(isLastNameErrorVisible != value)
+                {
+                    isLastNameErrorVisible = value;
+                    OnPropertyChanged("IsLastNameErrorVisible");
+                }
+            }
+        }
+        public string IsPhoneNumberErrorVisible
+        {
+            get { return isPhoneNumberErrorVisible; }
+            set
+            {
+                if (isPhoneNumberErrorVisible != value)
+                {
+                    isPhoneNumberErrorVisible = value;
+                    OnPropertyChanged("IsPhoneNumberErrorVisible");
+                }
+            }
+        }
+        public string IsBirthdayErrorVisible
+        {
+            get { return isBirthdayErrorVisible; }
+            set
+            {
+                if (isBirthdayErrorVisible != value)
+                {
+                    isBirthdayErrorVisible = value;
+                    OnPropertyChanged("IsBirthdayErrorVisible");
+                }
+            }
+        }
         public int IdCnt { get => idCnt; set => idCnt = value; }
+        public string PhoneNumberErrorText
+        {
+            get { return phoneNumberErrorText; }
+            set
+            {
+                if (phoneNumberErrorText != value)
+                {
+                    phoneNumberErrorText = value;
+                    OnPropertyChanged("PhoneNumberErrorText");
+                }
+            }
+        }
+        public string EmailErrorText
+        {
+            get { return emailErrorText; }
+            set
+            {
+                if (emailErrorText != value)
+                {
+                    emailErrorText = value;
+                    OnPropertyChanged("EmailErrorText");
+                }
+            }
+        }
+        public string IsEmailErrorVisible
+        {
+            get { return isEmailErrorVisible; }
+            set
+            {
+                if (isEmailErrorVisible != value)
+                {
+                    isEmailErrorVisible = value;
+                    OnPropertyChanged("IsEmailErrorVisible");
+                }
+            }
+        }
+        public string LoyaltyCardIdErrorText
+        {
+            get { return loyaltyCardIdErrorText; }
+            set
+            {
+                if (loyaltyCardIdErrorText != value)
+                {
+                    loyaltyCardIdErrorText = value;
+                    OnPropertyChanged("LoyaltyCardIdErrorText");
+                }
+            }
+        }
+        public string IsLoyaltyCardIdErrorVisible
+        {
+            get { return isLoyaltyCardIdErrorVisible; }
+            set
+            {
+                if (isLoyaltyCardIdErrorVisible != value)
+                {
+                    isLoyaltyCardIdErrorVisible = value;
+                    OnPropertyChanged("IsLoyaltyCardIdErrorVisible");
+                }
+            }
+        }
     }
 }

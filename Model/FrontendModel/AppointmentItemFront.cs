@@ -9,51 +9,58 @@ namespace Model.FrontendModel
 {
     public class AppointmentItemFront : INotifyPropertyChanged
     {
-        private int appointmentItemId;
-        private int serviceId;
+        private ServiceFront service = new ServiceFront();
+        private EmployeeFront employee = new EmployeeFront();
 
-        public AppointmentItemFront(int appointmentItemId, int serviceId)
+        public AppointmentItemFront()
         {
-            this.appointmentItemId = appointmentItemId;
-            this.serviceId = serviceId;
         }
 
-        public int AppointmentItemId {
-            get { return appointmentItemId; }
+        public AppointmentItemFront(ServiceFront service, EmployeeFront employee)
+        {
+            this.Service = service;
+            this.Employee = employee;
+        }
+
+        public ServiceFront Service
+        {
+            get { return service; }
             set
             {
-                if (appointmentItemId != value)
+                if (service != value)
                 {
-                    appointmentItemId = value;
-                    RaisePropertyChanged("AppointmentItemId");
+                    service = value;
+                    RaisePropertyChanged("Service");
                 }
             }
         }
-        public int ServiceId {
-            get { return serviceId; }
+        public EmployeeFront Employee
+        {
+            get { return employee; }
             set
             {
-                if (serviceId != value)
+                if (employee != value)
                 {
-                    serviceId = value;
-                    RaisePropertyChanged("ServiceId");
+                    employee = value;
+                    RaisePropertyChanged("Employee");
                 }
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public override bool Equals(object? obj)
         {
-            return obj is AppointmentItemFront item &&
-                   appointmentItemId == item.appointmentItemId &&
-                   serviceId == item.serviceId;
+            return obj is AppointmentItemFront front &&
+                   EqualityComparer<ServiceFront>.Default.Equals(Service, front.Service) &&
+                   EqualityComparer<EmployeeFront>.Default.Equals(Employee, front.Employee);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(appointmentItemId, serviceId);
+            return HashCode.Combine(Service, Employee);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
         private void RaisePropertyChanged(string property)
         {
             if (PropertyChanged != null)

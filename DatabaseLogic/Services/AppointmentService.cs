@@ -1,8 +1,10 @@
 ﻿using DatabaseLogic.DAO;
 using DatabaseLogic.DAO.Implementation;
 using Model.DBModel;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ namespace DatabaseLogic.Services
     public class AppointmentService
     {
         private static readonly IAppointmentDAO appointmentDAO = new AppontmentDAOImpl();
+        private static readonly ISIADAO siaDAO = new SIADAOImpl();
 
         /// <summary>
         /// TODO
@@ -19,16 +22,61 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Count()
         {
-            return appointmentDAO.Count();
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Count();
+            }catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public int DeleteAll()
         {
-            return appointmentDAO.DeleteAll();
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.DeleteAll();
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if(ex.Number == 2292)
+                {
+                    Console.WriteLine("Pokrenuto brisanje SIA tabele nakon cega ce se funkcija ponoviti...");
+
+                    try
+                    {
+                        siaDAO.DeleteAll();
+                    } catch (OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.DeleteAll();
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -36,8 +84,31 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Save(DBAppointment entity)
         {
-            return appointmentDAO.Save(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Save(entity);
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if(ex.Number == 1)
+                {
+                    try
+                    {
+                        Console.WriteLine("Trying again...");
+                        ret = appointmentDAO.Save(entity);
+                    }catch(OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }                    
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -45,8 +116,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public bool ExistsById(int id)
         {
-            return appointmentDAO.ExistsById(id);
+            bool ret = false;
+
+            try
+            {
+                ret = appointmentDAO.ExistsById(id);
+            } catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -54,8 +137,42 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int Delete(DBAppointment entity)
         {
-            return appointmentDAO.Delete(entity);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.Delete(entity);
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Number == 2292)
+                {
+                    Console.WriteLine("Brisanje appointmenta iz SIA pokrenuto...");
+                    try
+                    {
+                        siaDAO.DeleteAllByAppointmentId(entity.appointmentId);
+                    }
+                    catch (OracleException ex2) 
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.Delete(entity);
+                    } catch(OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+
+                }
+                
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -63,16 +180,62 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int DeleteById(int id)
         {
-            return appointmentDAO.DeleteById(id);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.DeleteById(id);
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.Number == 2292)
+                {
+                    Console.WriteLine("Brisanje appointmenta iz SIA pokrenuto...");
+                    try
+                    {
+                        siaDAO.DeleteAllByAppointmentId(id);
+                    }
+                    catch (OracleException ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+
+                    try
+                    {
+                        ret = appointmentDAO.DeleteById(id);
+                    }
+                    catch (OracleException ex3)
+                    {
+                        Console.WriteLine(ex3.Message);
+                    }
+                }
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
         /// <returns></returns>
         public IEnumerable<DBAppointment> FindAll()
         {
-            return appointmentDAO.FindAll();
+            IEnumerable<DBAppointment> ret = new List<DBAppointment>();
+
+            try
+            {
+                ret = appointmentDAO.FindAll();
+            } catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -80,8 +243,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public IEnumerable<DBAppointment> FindAllById(IEnumerable<int> ids)
         {
-            return appointmentDAO.FindAllById(ids);
+            IEnumerable<DBAppointment> ret = new List<DBAppointment>();
+
+            try
+            {
+                ret = appointmentDAO.FindAllById(ids);
+            } catch (OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -89,8 +264,20 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public DBAppointment FindById(int id)
         {
-            return appointmentDAO.FindById(id);
+            DBAppointment ret = null;
+
+            try
+            {
+                ret = appointmentDAO.FindById(id);
+            } catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return ret;
         }
+
+
         /// <summary>
         /// TODO
         /// </summary>
@@ -98,7 +285,19 @@ namespace DatabaseLogic.Services
         /// <returns></returns>
         public int SaveAll(IEnumerable<DBAppointment> entities)
         {
-            return appointmentDAO.SaveAll(entities);
+            int ret = -1;
+
+            try
+            {
+                ret = appointmentDAO.SaveAll(entities);
+            }
+            catch(OracleException ex)
+            {
+                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Number);
+            }
+
+            return ret;
         }
     }
 }

@@ -19,6 +19,10 @@ namespace Model.FrontendModel
             this.name = name;
         }
 
+        public EmployeeFront()
+        {
+        }
+
         public int EmployeeId {
             get { return employeeId; }
             set {
