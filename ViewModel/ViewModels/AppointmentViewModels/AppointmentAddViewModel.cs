@@ -12,7 +12,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 {
     public class AppointmentAddViewModel : AppointmentBindableBase
     {
-        AppointmentAddDisplayViewModel appointmentAddDisplayViewModel = new AppointmentAddDisplayViewModel();
+        private AppointmentAddDisplayViewModel appointmentAddDisplayViewModel = new AppointmentAddDisplayViewModel();
         AppointmentAddCustomerViewModel appointmentAddCustomerViewModel = new AppointmentAddCustomerViewModel();
         AppointmentAddServiceViewModel appointmentAddServiceViewModel = new AppointmentAddServiceViewModel();
         BindableBase currentAppointmentAddViewModel;
@@ -55,6 +55,13 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private string isSelectCustomerVisible = "Visible";
         private string isAddServiceVisible = "Visible";
         private string isFinishVisible = "Collapsed";
+
+        private string isAddedServicesErrorVisible = "Collapsed";
+        private string isEmployeePickedErrorVisible = "Collapsed";
+        private string isDateErrorVisible = "Hidden";
+        private string isEmptyAddedServicesErrorVisible = "Hidden";
+        private string isSumCenaErrorVisible = "Hidden";
+        private string isStartTimeErrorVisible = "Hidden";
 
         private int idCnt = 0;
 
@@ -100,6 +107,34 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             NavCommand = new MyICommand<string>(OnNav);
         }
 
+        public AppointmentAddDisplayViewModel AppointmentAddDisplayViewModel
+        {
+            get { return appointmentAddDisplayViewModel; }
+            set
+            {
+                if(appointmentAddDisplayViewModel != value)
+                {
+                    appointmentAddDisplayViewModel = value;
+                    OnPropertyChanged("AppointmentAddDisplayViewModel");
+                }
+            }
+        }
+
+        private void OnTextChanged()
+        {
+            try
+            {
+                if(AppointmentDateVM != null)
+                    DateOnly.Parse(AppointmentDateVM);
+                IsDateErrorVisible = "Hidden";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                IsDateErrorVisible = "Visible";
+            }
+        }
+
         private void OnNav(string obj)
         {
             switch (obj)
@@ -115,7 +150,15 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                     else
                     {
                         SelectedCustomer = appointmentAddCustomerViewModel.SelectedItem;
-                        appointmentAddDisplayViewModel.Name = SelectedCustomer.FirstName + " " + SelectedCustomer.LastName;
+                        if (SelectedCustomer == null)
+                        {
+                            appointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Visible";
+                        }
+                        else
+                        {
+                            appointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Hidden";
+                            appointmentAddDisplayViewModel.Name = SelectedCustomer.FirstName + " " + SelectedCustomer.LastName;
+                        }
                         OnNav("display");
                     }
                     break;
@@ -129,7 +172,26 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                     }
                     else
                     {
-                        OnAddService();
+                        if(appointmentAddServiceViewModel.SelectedEmployee == null)
+                        {
+                            IsEmployeePickedErrorVisible = "Visible";
+                        }
+                        else
+                        {
+                            IsEmployeePickedErrorVisible = "Collapsed";
+                        }
+
+                        if (appointmentAddServiceViewModel.SelectedService == null)
+                        {
+                            IsAddedServicesErrorVisible = "Visible";
+                        }
+                        else
+                        {
+                            IsAddedServicesErrorVisible = "Collapsed";
+                        }
+
+                        if (IsEmployeePickedErrorVisible.Equals("Collapsed") && IsAddedServicesErrorVisible.Equals("Collapsed"))
+                            OnAddService();
                     }
                     break;
                 case "display":
@@ -277,6 +339,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (appointmentDateVM != value)
                 {
                     appointmentDateVM = value;
+                    OnTextChanged();
                     OnPropertyChanged("AppointmentDateVM");
                 }
             }
@@ -481,6 +544,101 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 }
             }
         }
+
+        public string IsAddedServicesErrorVisible
+        {
+            get { return isAddedServicesErrorVisible; }
+            set
+            {
+                if (isAddedServicesErrorVisible != value)
+                {
+                    isAddedServicesErrorVisible = value;
+                    OnPropertyChanged("IsAddedServicesErrorVisible");
+                }
+            }
+        }
+
+        public string IsEmployeePickedErrorVisible
+        {
+            get { return isEmployeePickedErrorVisible; }
+            set
+            {
+                if(isEmployeePickedErrorVisible != value)
+                {
+                    isEmployeePickedErrorVisible = value;
+                    OnPropertyChanged("IsEmployeePickedErrorVisible");
+                }
+            }
+        }
+
+        public string IsDateErrorVisible
+        {
+            get { return isDateErrorVisible; }
+            set
+            {
+                if(isDateErrorVisible != value)
+                {
+                    isDateErrorVisible = value;
+                    OnPropertyChanged("IsDateErrorVisible");
+                }
+            }
+        }
+
+        public string IsEmptyAddedServicesErrorVisible
+        {
+            get { return isEmptyAddedServicesErrorVisible; }
+            set
+            {
+                if(isEmptyAddedServicesErrorVisible != value)
+                {
+                    isEmptyAddedServicesErrorVisible = value;
+                    OnPropertyChanged("IsEmptyAddedServicesErrorVisible");
+                }
+            }
+        }
+
+        public string IsSumCenaErrorVisible
+        {
+            get { return isSumCenaErrorVisible; }
+            set
+            {
+                if(isSumCenaErrorVisible != value)
+                {
+                    isSumCenaErrorVisible = value;
+                    try
+                    {
+                        if (SumCenaVM != null) {
+                            double.Parse(SumCenaVM);
+                            if (double.Parse(SumCenaVM) < 0)
+                            {
+                                throw new Exception("Negativan broj!");
+                            }
+                        }
+                        IsSumCenaErrorVisible = "Hidden";
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        IsSumCenaErrorVisible = "Visible";
+                    }
+                    OnPropertyChanged("IsSumCenaErrorVisible");
+                }
+            }
+        }
+        
+        public string IsStartTimeErrorVisible
+        {
+            get { return isStartTimeErrorVisible; }
+            set
+            {
+                if(isStartTimeErrorVisible != value)
+                {
+                    isStartTimeErrorVisible = value;
+                    OnPropertyChanged("IsStartTimeErrorVisible");
+                }
+            }
+        }
+
         public int IdCnt { get => idCnt; set => idCnt = value; }
 
         public event PropertyChangedEventHandler? PropertyChanged;

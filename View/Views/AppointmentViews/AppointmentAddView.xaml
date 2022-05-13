@@ -47,13 +47,24 @@
                     CommandParameter="services"
                     Visibility="{Binding IsAddServiceVisible}" />
         </Grid>
+        <Grid>
+            <TextBlock Grid.Column="1"
+                       Text="Must pick a service!"
+                       Visibility="{Binding IsAddedServicesErrorVisible}"
+                       Foreground="Red" />
+        </Grid>
+        <Grid>
+            <TextBlock Grid.Column="1"
+                       Text="Must pick an employee!"
+                       Visibility="{Binding IsEmployeePickedErrorVisible}"
+                       Foreground="Red" />
+        </Grid>
         <TextBlock Text="Services added to appointment:" />
         <Button Height="20"
                 Width="160"
                 Content="Remove service from list"
                 Command="{Binding RemoveAddedServiceCommand}"
                 IsEnabled="{Binding CanRemoveAddedService}" />
-        <TextBlock Text="Select date of the appointment: " />
         <DataGrid Height="130"
                   IsReadOnly="True"
                   SelectionMode="Single"
@@ -85,7 +96,20 @@
                                     Binding="{Binding Employee.Name}" />
             </DataGrid.Columns>
         </DataGrid>
-        <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay}" />
+        <Grid>
+            <TextBlock Grid.Column="1"
+                       Text="Must add a service!"
+                       Visibility="{Binding IsEmptyAddedServicesErrorVisible}"
+                       Foreground="Red"/>
+        </Grid>
+        <TextBlock Text="Select date of the appointment: " />
+        <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid>
+            <TextBlock Grid.Column="1"
+                       Text="Date not in proper format!"
+                       Visibility="{Binding IsDateErrorVisible}"
+                       Foreground="Red" />
+        </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
@@ -136,6 +160,11 @@
                       SelectedItem="{Binding EndTimeMinute}" />
         </Grid>
         <Grid>
+            <TextBlock Text="Must select start time!"
+                       Foreground="Red"
+                       Visibility="{Binding IsStartTimeErrorVisible}"/>
+        </Grid>
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
@@ -154,7 +183,17 @@
             <TextBlock Grid.Column="0"
                        Text="Total price:" />
             <TextBox Grid.Column="1"
-                     Text="{Binding SumCenaVM}" />
+                     Text="{Binding SumCenaVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1"
+                     Text="Total price not in correct format!" 
+                       Foreground="Red"
+                       Visibility="{Binding IsSumCenaErrorVisible}"/>
         </Grid>
     </StackPanel>
 </UserControl>

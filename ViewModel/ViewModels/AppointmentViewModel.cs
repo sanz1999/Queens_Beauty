@@ -70,6 +70,13 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsSelectCustomerVisible = "Visible";
                 appointmentAddViewModel.CurrentAppointmentAddViewModel = new AppointmentAddDisplayViewModel();
 
+                appointmentAddViewModel.IsAddedServicesErrorVisible = "Hidden";
+                appointmentAddViewModel.IsAddServiceVisible = "Hidden";
+                appointmentAddViewModel.IsDateErrorVisible = "Hidden";
+                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Hidden";
+                appointmentAddViewModel.IsSumCenaErrorVisible = "Hidden";
+                appointmentAddViewModel.IsStartTimeErrorVisible = "Hidden";
+
                 OnNav("filter");
             }
             else if(CurrentAppointmentViewModel == appointmentFilterViewModel)
@@ -133,22 +140,58 @@ namespace ViewModel.ViewModels
             }
             else
             {   //update treba da se zavrsi
+                if (ValidationCheck())
+                {
+                    AppointmentFront selectedOne = SelectedItem;
+                    AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
+                    int index = Appointments.IndexOf(SelectedItem);
+                    int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
+                    appointmentCRUD.UpdateInDataBase(newOne);
+                    Appointments.RemoveAt(index);
+                    Appointments.Insert(index, newOne);
+                    AppointmentsSearch.RemoveAt(indexSearch);
+                    AppointmentsSearch.Insert(indexSearch, newOne);
 
-                AppointmentFront selectedOne = SelectedItem;
-                AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
-                int index = Appointments.IndexOf(SelectedItem);
-                int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
-                appointmentCRUD.UpdateInDataBase(newOne);
-                Appointments.RemoveAt(index);
-                Appointments.Insert(index, newOne);
-                AppointmentsSearch.RemoveAt(indexSearch);
-                AppointmentsSearch.Insert(indexSearch, newOne);
+                    CanAlter = false;
+                    CanDelete = false;
 
-                CanAlter = false;
-                CanDelete = false;
-
-                CurrentAppointmentViewModel = appointmentFilterViewModel;
+                    CurrentAppointmentViewModel = appointmentFilterViewModel;
+                }
             }
+        }
+
+        private bool ValidationCheck()
+        {
+            bool res = true;
+            if (appointmentAddViewModel.SelectedCustomer == null)
+            {
+                appointmentAddViewModel.AppointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Visible";
+                res = false;
+            }
+            if (appointmentAddViewModel.AddedSIA.Count == 0)
+            {
+                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Visible";
+                res = false;
+            }
+            if (appointmentAddViewModel.AppointmentDateVM == null)
+                res = false;
+            if (appointmentAddViewModel.IsDateErrorVisible.Equals("Visible"))
+                res = false;
+            if (appointmentAddViewModel.SumCenaVM == null)
+                res = false;
+            if (appointmentAddViewModel.IsSumCenaErrorVisible.Equals("Visible"))
+                res = false;
+            if (appointmentAddViewModel.StartTimeMinute == null || appointmentAddViewModel.StartTimeHour == null)
+            {
+                appointmentAddViewModel.IsStartTimeErrorVisible = "Visible";
+                res = false;
+            }
+            if (res)
+            {
+                appointmentAddViewModel.IsStartTimeErrorVisible = "Hidden";
+                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Hidden";
+            }
+            return res;
         }
 
         private void OnSelect()
@@ -193,14 +236,17 @@ namespace ViewModel.ViewModels
                     }
                     else
                     {
-                        AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
-                        appointmentCRUD.AddToDataBase(newAppointment);
-                        Appointments.Add(appointmentCRUD.FindLastAdded());
-                        AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
-                        OnNav("filter");
+                        if (ValidationCheck())
+                        {
+                            AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
+                            appointmentCRUD.AddToDataBase(newAppointment);
+                            Appointments.Add(appointmentCRUD.FindLastAdded());
+                            AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
+                            OnNav("filter");
 
-                        CanAlter = false;
-                        CanDelete = false;
+                            CanAlter = false;
+                            CanDelete = false;
+                        }
                     }
                     break;
                 case "filter":
