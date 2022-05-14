@@ -24,12 +24,14 @@ namespace ViewModel.ViewModels.ServiceViewModels
         private string pointsPriceErrorText;
         private string pointsRewardErrorText;
 
-        private string isNameErrorVisible = "Hidden";
-        private string isCategoryErrorVisible = "Hidden";
-        private string isDurationErrorVisible = "Hidden";
-        private string isPriceErrorVisible = "Hidden";
-        private string isPointsPriceErrorVisible = "Hidden";
-        private string isPointsRewardErrorVisible = "Hidden";
+        private string headText;
+
+        private string isNameErrorVisible = "Collapsed";
+        private string isCategoryErrorVisible = "Collapsed";
+        private string isDurationErrorVisible = "Collapsed";
+        private string isPriceErrorVisible = "Collapsed";
+        private string isPointsPriceErrorVisible = "Collapsed";
+        private string isPointsRewardErrorVisible = "Collapsed";
 
         public BindingList<string> Categories { get; set; }
 
@@ -77,7 +79,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                     if (!validation.service.Name(NameVM))
                         IsNameErrorVisible = "Visible";
                     else
-                        IsNameErrorVisible = "Hidden";
+                        IsNameErrorVisible = "Collapsed";
                     OnPropertyChanged("NameVM");
                 }
             }
@@ -111,7 +113,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                         IsDurationErrorVisible = "Visible";
                     }
                     else
-                        IsDurationErrorVisible = "Hidden";
+                        IsDurationErrorVisible = "Collapsed";
                     OnPropertyChanged("DurationVM");
                 }
             }
@@ -138,7 +140,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                         }
                     }
                     else
-                        IsPriceErrorVisible = "Hidden";
+                        IsPriceErrorVisible = "Collapsed";
                     OnPropertyChanged("PriceVM");
                 }
             }
@@ -165,7 +167,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                         }
                     }
                     else
-                        IsPointsPriceErrorVisible = "Hidden";
+                        IsPointsPriceErrorVisible = "Collapsed";
                     OnPropertyChanged("PointsPriceVM");
                 }
             }
@@ -192,7 +194,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                         }
                     }
                     else
-                        IsPointsRewardErrorVisible = "Hidden";
+                        IsPointsRewardErrorVisible = "Collapsed";
                     OnPropertyChanged("PointsValueVM");
                 }
             }
@@ -320,5 +322,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                 }
             }
         }
+
+        public string HeadText { get => headText; set => headText = value; }
     }
 }

@@ -7,6 +7,98 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"
+              Margin="1460, 325, -2500, -85"
+              Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="120" />
+            </Grid.RenderTransform>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="-350, 150, -255, -250">
+                <StackPanel>
+                    <Border Width="300"
+                            Height="35"
+                            HorizontalAlignment="Right"
+                            Background="Gray"
+                            Margin="150, 0, 50 ,0"
+                            CornerRadius="20" />
+                    <Border Width="270"
+                            Height="35"
+                            HorizontalAlignment="Right"
+                            Background="#FE6584"
+                            Margin="0,15,100,0"
+                            CornerRadius="20" />
+                    <Border Width="150"
+                            Height="35"
+                            HorizontalAlignment="Right"
+                            Background="Silver"
+                            Margin="0,15,20,0"
+                            CornerRadius="20" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Width="1000"
+                            Height="35"
+                            Background="#FE6584"
+                            Margin="150, 70, 0 ,0"
+                            CornerRadius="20" />
+                    <Border Width="1000"
+                            Height="35"
+                            Background="Gray"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                    <Border Width="900"
+                            Height="35"
+                            Background="Silver"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Column="0"
+                    Margin="60">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image HorizontalAlignment="Left"
+                       Grid.Column="0"/>
+                <TextBlock Grid.Column="1" 
+                           Text="Queen's Beauty"
+                           FontSize="60"
+                           TextWrapping="Wrap"
+                           Foreground="#FE6584"
+                           FontFamily="Arial"
+                           FontWeight="Bold"/>
+            </Grid>
+            <StackPanel>
+                <TextBlock Text="Lorem ipsum sit dolore, Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,"
+                           TextWrapping="Wrap"
+                           FontSize="20"
+                           Foreground="DarkSlateGray"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Program Manual"
+                           FontSize="20"
+                           Foreground="DarkSlateGray" />
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Customers with incoming birthdays:"
+                           FontSize="20"
+                           Foreground="DarkSlateGray"/>
+                <ListView>
+                    
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </UserControl>

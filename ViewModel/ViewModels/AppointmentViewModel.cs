@@ -70,12 +70,12 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsSelectCustomerVisible = "Visible";
                 appointmentAddViewModel.CurrentAppointmentAddViewModel = new AppointmentAddDisplayViewModel();
 
-                appointmentAddViewModel.IsAddedServicesErrorVisible = "Hidden";
-                appointmentAddViewModel.IsAddServiceVisible = "Hidden";
-                appointmentAddViewModel.IsDateErrorVisible = "Hidden";
-                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Hidden";
-                appointmentAddViewModel.IsSumCenaErrorVisible = "Hidden";
-                appointmentAddViewModel.IsStartTimeErrorVisible = "Hidden";
+                appointmentAddViewModel.IsAddedServicesErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsAddServiceVisible = "Collapsed";
+                appointmentAddViewModel.IsDateErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsSumCenaErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsStartTimeErrorVisible = "Collapsed";
 
                 OnNav("filter");
             }
@@ -113,6 +113,8 @@ namespace ViewModel.ViewModels
         {
             if(CurrentAppointmentViewModel != appointmentAddViewModel)
             {
+                appointmentAddViewModel.HeadText = "Alter";
+
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
 
@@ -165,7 +167,7 @@ namespace ViewModel.ViewModels
             bool res = true;
             if (appointmentAddViewModel.SelectedCustomer == null)
             {
-                appointmentAddViewModel.AppointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Visible";
+                appointmentAddViewModel.IsSelectCustomerErrorVisible = "Visible";
                 res = false;
             }
             if (appointmentAddViewModel.AddedSIA.Count == 0)
@@ -188,8 +190,8 @@ namespace ViewModel.ViewModels
             }
             if (res)
             {
-                appointmentAddViewModel.IsStartTimeErrorVisible = "Hidden";
-                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Hidden";
+                appointmentAddViewModel.IsStartTimeErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Collapsed";
             }
             return res;
         }
@@ -227,6 +229,8 @@ namespace ViewModel.ViewModels
                 case "add":
                     if(CurrentAppointmentViewModel != appointmentAddViewModel)
                     {
+                        appointmentAddViewModel.HeadText = "Add";
+
                         CurrentAppointmentViewModel = appointmentAddViewModel;
                         CanAlter = false;
                         CanDelete = false;

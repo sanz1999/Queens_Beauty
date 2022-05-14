@@ -8,14 +8,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     <StackPanel>
-        
+        <TextBlock Text="Filter"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Filter by name:" />
+                       Text="Filter by name:"
+                       FontSize="14"/>
             <TextBox Grid.Column="1"
                      Text="{Binding NameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
@@ -31,7 +35,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Filter by category:" />
+                       Text="Filter by category:"
+                       FontSize="14"/>
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding CategoryVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

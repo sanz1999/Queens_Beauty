@@ -17,6 +17,8 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         AppointmentAddServiceViewModel appointmentAddServiceViewModel = new AppointmentAddServiceViewModel();
         BindableBase currentAppointmentAddViewModel;
 
+        private string headText;
+
         //private int appointmentIdVM;
         private CustomerFront customerVM;
         private string appointmentDateVM;
@@ -58,10 +60,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         private string isAddedServicesErrorVisible = "Collapsed";
         private string isEmployeePickedErrorVisible = "Collapsed";
-        private string isDateErrorVisible = "Hidden";
-        private string isEmptyAddedServicesErrorVisible = "Hidden";
-        private string isSumCenaErrorVisible = "Hidden";
-        private string isStartTimeErrorVisible = "Hidden";
+        private string isDateErrorVisible = "Collapsed";
+        private string isEmptyAddedServicesErrorVisible = "Collapsed";
+        private string isSumCenaErrorVisible = "Collapsed";
+        private string isStartTimeErrorVisible = "Collapsed";
+        private string isSelectCustomerErrorVisible = "Collapsed";
 
         private int idCnt = 0;
 
@@ -126,7 +129,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             {
                 if(AppointmentDateVM != null)
                     DateOnly.Parse(AppointmentDateVM);
-                IsDateErrorVisible = "Hidden";
+                IsDateErrorVisible = "Collapsed";
             }
             catch (Exception e)
             {
@@ -152,11 +155,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                         SelectedCustomer = appointmentAddCustomerViewModel.SelectedItem;
                         if (SelectedCustomer == null)
                         {
-                            appointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Visible";
+                            IsSelectCustomerErrorVisible = "Visible";
                         }
                         else
                         {
-                            appointmentAddDisplayViewModel.IsSelectCustomerErrorVisible = "Hidden";
+                            IsSelectCustomerErrorVisible = "Collapsed";
                             appointmentAddDisplayViewModel.Name = SelectedCustomer.FirstName + " " + SelectedCustomer.LastName;
                         }
                         OnNav("display");
@@ -614,7 +617,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                                 throw new Exception("Negativan broj!");
                             }
                         }
-                        IsSumCenaErrorVisible = "Hidden";
+                        IsSumCenaErrorVisible = "Collapsed";
                     }
                     catch (Exception e)
                     {
@@ -639,7 +642,20 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             }
         }
 
+        public string IsSelectCustomerErrorVisible
+        {
+            get { return isSelectCustomerErrorVisible; }
+            set
+            {
+                if (isSelectCustomerErrorVisible != value)
+                {
+                    isSelectCustomerErrorVisible = value;
+                    OnPropertyChanged("IsSelectCustomerErrorVisible");
+                }
+            }
+        }
         public int IdCnt { get => idCnt; set => idCnt = value; }
+        public string HeadText { get => headText; set => headText = value; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void RaisePropertyChanged(string property)

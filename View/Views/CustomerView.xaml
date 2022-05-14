@@ -76,8 +76,14 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        
-        <Grid Margin="5"
+
+        <TextBlock Text="Customers"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="5,5,5,5"
+                   FontWeight="Bold"/>
+        <Grid Margin="5,32,5,5"
               HorizontalAlignment="Stretch"
               Grid.Column="0">
             <Grid.RowDefinitions>

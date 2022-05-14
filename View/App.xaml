@@ -78,9 +78,11 @@
             <Setter Property="FontSize"
                     Value="12" />
             <Setter Property="Padding"
-                    Value="2" />
+                    Value="0" />
+            <Setter Property="Height"
+                    Value="22" />
             <Setter Property="Margin"
-                    Value="5" />
+                    Value="5,5,22,5" />
         </Style>
 
         <!-- RadioButton -->

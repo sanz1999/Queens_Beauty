@@ -8,14 +8,18 @@
              d:DesignHeight="450" d:DesignWidth="300">
 
     <StackPanel>
-
+        <TextBlock Text="Info"
+                   HorizontalAlignment="Center"
+                   FontSize="14"
+                   FontWeight="Bold"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Name:" />
+                       Text="Name:"
+                       FontSize="14"/>
             <TextBox Grid.Column="1" 
                      IsEnabled="False"
                      Text="{Binding NameVM}"/>
@@ -26,7 +30,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Category:" />
+                       Text="Category:"
+                       FontSize="14" />
             <TextBox Grid.Column="1"
                       IsEnabled="False"
                       Text="{Binding CategoryVM}"/>
@@ -37,7 +42,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Duration (in minutes):" />
+                       Text="Duration (in minutes):"
+                       FontSize="14" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding DurationVM}" />
@@ -48,7 +54,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Price:" />
+                       Text="Price:"
+                       FontSize="14" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding PriceVM}" />
@@ -59,7 +66,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Points cost:" />
+                       Text="Points cost:"
+                       FontSize="14" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding PointsPriceVM}" />
@@ -70,7 +78,8 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Points reward:" />
+                       Text="Points reward:"
+                       FontSize="14" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding PointsValueVM}" />

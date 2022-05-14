@@ -10,7 +10,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels
     {
         private string name;
 
-        private string isSelectCustomerErrorVisible = "Hidden";
         public AppointmentAddDisplayViewModel()
         {
         }
@@ -24,18 +23,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels
                 {
                     name = value;
                     OnPropertyChanged("Name");
-                }
-            }
-        }
-        public string IsSelectCustomerErrorVisible
-        {
-            get { return isSelectCustomerErrorVisible; }
-            set
-            {
-                if (isSelectCustomerErrorVisible != value)
-                {
-                    isSelectCustomerErrorVisible = value;
-                    OnPropertyChanged("IsSelectCustomerErrorVisible");
                 }
             }
         }

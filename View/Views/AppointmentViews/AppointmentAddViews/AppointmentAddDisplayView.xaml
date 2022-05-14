@@ -16,23 +16,12 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Selected customer:" />
+                       Text="Selected customer:"
+                       FontSize="14"/>
             <TextBox Grid.Column="1"
                      Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False">
             </TextBox>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1"
-                     IsEnabled="False"
-                     Text="Customer not selected!"
-                       Foreground="Red"
-                       Visibility="{Binding IsSelectCustomerErrorVisible}">
-            </TextBlock>
         </Grid>
     </StackPanel>
 </UserControl>
