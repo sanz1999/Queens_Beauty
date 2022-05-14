@@ -29,9 +29,11 @@
                        TextAlignment="Center" />
             <DatePicker Grid.Row="1"
                         Grid.Column="0"
+                        Loaded="DatePicker_Loaded"
                         Text="{Binding StartDate}"/>
             <DatePicker Grid.Row="1" 
                         Grid.Column="1"
+                        Loaded="DatePicker_Loaded"
                         Text="{Binding EndDate}"/>
         </Grid>
     </StackPanel>

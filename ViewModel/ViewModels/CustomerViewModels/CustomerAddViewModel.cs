@@ -30,13 +30,14 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private string emailErrorText;
         private string loyaltyCardIdErrorText;
 
-        private string isFirstNameErrorVisible = "Hidden";
-        private string isLastNameErrorVisible = "Hidden";
-        private string isPhoneNumberErrorVisible = "Hidden";
-        private string isBirthdayErrorVisible = "Hidden";
-        private string isEmailErrorVisible = "Hidden";
-        private string isLoyaltyCardIdErrorVisible = "Hidden";
+        private string isFirstNameErrorVisible = "Collapsed";
+        private string isLastNameErrorVisible = "Collapsed";
+        private string isPhoneNumberErrorVisible = "Collapsed";
+        private string isBirthdayErrorVisible = "Collapsed";
+        private string isEmailErrorVisible = "Collapsed";
+        private string isLoyaltyCardIdErrorVisible = "Collapsed";
 
+        private string headText;
 
         private int idCnt = 1;
 
@@ -103,7 +104,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     if (!validation.customer.FirstName(FirstNameVM))
                         IsFirstNameErrorVisible = "Visible";
                     else
-                        IsFirstNameErrorVisible = "Hidden";
+                        IsFirstNameErrorVisible = "Collapsed";
                     OnPropertyChanged("FirstNameVM");
                 }
             }
@@ -119,7 +120,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     if (!validation.customer.LastName(LastNameVM))
                         IsLastNameErrorVisible = "Visible";
                     else
-                        IsLastNameErrorVisible = "Hidden";
+                        IsLastNameErrorVisible = "Collapsed";
                     OnPropertyChanged("LastNameVM");
                 }
             }
@@ -141,7 +142,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                         IsPhoneNumberErrorVisible = "Visible";
                     }
                     else
-                        IsPhoneNumberErrorVisible = "Hidden";
+                        IsPhoneNumberErrorVisible = "Collapsed";
                     OnPropertyChanged("PhoneNumberVM");
                 }
             }
@@ -158,7 +159,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     if (!validation.customer.Birthday(DateOfBirthVM))
                         IsBirthdayErrorVisible = "Visible";
                     else
-                        IsBirthdayErrorVisible = "Hidden";
+                        IsBirthdayErrorVisible = "Collapsed";
                     OnPropertyChanged("DateOfBirthVM");
                 }
             }
@@ -180,7 +181,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                         IsEmailErrorVisible = "Visible";
                     }
                     else
-                        IsEmailErrorVisible = "Hidden";
+                        IsEmailErrorVisible = "Collapsed";
                     OnPropertyChanged("EmailVM");
                 }
             }
@@ -206,7 +207,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                         IsLoyaltyCardIdErrorVisible = "Visible";
                     }
                     else
-                        IsLoyaltyCardIdErrorVisible = "Hidden";
+                        IsLoyaltyCardIdErrorVisible = "Collapsed";
                     OnPropertyChanged("LoyaltyCardIdVM");
                 }
             }
@@ -358,5 +359,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 }
             }
         }
+
+        public string HeadText { get => headText; set => headText = value; }
     }
 }

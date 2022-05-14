@@ -33,19 +33,49 @@
                     Content="Select Customer"
                     Command="{Binding NavCommand}"
                     CommandParameter="customer"
-                    Visibility="{Binding IsSelectCustomerVisible}" />
+                    Visibility="{Binding IsSelectCustomerVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="7"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
             <Button Width="100"
                     Grid.Column="0"
                     Content="Finish adding services"
                     Command="{Binding NavCommand}"
                     CommandParameter="display"
-                    Visibility="{Binding IsFinishVisible}" />
+                    Visibility="{Binding IsFinishVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="7"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
             <Button Width="100"
                     Grid.Column="1"
                     Content="Add Services"
                     Command="{Binding NavCommand}"
                     CommandParameter="services"
-                    Visibility="{Binding IsAddServiceVisible}" />
+                    Visibility="{Binding IsAddServiceVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="7"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
         <Grid>
             <TextBlock Grid.Column="1"
@@ -64,7 +94,17 @@
                 Width="160"
                 Content="Remove service from list"
                 Command="{Binding RemoveAddedServiceCommand}"
-                IsEnabled="{Binding CanRemoveAddedService}" />
+                IsEnabled="{Binding CanRemoveAddedService}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="7"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <DataGrid Height="130"
                   IsReadOnly="True"
                   SelectionMode="Single"
@@ -103,7 +143,8 @@
                        Foreground="Red"/>
         </Grid>
         <TextBlock Text="Select date of the appointment: " />
-        <DatePicker Text="{Binding AppointmentDateVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <DatePicker Loaded="DatePicker_Loaded"
+            Text="{Binding AppointmentDateVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <Grid>
             <TextBlock Grid.Column="1"
                        Text="Date not in proper format!"

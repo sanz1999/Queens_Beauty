@@ -4,6 +4,93 @@
              xmlns:local="clr-namespace:View"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <!-- Button -->
+        <Style TargetType="Button">
+            <Setter Property="Background"
+                    Value="#FE6584" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FontWeight"
+                    Value="DemiBold" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="Silver" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#FF4C70" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- TextBlock -->
+        <Style TargetType="TextBlock">
+            <!--
+            <Setter Property="FontSize"
+                    Value="14" />
+            -->
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="FontFamily"
+                    Value="Tahoma" />
+        </Style>
+
+        <!-- TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily"
+                    Value="Tahoma" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="Padding"
+                    Value="2" />
+            <Setter Property="Margin"
+                    Value="5,5,22,5" />
+        </Style>
+
+        <!-- DatePicker -->
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily"
+                    Value="Tahoma" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="Padding"
+                    Value="2" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="Height"
+                    Value="22" />
+            <Setter Property="Margin"
+                    Value="5,5,22,5" />
+        </Style>
+
+        <!-- ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily"
+                    Value="Tahoma" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Padding"
+                    Value="2" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+
+        <!-- RadioButton -->
+        <Style TargetType="RadioButton">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

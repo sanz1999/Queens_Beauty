@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:View.Views"
         xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Queen's Beauty" Height="450" Width="800" FontFamily="Tahoma" FontSize="12"
         WindowState="Maximized">
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
@@ -37,13 +37,19 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Customers"
                           Command="{Binding NavCommand}"
-                          CommandParameter="customer"/>
+                          CommandParameter="customer"
+                          FontWeight="Bold"
+                          FontSize="16"/>
                 <MenuItem Header="Services"
                           Command="{Binding NavCommand}"
-                          CommandParameter="service"/>
+                          CommandParameter="service"
+                          FontWeight="Bold"
+                          FontSize="16"/>
                 <MenuItem Header="Appointments"
                           Command="{Binding NavCommand}"
-                          CommandParameter="appointment" />
+                          CommandParameter="appointment"
+                          FontWeight="Bold"
+                          FontSize="16"/>
             </Menu>
         </Grid>
 

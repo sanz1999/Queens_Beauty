@@ -84,12 +84,12 @@ namespace ViewModel.ViewModels
 
         private void ValidationReset()
         {
-            customerAddViewModel.IsFirstNameErrorVisible = "Hidden";
-            customerAddViewModel.IsLastNameErrorVisible = "Hidden";
-            customerAddViewModel.IsPhoneNumberErrorVisible = "Hidden";
-            customerAddViewModel.IsBirthdayErrorVisible = "Hidden";
-            customerAddViewModel.IsEmailErrorVisible = "Hidden";
-            customerAddViewModel.IsLoyaltyCardIdErrorVisible = "Hidden";
+            customerAddViewModel.IsFirstNameErrorVisible = "Collapsed";
+            customerAddViewModel.IsLastNameErrorVisible = "Collapsed";
+            customerAddViewModel.IsPhoneNumberErrorVisible = "Collapsed";
+            customerAddViewModel.IsBirthdayErrorVisible = "Collapsed";
+            customerAddViewModel.IsEmailErrorVisible = "Collapsed";
+            customerAddViewModel.IsLoyaltyCardIdErrorVisible = "Collapsed";
         }
 
         private void OnDelete()
@@ -110,6 +110,8 @@ namespace ViewModel.ViewModels
         {
             if(CurrentCustomerViewModel != customerAddViewModel)
             {
+                customerAddViewModel.HeadText = "Alter";
+
                 CurrentCustomerViewModel = customerAddViewModel;
                 customerInfoViewModel.ClearInput();
 
@@ -196,6 +198,7 @@ namespace ViewModel.ViewModels
                 case "add":
                     if (CurrentCustomerViewModel != customerAddViewModel)
                     {
+                        customerAddViewModel.HeadText = "Add";
                         //FilterVisibility = "Collapsed";
                         CurrentCustomerViewModel = customerAddViewModel;
                         CanAlter = false;
@@ -238,12 +241,12 @@ namespace ViewModel.ViewModels
                 customerAddViewModel.DateOfBirthVM == null ||
                 customerAddViewModel.EmailVM == null)
                 return false;
-            else if (!customerAddViewModel.IsFirstNameErrorVisible.Equals("Hidden") ||
-                !customerAddViewModel.IsLastNameErrorVisible.Equals("Hidden") ||
-                !customerAddViewModel.IsPhoneNumberErrorVisible.Equals("Hidden") ||
-                !customerAddViewModel.IsBirthdayErrorVisible.Equals("Hidden") ||
-                !customerAddViewModel.IsEmailErrorVisible.Equals("Hidden") ||
-                !customerAddViewModel.IsLoyaltyCardIdErrorVisible.Equals("Hidden"))
+            else if (!customerAddViewModel.IsFirstNameErrorVisible.Equals("Collapsed") ||
+                !customerAddViewModel.IsLastNameErrorVisible.Equals("Collapsed") ||
+                !customerAddViewModel.IsPhoneNumberErrorVisible.Equals("Collapsed") ||
+                !customerAddViewModel.IsBirthdayErrorVisible.Equals("Collapsed") ||
+                !customerAddViewModel.IsEmailErrorVisible.Equals("Collapsed") ||
+                !customerAddViewModel.IsLoyaltyCardIdErrorVisible.Equals("Collapsed"))
                 return false;
             return true;
         }
