@@ -70,7 +70,8 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Image HorizontalAlignment="Left"
-                       Grid.Column="0"/>
+                       Grid.Column="0"
+                       Source="Images/LogoImage.jpg"/>
                 <TextBlock Grid.Column="1" 
                            Text="Queen's Beauty"
                            FontSize="60"
@@ -90,6 +91,7 @@
                            FontSize="20"
                            Foreground="DarkSlateGray" />
             </StackPanel>
+            <!--
             <StackPanel>
                 <TextBlock Text="Customers with incoming birthdays:"
                            FontSize="20"
@@ -98,6 +100,7 @@
                     
                 </ListView>
             </StackPanel>
+            -->
         </StackPanel>
 
     </Grid>

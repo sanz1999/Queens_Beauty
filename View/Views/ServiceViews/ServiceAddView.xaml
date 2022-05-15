@@ -18,7 +18,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Name:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding NameVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -29,7 +30,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Category:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding CategoryVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -41,7 +43,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Duration (in minutes):"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding DurationVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -52,7 +55,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Price:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding PriceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -63,7 +67,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Points cost:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding PointsPriceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -74,7 +79,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Points reward:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding PointsValueVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -83,36 +89,42 @@
                    Text="Cannot leave name empty!"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsNameErrorVisible}"
                    Grid.ColumnSpan="2" />
         <TextBlock Grid.Column="1"
                    Text="Cannot leave category empty!"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsCategoryErrorVisible}"
                    Grid.ColumnSpan="2" />
         <TextBlock Grid.Column="1"
                    Text="{Binding DurationErrorText}"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsDurationErrorVisible}"
                    Grid.ColumnSpan="2" />
         <TextBlock Grid.Column="1"
                    Text="{Binding PriceErrorText}"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsPriceErrorVisible}"
                    Grid.ColumnSpan="2" />
         <TextBlock Grid.Column="1"
                    Text="{Binding PointsPriceErrorText}"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsPointsPriceErrorVisible}"
                    Grid.ColumnSpan="2" />
         <TextBlock Grid.Column="1"
                    Text="{Binding PointsRewardErrorText}"
                    Foreground="Red"
                    FontSize="13"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsPointsRewardErrorVisible}"
                    Grid.ColumnSpan="2" />
     </StackPanel>

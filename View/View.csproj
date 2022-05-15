@@ -5,10 +5,18 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Views\Images\ProgramIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Images\" />
+    <None Remove="Views\Images\LogoImage.jpg" />
+    <None Remove="Views\Images\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Images\LogoImage.jpg" />
+    <Resource Include="Views\Images\ProgramIcon.ico" />
+    <Resource Include="Views\Images\settings.png" />
   </ItemGroup>
 
   <ItemGroup>

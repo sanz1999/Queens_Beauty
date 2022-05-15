@@ -83,9 +83,11 @@
         </Grid>
         <TextBlock Text="Services added to appointment:"
                    FontSize="14"
-                   FontWeight="Bold"/>
+                   FontWeight="Bold"
+                   Margin="22,5,5,5"/>
         <DataGrid Height="130"
                   IsReadOnly="True"
+                  Margin="22,5,22,5"
                   SelectionMode="Single"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
@@ -171,8 +173,10 @@
             </Button.Template>
         </Button>
         <TextBlock Text="Select date of the appointment:"
-                   FontSize="14" />
+                   FontSize="14"
+                   Margin="22,5,5,5"/>
         <DatePicker Loaded="DatePicker_Loaded"
+                    Margin="22,5,22,5"
             Text="{Binding AppointmentDateVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <Grid>
@@ -240,7 +244,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Check if appointment was done:"
-                       FontSize="14"/>
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <CheckBox Grid.Column="1"
                       Content="Done"
                       FontSize="14"
@@ -254,7 +259,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Text="Total price:"
-                       FontSize="14" />
+                       FontSize="14"
+                       Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
                      Text="{Binding SumCenaVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -269,35 +275,42 @@
                    IsEnabled="False"
                    Text="Customer not selected!"
                    Foreground="Red"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsSelectCustomerErrorVisible}" />
         <TextBlock Grid.Column="1"
                    Text="Must pick a service!"
                    FontSize="13"
                    Visibility="{Binding IsAddedServicesErrorVisible}"
-                   Foreground="Red" />
+                   Foreground="Red"
+                   Margin="22,5,5,5" />
         <TextBlock Grid.Column="1"
                    Text="Must pick an employee!"
                    FontSize="13"
                    Visibility="{Binding IsEmployeePickedErrorVisible}"
-                   Foreground="Red" />
+                   Foreground="Red"
+                   Margin="22,5,5,5" />
         <TextBlock Grid.Column="1"
                    Text="Must add a service!"
                    FontSize="13"
                    Visibility="{Binding IsEmptyAddedServicesErrorVisible}"
-                   Foreground="Red" />
+                   Foreground="Red"
+                   Margin="22,5,5,5" />
         <TextBlock Grid.Column="1"
                    Text="Date not in proper format!"
                    FontSize="13"
                    Visibility="{Binding IsDateErrorVisible}"
-                   Foreground="Red" />
+                   Foreground="Red"
+                   Margin="22,5,5,5" />
         <TextBlock Text="Must select start time!"
                        FontSize="13"
-                       Foreground="Red"
-                       Visibility="{Binding IsStartTimeErrorVisible}" />
+                   Foreground="Red"
+                   Margin="22,5,5,5"
+                   Visibility="{Binding IsStartTimeErrorVisible}" />
         <TextBlock Grid.Column="1"
                    Text="Total price not in correct format!"
                    FontSize="13"
                    Foreground="Red"
+                   Margin="22,5,5,5"
                    Visibility="{Binding IsSumCenaErrorVisible}" />
     </StackPanel>
 </UserControl>
