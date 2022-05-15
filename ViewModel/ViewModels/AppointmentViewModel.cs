@@ -22,6 +22,7 @@ namespace ViewModel.ViewModels
         private AppointmentFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
+        private bool canAdd = true;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -57,10 +58,12 @@ namespace ViewModel.ViewModels
 
         private void OnCancel()
         {
-            if(CurrentAppointmentViewModel == appointmentAddViewModel)
+            CanAdd = true;
+            if (CurrentAppointmentViewModel == appointmentAddViewModel)
             {
                 appointmentAddViewModel.ClearInput();
 
+                
                 CanAlter = false;
                 CanDelete = false;
 
@@ -114,6 +117,8 @@ namespace ViewModel.ViewModels
             if(CurrentAppointmentViewModel != appointmentAddViewModel)
             {
                 appointmentAddViewModel.HeadText = "Alter";
+                CanAdd = false;
+                CanDelete = false;
 
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
@@ -151,6 +156,7 @@ namespace ViewModel.ViewModels
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
 
+                    CanAdd = true;
                     CanAlter = false;
                     CanDelete = false;
 
@@ -197,7 +203,7 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
-
+            CanAdd = true;
             CanAlter = true;
             CanDelete = true;
             OnNav("info");
@@ -292,6 +298,18 @@ namespace ViewModel.ViewModels
                 {
                     canDelete = value;
                     OnPropertyChanged("CanDelete");
+                }
+            }
+        }
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set
+            {
+                if (canAdd != value)
+                {
+                    canAdd = value;
+                    OnPropertyChanged("CanAdd");
                 }
             }
         }

@@ -20,6 +20,7 @@ namespace Model.DBModel
         public int loyaltyNumber { get; set; }
         public int exists { get; set; }
         
+        
 
         //Koristi se za preuzimanje svih podataka radi ispisa
         public DBCustomer(int id, string name, string surname, DateTime dateOfBirth, string phoneNumber, string email, string gender, int points, int loyaltyNumber, int exists)

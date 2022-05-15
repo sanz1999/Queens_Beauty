@@ -26,6 +26,7 @@ namespace ViewModel.ViewModels
         private ServiceFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
+        private bool canAdd = true;
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
         public MyICommand AlterCommand { get; set; }
@@ -66,6 +67,7 @@ namespace ViewModel.ViewModels
 
         private void OnCancel()
         {
+            CanAdd = true;
             if (CurrentServiceViewModel == serviceAddViewModel)
             {
                 serviceAddViewModel.ClearInput();
@@ -125,6 +127,8 @@ namespace ViewModel.ViewModels
             if (CurrentServiceViewModel != serviceAddViewModel)
             {
                 serviceAddViewModel.HeadText = "Alter";
+                CanAdd = false;
+                CanDelete=false;
 
                 CurrentServiceViewModel = serviceAddViewModel;
                 serviceInfoViewModel.ClearInput();
@@ -151,7 +155,7 @@ namespace ViewModel.ViewModels
                 Services.Insert(indexReal, service);
                 serviceCRUD.UpdateInDataBase(service);
 
-
+                CanAdd = true;
                 CanAlter = false;
                 CanDelete = false;
 
@@ -164,7 +168,7 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
-
+            CanAdd = true;
             CanAlter = true;
             CanDelete = true;
             OnNav("info");
@@ -200,7 +204,7 @@ namespace ViewModel.ViewModels
                         Services.Add(serviceCRUD.FindLastAdded());
 
                         OnNav("filter");
-
+                        ValidationReset();
                         CanAlter = false;
                         CanDelete = false;
                     }
@@ -263,6 +267,19 @@ namespace ViewModel.ViewModels
                 {
                     canDelete = value;
                     OnPropertyChanged("CanDelete");
+                }
+            }
+        }
+
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set
+            {
+                if (canAdd != value)
+                {
+                    canAdd = value;
+                    OnPropertyChanged("CanAdd");
                 }
             }
         }
