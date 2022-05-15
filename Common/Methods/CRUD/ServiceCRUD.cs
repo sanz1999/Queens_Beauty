@@ -27,7 +27,7 @@ namespace Common.Methods.CRUD
         public BindingList<string> LoadCategories()
         {
             BindingList<string> newList = new BindingList<string>();  
-            string DestPath = System.IO.Directory.GetCurrentDirectory() + @"\..\..\..\..\" + @"ViewModel\Resources\ServiceCategories.txt";
+            string DestPath = System.IO.Directory.GetCurrentDirectory() + @"\ServiceCategories.txt";
             List<string> categories = new List<string>(System.IO.File.ReadAllLines(DestPath));
             foreach (string x in categories) {
                 newList.Add(x);
