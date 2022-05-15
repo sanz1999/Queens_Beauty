@@ -17,6 +17,68 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             Appointments = new BindingList<AppointmentFront>();
             AppointmentsSearch = new BindingList<AppointmentFront>();
         }
+        private void Filter()
+        {
+            bool canAdd;
+            AppointmentsSearch.Clear();
+            foreach (AppointmentFront appointment in Appointments)
+            {
+                canAdd = CanAppointmentPassFilter(appointment);
+                if (canAdd)
+                    AppointmentsSearch.Add(appointment);
+            }
+        }
+
+        private bool CanAppointmentPassFilter(AppointmentFront appointment)
+        {
+            if (StartDate != null)
+                try
+                {
+                    if (!CompareDate(appointment.AppointmentDate, DateOnly.Parse(StartDate), 0))
+                        return false;
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            if (EndDate != null)
+                try
+                {
+                    if (CompareDate(appointment.AppointmentDate, DateOnly.Parse(EndDate), 1))
+                        return false;
+                }
+                catch(Exception e){
+                    Console.WriteLine(e.Message);
+                }
+            return true;
+        }
+
+        private bool CompareDate(DateOnly appointmentDate, DateOnly date, int indicator)
+        {
+            //indicator - 0 if StartDate, 1 if EndDate - in order to include []
+            
+            //earlier
+            if(appointmentDate.CompareTo(date) < 0)
+            {
+                return false;
+            }
+            //later
+            else if(appointmentDate.CompareTo(date) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                if(indicator == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public void ClearInput()
         {
@@ -31,6 +93,16 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (startDate != value)
                 {
                     startDate = value;
+                    try
+                    {
+                        if (!StartDate.Equals(""))
+                            DateOnly.Parse(StartDate);
+                        Filter();
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                     OnPropertyChanged("StartDate");
                 }
             }
@@ -43,6 +115,16 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (endDate != value)
                 {
                     endDate = value;
+                    try
+                    {
+                        if (!EndDate.Equals(""))
+                            DateOnly.Parse(EndDate);
+                        Filter();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                     OnPropertyChanged("EndDate");
                 }
             }

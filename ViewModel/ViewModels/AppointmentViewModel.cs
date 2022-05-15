@@ -118,10 +118,7 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
 
-
                 appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
-
-
 
                 appointmentAddViewModel.AddedSIA.Clear();
 

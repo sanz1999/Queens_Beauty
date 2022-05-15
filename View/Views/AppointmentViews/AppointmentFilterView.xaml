@@ -39,12 +39,12 @@
                         Grid.Column="0"
                         Loaded="DatePicker_Loaded"
                         Margin="22,5,22,5"
-                        Text="{Binding StartDate}"/>
+                        Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <DatePicker Grid.Row="1" 
                         Grid.Column="1"
                         Loaded="DatePicker_Loaded"
                         Margin="22,5,22,5"
-                        Text="{Binding EndDate}"/>
+                        Text="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </StackPanel>
 </UserControl>
