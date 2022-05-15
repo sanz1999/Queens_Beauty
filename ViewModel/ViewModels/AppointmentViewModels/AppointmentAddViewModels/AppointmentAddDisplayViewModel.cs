@@ -9,6 +9,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels.AppointmentAddViewModels
     public class AppointmentAddDisplayViewModel : BindableBase
     {
         private string name;
+
         public AppointmentAddDisplayViewModel()
         {
         }

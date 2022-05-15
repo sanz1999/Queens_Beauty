@@ -7,8 +7,9 @@
         xmlns:views="clr-namespace:View.Views"
         xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        WindowState="Maximized">
+        Title="Queen's Beauty" Height="450" Width="800" FontFamily="Tahoma" FontSize="12"
+        WindowState="Maximized"
+        Icon="Views/Images/ProgramIcon.ico">
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
@@ -34,17 +35,49 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
                    Margin="5">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Customers"
-                          Command="{Binding NavCommand}"
-                          CommandParameter="customer"/>
-                <MenuItem Header="Services"
-                          Command="{Binding NavCommand}"
-                          CommandParameter="service"/>
-                <MenuItem Header="Appointments"
-                          Command="{Binding NavCommand}"
-                          CommandParameter="appointment" />
-            </Menu>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Menu DockPanel.Dock="Top"
+                      Background="Silver">
+                    <MenuItem Header="Home"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="home"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Customers"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="customer"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Services"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="service"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Appointments"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="appointment"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header=""
+                              Command="{Binding NavCommand}"
+                              CommandParameter="settings">
+                        <Image Source="Views/Images/settings.png" />
+                    </MenuItem>
+                </Menu>
+            </Grid>
+            <Grid Background="Silver"
+                  Grid.Column="1">
+                <Image Grid.Column="1" 
+                       HorizontalAlignment="Right"
+                       Source="Views/Images/settings.png"
+                       Height="20"
+                       Width="20"
+                       Margin="10,0,10,0"/>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1">

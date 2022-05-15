@@ -30,7 +30,61 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Margin="5"
+        <Grid Grid.Column="0"
+              Margin="-160, -365, -610, 85"
+              Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50" />
+            </Grid.RenderTransform>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="-350, 150, -255, -250">
+                <StackPanel>
+                    <Border Width="1000"
+                            Height="35"
+                            Background="Silver"
+                            Margin="150, 0, 0 ,0"
+                            CornerRadius="20" />
+                    <Border Width="950"
+                            Height="35"
+                            Background="#FE6584"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                    <Border Width="1050"
+                            Height="35"
+                            Background="Gray"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Width="1000"
+                            Height="35"
+                            Background="#FE6584"
+                            Margin="150, 70, 0 ,0"
+                            CornerRadius="20" />
+                    <Border Width="1000"
+                            Height="35"
+                            Background="Gray"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                    <Border Width="900"
+                            Height="35"
+                            Background="Silver"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+        <TextBlock Text="Services"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="5,5,5,5"
+                   FontWeight="Bold" />
+        <Grid Margin="5,32,5,5"
               HorizontalAlignment="Stretch"
               Grid.Column="0">
             <Grid.RowDefinitions>
@@ -48,63 +102,158 @@
                         Height="30"
                         Margin="5"
                         Content="Add"
+                        FontSize="14"
                         Command="{Binding NavCommand}"
-                        CommandParameter="add" />
+                        CommandParameter="add">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="1"
                         Height="30"
                         Margin="5"
                         Content="Alter"
+                        FontSize="14"
                         IsEnabled="{Binding CanAlter}"
-                        Command="{Binding AlterCommand}" />
+                        Command="{Binding AlterCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="2"
                         Height="30"
                         Margin="5"
                         Content="Delete"
+                        FontSize="14"
                         IsEnabled="{Binding CanDelete}"
-                        Command="{Binding DeleteCommand}" />
+                        Command="{Binding DeleteCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="3"
                         Height="30"
                         Margin="5"
                         Content="Cancel"
-                        Command="{Binding CancelCommand}" />
+                        FontSize="14"
+                        Command="{Binding CancelCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentServiceViewModel}" />
         </Grid>
-        <Grid Margin="5"
+        <Grid Margin="10"
               HorizontalAlignment="Stretch"
-              Grid.Column="1">
+              Grid.Column="1"
+              Background="#FE6584">
             <DataGrid IsReadOnly="True"
                       SelectionMode="Single"
+                      Margin="20"
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
                       ItemsSource="{Binding ServicesSearch}"
                       SelectedItem="{Binding SelectedItem}">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
+                        <Setter Property="FontSize"
+                                Value="14" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name"
-                                        Width="*" 
-                                        Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Category"
-                                        Width="*"
-                                        Binding="{Binding Category}" />
-                    <DataGridTextColumn Header="Duration (in minutes)"
-                                        Width="*"
-                                        Binding="{Binding Duration}" />
-                    <DataGridTextColumn Header="Price"
-                                        Width="*"
-                                        Binding="{Binding Price}" />
-                    <DataGridTextColumn Header="Price in points"
-                                        Width="0.5*"
-                                        Binding="{Binding PointsPrice}" />
-                    <DataGridTextColumn Header="Value in points"
-                                        Width="0.5*"
-                                        Binding="{Binding PointsValue}" />
+
+                    <DataGridTemplateColumn Header="Name"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Category"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Category}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Duration (in minutes)"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Duration}"
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Price"
+                                            Width="0.7*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price}"
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Price in points"
+                                            Width="0.8*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PointsPrice}"
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Value in points"
+                                            Width="0.8*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PointsValue}"
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -25,6 +25,9 @@ namespace ViewModel.ViewModels
         {
             switch (obj)
             {
+                case "home":
+                    CurrentViewModel = startupViewModel;
+                    break;
                 case "customer":
                     CurrentViewModel = customerViewModel;
                     break;

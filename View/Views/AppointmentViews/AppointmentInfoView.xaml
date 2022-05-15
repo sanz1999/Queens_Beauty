@@ -7,14 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     <StackPanel>
-        <TextBlock Text="Customer information:" />
+        <TextBlock Text="Info"
+                   FontSize="14"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold" />
+        <TextBlock Text="Customer information:"
+                   FontSize="14"
+                   Margin="22,5,5,5"
+                   FontWeight="Bold"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="First name:" />
+                       Text="First name:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.FirstName}"/>
@@ -25,7 +34,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Last name:" />
+                       Text="Last name:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.LastName}"/>
@@ -36,7 +47,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Phone number:" />
+                       Text="Phone number:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.PhoneNumber}"/>
@@ -47,7 +60,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Email:" />
+                       Text="Email:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.Email}"/>
@@ -58,7 +73,9 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Gender:" />
+                       Text="Gender:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.Gender}"/>
@@ -69,19 +86,26 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Loyalty Card ID:" />
+                       Text="Loyalty Card ID:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding CustomerVM.LoyaltyCardId}"/>
         </Grid>
-        <TextBlock Text="Appointment information:" />
+        <TextBlock Text="Appointment information:"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Margin="22,5,5,5"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Appointment Date:" />
+                       Text="Appointment Date:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding AppointmentDateVM}" />
@@ -96,10 +120,12 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Start time:"
                        Grid.Column="1"
-                       TextAlignment="Center" />
+                       TextAlignment="Center"
+                       FontSize="14" />
             <TextBlock Text="End time:"
                        Grid.Column="3"
-                       TextAlignment="Center" />
+                       TextAlignment="Center"
+                       FontSize="14" />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -112,14 +138,17 @@
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding StartTimeVM}"
-                     TextAlignment="Center"/>
+                     TextAlignment="Center"
+                     Margin="5"/>
             <TextBlock Text="---"
+                       FontSize="14"
                        Grid.Column="2"
                        TextAlignment="Center" />
             <TextBox Grid.Column="3"
                      IsEnabled="False"
                      Text="{Binding EndTimeVM}"
-                     TextAlignment="Center" />
+                     TextAlignment="Center"
+                     Margin="5"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -127,7 +156,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Check if appointment was done:" />
+                       Text="Checked if appointment was done:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <CheckBox Grid.Column="1"
                       Content="Done"
                       IsChecked="{Binding StateVM}"
@@ -139,37 +170,82 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Total price:" />
+                       Text="Total price:"
+                       FontSize="14"
+                       Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
                      IsEnabled="False"
                      Text="{Binding SumCenaVM}"/>
         </Grid>
         <DataGrid Height="100"
                   IsReadOnly="True"
+                  Margin="22,5,22,5"
                   SelectionMode="Single"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
                   ItemsSource="{Binding SIAList}"
                   SelectedItem="{Binding SelectedSIA}">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="FontWeight"
+                            Value="Bold" />
+                    <Setter Property="FontSize"
+                            Value="14" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"
-                                    Width="*"
-                                    Binding="{Binding Service.Name}"/>
-                <DataGridTextColumn Header="Category"
-                                    Width="*"
-                                    Binding="{Binding Service.Category}"/>
-                <DataGridTextColumn Header="Duration"
-                                    Width="*"
-                                    Binding="{Binding Service.Duration}"/>
-                <DataGridTextColumn Header="Price"
-                                    Width="*"
-                                    Binding="{Binding Service.Price}" />
-                <DataGridTextColumn Header="Employee"
-                                    Width="*"
-                                    Binding="{Binding Employee.Name}" />
+                <DataGridTemplateColumn Header="Name"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Service.Name}"
+                                       FontSize="13" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Category"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Service.Category}"
+                                       FontSize="13" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Duration"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Service.Duration}"
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Price"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Service.Price}"
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Employee"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Employee.Name}"
+                                       FontSize="13" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        
+        <!-- Commenting because it is too big
         <TextBlock Text="Selected service information: " />
 
         <Grid>
@@ -249,5 +325,6 @@
                      IsEnabled="False"
                      Text="{Binding SelectedSIA.Employee.Name}" />
         </Grid>
+        -->
     </StackPanel>
 </UserControl>

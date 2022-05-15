@@ -97,12 +97,12 @@ namespace ViewModel.ViewModels
 
         private void ValidationReset()
         {
-            serviceAddViewModel.IsNameErrorVisible = "Hidden";
-            serviceAddViewModel.IsCategoryErrorVisible = "Hidden";
-            serviceAddViewModel.IsDurationErrorVisible = "Hidden";
-            serviceAddViewModel.IsPriceErrorVisible = "Hidden";
-            serviceAddViewModel.IsPointsPriceErrorVisible = "Hidden";
-            serviceAddViewModel.IsPointsRewardErrorVisible = "Hidden";
+            serviceAddViewModel.IsNameErrorVisible = "Collapsed";
+            serviceAddViewModel.IsCategoryErrorVisible = "Collapsed";
+            serviceAddViewModel.IsDurationErrorVisible = "Collapsed";
+            serviceAddViewModel.IsPriceErrorVisible = "Collapsed";
+            serviceAddViewModel.IsPointsPriceErrorVisible = "Collapsed";
+            serviceAddViewModel.IsPointsRewardErrorVisible = "Collapsed";
         }
 
         private void OnDelete()
@@ -124,6 +124,8 @@ namespace ViewModel.ViewModels
 
             if (CurrentServiceViewModel != serviceAddViewModel)
             {
+                serviceAddViewModel.HeadText = "Alter";
+
                 CurrentServiceViewModel = serviceAddViewModel;
                 serviceInfoViewModel.ClearInput();
 
@@ -182,6 +184,8 @@ namespace ViewModel.ViewModels
                 case "add":
                     if (CurrentServiceViewModel != serviceAddViewModel)
                     {
+                        serviceAddViewModel.HeadText = "Add";
+
                         CurrentServiceViewModel = serviceAddViewModel;
                         CanAlter = false;
                         CanDelete = false;
@@ -221,12 +225,12 @@ namespace ViewModel.ViewModels
                 serviceAddViewModel.PointsValueVM == null ||
                 serviceAddViewModel.PriceVM == null)
                 return false;
-            else if (!serviceAddViewModel.IsNameErrorVisible.Equals("Hidden") ||
-                !serviceAddViewModel.IsCategoryErrorVisible.Equals("Hidden") ||
-                !serviceAddViewModel.IsDurationErrorVisible.Equals("Hidden") ||
-                !serviceAddViewModel.IsPriceErrorVisible.Equals("Hidden") ||
-                !serviceAddViewModel.IsPointsPriceErrorVisible.Equals("Hidden") ||
-                !serviceAddViewModel.IsPointsRewardErrorVisible.Equals("Hidden"))
+            else if (!serviceAddViewModel.IsNameErrorVisible.Equals("Collapsed") ||
+                !serviceAddViewModel.IsCategoryErrorVisible.Equals("Collapsed") ||
+                !serviceAddViewModel.IsDurationErrorVisible.Equals("Collapsed") ||
+                !serviceAddViewModel.IsPriceErrorVisible.Equals("Collapsed") ||
+                !serviceAddViewModel.IsPointsPriceErrorVisible.Equals("Collapsed") ||
+                !serviceAddViewModel.IsPointsRewardErrorVisible.Equals("Collapsed"))
                 return false;
             return true;
         }

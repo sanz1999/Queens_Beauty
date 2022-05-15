@@ -31,7 +31,61 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Margin="5"
+        <Grid Grid.Column="0"
+              Margin="-160, -365, -610, 85"
+              Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50" />
+            </Grid.RenderTransform>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="-350, 150, -255, -250">
+                <StackPanel>
+                    <Border Width="1000"
+                            Height="35"
+                            Background="Silver"
+                            Margin="150, 0, 0 ,0"
+                            CornerRadius="20" />
+                    <Border Width="950"
+                            Height="35"
+                            Background="#FE6584"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                    <Border Width="1050"
+                            Height="35"
+                            Background="Gray"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Width="1000"
+                            Height="35"
+                            Background="#FE6584"
+                            Margin="150, 70, 0 ,0"
+                            CornerRadius="20" />
+                    <Border Width="1000"
+                            Height="35"
+                            Background="Gray"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                    <Border Width="900"
+                            Height="35"
+                            Background="Silver"
+                            Margin="0,15,0,0"
+                            CornerRadius="20" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+        <TextBlock Text="Appointments"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="5,5,5,5"
+                   FontWeight="Bold" />
+        <Grid Margin="5,32,5,5"
               HorizontalAlignment="Stretch"
               Grid.Column="0">
             <Grid.RowDefinitions>
@@ -48,62 +102,147 @@
                 <Button Grid.Column="0"
                         Height="30"
                         Margin="5"
+                        FontSize="14"
                         Content="Add"
                         Command="{Binding NavCommand}"
-                        CommandParameter="add" />
+                        CommandParameter="add">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="1"
                         Height="30"
                         Margin="5"
+                        FontSize="14"
                         Content="Alter"
                         IsEnabled="{Binding CanAlter}"
                         Command="{Binding AlterCommand}"
-                        CommandParameter="alter" />
+                        CommandParameter="alter">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="2"
                         Height="30"
                         Margin="5"
+                        FontSize="14"
                         Content="Delete"
                         IsEnabled="{Binding CanDelete}"
-                        Command="{Binding DeleteCommand}"/>
+                        Command="{Binding DeleteCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Grid.Column="3"
                         Height="30"
                         Margin="5"
+                        FontSize="14"
                         Content="Cancel"
-                        Command="{Binding CancelCommand}" />
+                        Command="{Binding CancelCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentAppointmentViewModel}" />
         </Grid>
-        <Grid Margin="5"
+        <Grid Margin="10"
               HorizontalAlignment="Stretch"
-              Grid.Column="1">
+              Grid.Column="1"
+              Background="#FE6584">
             <DataGrid IsReadOnly="True"
                       SelectionMode="Single"
+                      Margin="20"
                       AutoGenerateColumns="False"
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
                       ItemsSource="{Binding AppointmentsSearch}"
                       SelectedItem="{Binding SelectedItem}">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
+                        <Setter Property="FontSize"
+                                Value="14" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="First Name"
-                                        Width="*"
-                                        Binding="{Binding Customer.FirstName}" />
-                    <DataGridTextColumn Header="Last Name"
-                                        Width="*"
-                                        Binding="{Binding Customer.LastName}" />
-                    <DataGridTextColumn Header="Date"
-                                        Width="*"
-                                        Binding="{Binding AppointmentDate}"/>
-                    <DataGridTextColumn Header="Start time"
-                                        Width="*"
-                                        Binding="{Binding StartTime}" />
-                    <DataGridTextColumn Header="End time"
-                                        Width="*"
-                                        Binding="{Binding EndTime}" />
+
+                    <DataGridTemplateColumn Header="First Name"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Customer.FirstName}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Last Name"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Customer.LastName}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Date"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AppointmentDate}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Start time"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding StartTime}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="End time"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding EndTime}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Services"
                                             Width="3*">
                         <DataGridTemplateColumn.CellTemplate>
@@ -114,27 +253,68 @@
                                           CanUserResizeColumns="False"
                                           CanUserReorderColumns="False"
                                           ItemsSource="{Binding SIA}">
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="FontWeight"
+                                                    Value="Bold" />
+                                            <Setter Property="FontSize"
+                                                    Value="13" />
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Name" 
-                                                            Width="*"
-                                                            Binding="{Binding Service.Name}"/>
-                                        <DataGridTextColumn Header="Price"
-                                                            Width="0.5*"
-                                                            Binding="{Binding Service.Price}"/>
-                                        <DataGridTextColumn Header="Employee"
-                                                            Binding="{Binding Employee.Name}"
-                                                            Width="*" />
+                                        <DataGridTemplateColumn Header="Name"
+                                                                Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Service.Name}"
+                                                               FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Price"
+                                                                Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Service.Price}"
+                                                               FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Employee"
+                                                                Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Employee.Name}"
+                                                               FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Full price"
-                                        Width="*"
-                                        Binding="{Binding SumCena}"/>
-                    <DataGridTextColumn Header="State"
-                                        Width="*"
-                                        Binding="{Binding State}"/>
+
+                    <DataGridTemplateColumn Header="Full price"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SumCena}"
+                                           FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="State"
+                                            Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding State}"
+                                          IsEnabled="False"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
