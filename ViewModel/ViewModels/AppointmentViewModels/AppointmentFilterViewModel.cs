@@ -17,6 +17,11 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             Appointments = new BindingList<AppointmentFront>();
             AppointmentsSearch = new BindingList<AppointmentFront>();
         }
+        public void ClearInput()
+        {
+            StartDate = "";
+            EndDate = "";
+        }
         private void Filter()
         {
             bool canAdd;
@@ -32,59 +37,57 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private bool CanAppointmentPassFilter(AppointmentFront appointment)
         {
             if (StartDate != null)
+                //Should be later
                 try
                 {
-                    if (!CompareDate(appointment.AppointmentDate, DateOnly.Parse(StartDate), 0))
+                    if (!CompareDates(appointment.AppointmentDate, DateOnly.Parse(StartDate), true) && !StartDate.Equals(""))
                         return false;
+                    else if (StartDate.Equals(""))
+                        return true;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             if (EndDate != null)
+                //Should be earlier
                 try
                 {
-                    if (CompareDate(appointment.AppointmentDate, DateOnly.Parse(EndDate), 1))
+                    if (CompareDates(appointment.AppointmentDate, DateOnly.Parse(EndDate), false) && !EndDate.Equals(""))
                         return false;
+                    else if (EndDate.Equals(""))
+                        return true;
                 }
-                catch(Exception e){
+                catch (Exception e)
+                {
                     Console.WriteLine(e.Message);
                 }
             return true;
         }
-
-        private bool CompareDate(DateOnly appointmentDate, DateOnly date, int indicator)
+        private bool CompareDates(DateOnly appointmentDate, DateOnly targetDate, bool indicator)
         {
-            //indicator - 0 if StartDate, 1 if EndDate - in order to include []
-            
-            //earlier
-            if(appointmentDate.CompareTo(date) < 0)
-            {
+            //indicator is here in order to include both the start date and end date in the search.
+            int res = appointmentDate.CompareTo(targetDate);
+
+            //appDate earlier than targetDate
+            if (res < 0)
                 return false;
-            }
-            //later
-            else if(appointmentDate.CompareTo(date) > 0)
+            //appDate same as targetDate
+            else if (res == 0)
             {
-                return true;
-            }
-            else
-            {
-                if(indicator == 0)
+                if (indicator)
                 {
                     return true;
                 }
-                else
+                else if (!indicator)
                 {
                     return false;
                 }
             }
+            //appDate later than targetDate
+            return true;
         }
 
-        public void ClearInput()
-        {
-            StartDate = "";
-            EndDate = "";
-        }
         public string StartDate
         {
             get { return startDate; }
@@ -93,16 +96,18 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (startDate != value)
                 {
                     startDate = value;
+
                     try
                     {
                         if (!StartDate.Equals(""))
                             DateOnly.Parse(StartDate);
                         Filter();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
                     }
+
                     OnPropertyChanged("StartDate");
                 }
             }
@@ -115,6 +120,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (endDate != value)
                 {
                     endDate = value;
+
                     try
                     {
                         if (!EndDate.Equals(""))
@@ -125,6 +131,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                     {
                         Console.WriteLine(e.Message);
                     }
+
                     OnPropertyChanged("EndDate");
                 }
             }
