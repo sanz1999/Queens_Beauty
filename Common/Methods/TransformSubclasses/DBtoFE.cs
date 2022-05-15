@@ -64,12 +64,12 @@ namespace Common.Methods.TransformSubclasses
             AppointmentFront app = new AppointmentFront();
             app.AppointmentId = utapp.appointmentId;
             app.Customer =  Customer(customerService.FindById(utapp.customerId)); //find customer
-            app.AppointmentDate =  DateOnly.FromDateTime(utapp.dateTime);
-            app.StartTime = TimeOnly.FromDateTime(utapp.dateTime).ToString();
-            app.EndTime = TimeOnly.FromDateTime(utapp.dateTime).ToString(); // Izracunati nekako
+            app.AppointmentDate =  DateOnly.FromDateTime(utapp.dateTime);            
             app.SumCena = utapp.price;
             app.State = (utapp.state == 1) ? true:false ;
             app.SIA = AppointmentItems(ursia);
+            app.StartTime = TimeOnly.FromDateTime(utapp.dateTime).ToString();         
+            app.EndTime = AddMinutes(TimeOnly.FromDateTime(utapp.dateTime),app.SIA);
             return app;
         }
 
@@ -92,6 +92,15 @@ namespace Common.Methods.TransformSubclasses
             employee.EmployeeId = worker.id;
             employee.Name = worker.name;
             return employee;
+        }
+
+        public string AddMinutes(TimeOnly startTime,BindingList<AppointmentItemFront> SIA) {
+            TimeOnly vreme = startTime;
+            foreach (var x in SIA) {
+                vreme = vreme.AddMinutes(x.Service.Duration);
+            }
+            
+            return vreme.ToString();
         }
     }
 }
