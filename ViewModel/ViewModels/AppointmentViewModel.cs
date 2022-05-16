@@ -68,7 +68,6 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentPayViewModel;
 
                 appointmentPayViewModel.CustomerVM = SelectedItem.Customer;
-                appointmentPayViewModel.StateVM = SelectedItem.State;
                 appointmentPayViewModel.SIAList.Clear();
                 foreach(AppointmentItemFront sia in SelectedItem.SIA)
                 {
