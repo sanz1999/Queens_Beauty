@@ -16,6 +16,7 @@ namespace ViewModel.ViewModels
         private AppointmentAddViewModel appointmentAddViewModel = new AppointmentAddViewModel();
         private AppointmentFilterViewModel appointmentFilterViewModel = new AppointmentFilterViewModel();
         private AppointmentInfoViewModel appointmentInfoViewModel = new AppointmentInfoViewModel();
+        private AppointmentPayViewModel appointmentPayViewModel = new AppointmentPayViewModel();
         private AppointmentBindableBase currentAppointmentViewModel;
         private AppointmentCRUD appointmentCRUD = new AppointmentCRUD();
 
@@ -28,8 +29,12 @@ namespace ViewModel.ViewModels
         public MyICommand AlterCommand { get; set; }
         public MyICommand DeleteCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand PayCommand { get; set; }
 
         public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
+        private bool canPay = true;
+
+        private string isPayButtonVisible = "Collapsed";
 
         public AppointmentViewModel()
         {
@@ -51,8 +56,37 @@ namespace ViewModel.ViewModels
             AlterCommand = new MyICommand(OnAlter);
             DeleteCommand = new MyICommand(OnDelete);
             CancelCommand = new MyICommand(OnCancel);
+            PayCommand = new MyICommand(OnPay);
 
             CurrentAppointmentViewModel = appointmentFilterViewModel;
+        }
+
+        private void OnPay()
+        {
+            if(CurrentAppointmentViewModel != appointmentPayViewModel)
+            {
+                CurrentAppointmentViewModel = appointmentPayViewModel;
+
+                appointmentPayViewModel.CustomerVM = SelectedItem.Customer;
+                appointmentPayViewModel.StateVM = SelectedItem.State;
+                appointmentPayViewModel.SIAList.Clear();
+                foreach(AppointmentItemFront sia in SelectedItem.SIA)
+                {
+                    appointmentPayViewModel.SIAList.Add(sia);
+                }
+
+                appointmentPayViewModel.CustomerName = SelectedItem.Customer.FirstName + " " + SelectedItem.Customer.LastName;
+
+                appointmentPayViewModel.SumPrice = "1";
+                appointmentPayViewModel.SumPrice = "0";
+                appointmentPayViewModel.SumPoints = "1";
+                appointmentPayViewModel.SumPoints = "0";
+            }
+            else
+            {
+                CurrentAppointmentViewModel = appointmentFilterViewModel;
+                IsPayButtonVisible = "Collapsed";
+            }
         }
 
         private void OnCancel()
@@ -198,6 +232,12 @@ namespace ViewModel.ViewModels
             if (SelectedItem == null)
                 return;
 
+            IsPayButtonVisible = "Visible";
+            if (SelectedItem.State)
+                CanPay = false;
+            else
+                CanPay = true;
+
             CanAlter = true;
             CanDelete = true;
             OnNav("info");
@@ -211,12 +251,12 @@ namespace ViewModel.ViewModels
             appointmentInfoViewModel.StateVM = SelectedItem.State;
             appointmentInfoViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
-            //appointmentInfoViewModel.SIAList.Clear();
-     //       
-     //       foreach(ServiceFront service in SelectedItem.ServiceList)
-     //       {
-     //           appointmentInfoViewModel.ServiceList.Add(service);
-     //       }
+            appointmentInfoViewModel.SIAList.Clear();
+
+            foreach (AppointmentItemFront sia in SelectedItem.SIA)
+            {
+                appointmentInfoViewModel.SIAList.Add(sia);
+            }
         }
 
         private void OnNav(string obj)
@@ -295,7 +335,30 @@ namespace ViewModel.ViewModels
                 }
             }
         }
-
+        public bool CanPay
+        {
+            get { return canPay; }
+            set
+            {
+                if (canPay != value)
+                {
+                    canPay = value;
+                    OnPropertyChanged("CanPay");
+                }
+            }
+        }
+        public string IsPayButtonVisible
+        {
+            get { return isPayButtonVisible; }
+            set
+            {
+                if (isPayButtonVisible != value)
+                {
+                    isPayButtonVisible = value;
+                    OnPropertyChanged("IsPayButtonVisible");
+                }
+            }
+        }
         public AppointmentFront SelectedItem
         {
             get { return selectedItem; }

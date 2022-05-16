@@ -11,6 +11,8 @@ namespace Model.FrontendModel
     {
         private ServiceFront service = new ServiceFront();
         private EmployeeFront employee = new EmployeeFront();
+        private double price;
+        private bool paymentMethod; // false - money; true - points
 
         public AppointmentItemFront()
         {
@@ -43,6 +45,30 @@ namespace Model.FrontendModel
                 {
                     employee = value;
                     RaisePropertyChanged("Employee");
+                }
+            }
+        }
+        public double Price
+        {
+            get { return price; }
+            set
+            {
+                if (price != value)
+                {
+                    price = value;
+                    RaisePropertyChanged("Price");
+                }
+            }
+        }
+        public bool PaymentMethod
+        {
+            get { return paymentMethod; }
+            set
+            {
+                if (paymentMethod != value)
+                {
+                    paymentMethod = value;
+                    RaisePropertyChanged("PaymentMethod");
                 }
             }
         }
