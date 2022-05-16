@@ -23,9 +23,23 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         private string customerName;
 
+        private string isPointsErrorVisible = "Hidden";
+
+        public MyICommand ItemSelectedCommand { get; set; }
+
         public AppointmentPayViewModel()
         {
             SIAList = new BindingList<AppointmentItemFront>();
+
+            ItemSelectedCommand = new MyICommand(OnSelect);
+        }
+
+        private void OnSelect()
+        {
+            SumPoints = "1";
+            SumPoints = "0";
+            SumPrice = "1";
+            SumPrice = "0";
         }
 
         public CustomerFront CustomerVM
@@ -91,8 +105,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             {
                 if (sumPoints != value)
                 {
-                    double sumPointsD = 0;
-                    //Comm
+                    int sumPointsD = 0;
                     if (SIAList.Count != 0)
                         foreach (AppointmentItemFront sia in SIAList)
                         {
@@ -101,6 +114,14 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                         }
                     sumPoints = sumPointsD.ToString();
                     SumPoints = sumPoints;
+                    if(sumPointsD > CustomerVM.Points)
+                    {
+                        IsPointsErrorVisible = "Visible";
+                    }
+                    else
+                    {
+                        IsPointsErrorVisible = "Hidden";
+                    }
                     OnPropertyChanged("SumPoints");
                 }
             }
@@ -114,6 +135,18 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 {
                     customerName = value;
                     OnPropertyChanged("CustomerName");
+                }
+            }
+        }
+        public string IsPointsErrorVisible
+        {
+            get { return isPointsErrorVisible; }
+            set
+            {
+                if(isPointsErrorVisible != value)
+                {
+                    isPointsErrorVisible = value;
+                    OnPropertyChanged("IsPointsErrorVisible");
                 }
             }
         }

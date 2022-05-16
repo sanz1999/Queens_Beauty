@@ -68,7 +68,6 @@ namespace ViewModel.ViewModels
                 CurrentAppointmentViewModel = appointmentPayViewModel;
 
                 appointmentPayViewModel.CustomerVM = SelectedItem.Customer;
-                appointmentPayViewModel.StateVM = SelectedItem.State;
                 appointmentPayViewModel.SIAList.Clear();
                 foreach(AppointmentItemFront sia in SelectedItem.SIA)
                 {
@@ -84,8 +83,25 @@ namespace ViewModel.ViewModels
             }
             else
             {
-                CurrentAppointmentViewModel = appointmentFilterViewModel;
-                IsPayButtonVisible = "Collapsed";
+                if (!appointmentPayViewModel.IsPointsErrorVisible.Equals("Visible"))
+                {
+                    AppointmentFront newOne = SelectedItem;
+                    newOne.State = true;
+                    int index = Appointments.IndexOf(SelectedItem);
+                    int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
+                    appointmentCRUD.UpdateInDataBase(newOne);
+                    Appointments.RemoveAt(index);
+                    Appointments.Insert(index, newOne);
+                    AppointmentsSearch.RemoveAt(indexSearch);
+                    AppointmentsSearch.Insert(indexSearch, newOne);
+
+                    CanAlter = false;
+                    CanDelete = false;
+
+                    CurrentAppointmentViewModel = appointmentFilterViewModel;
+
+                    IsPayButtonVisible = "Collapsed";
+                }
             }
         }
 
@@ -120,6 +136,18 @@ namespace ViewModel.ViewModels
             else if(CurrentAppointmentViewModel == appointmentInfoViewModel)
             {
                 appointmentInfoViewModel.ClearInput();
+                IsPayButtonVisible = "Collapsed";
+
+                CanAlter = false;
+                CanDelete = false;
+
+                SelectedItem = null;
+
+                OnNav("filter");
+            }
+            else if(CurrentAppointmentViewModel == appointmentPayViewModel)
+            {
+                IsPayButtonVisible = "Collapsed";
 
                 CanAlter = false;
                 CanDelete = false;
@@ -256,6 +284,11 @@ namespace ViewModel.ViewModels
             foreach (AppointmentItemFront sia in SelectedItem.SIA)
             {
                 appointmentInfoViewModel.SIAList.Add(sia);
+            }
+
+            if(SelectedItem.State == true)
+            {
+                CanAlter = false;
             }
         }
 
