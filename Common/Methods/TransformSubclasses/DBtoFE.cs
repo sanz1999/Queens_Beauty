@@ -15,6 +15,7 @@ namespace Common.Methods.TransformSubclasses
         private CustomerService customerService = new CustomerService();
         private ServiceService  serviceService = new ServiceService();
         private WorkerService workerService =  new WorkerService();
+        private SIAService sIAService = new SIAService();
 
         public  CustomerFront Customer(DBCustomer untrasformedCustomer)
         {
@@ -64,24 +65,28 @@ namespace Common.Methods.TransformSubclasses
             AppointmentFront app = new AppointmentFront();
             app.AppointmentId = utapp.appointmentId;
             app.Customer =  Customer(customerService.FindById(utapp.customerId)); //find customer
-            app.AppointmentDate =  DateOnly.FromDateTime(utapp.dateTime);
-            app.StartTime = TimeOnly.FromDateTime(utapp.dateTime).ToString();
-            app.EndTime = TimeOnly.FromDateTime(utapp.dateTime).ToString(); // Izracunati nekako
+            app.AppointmentDate =  DateOnly.FromDateTime(utapp.dateTime);            
             app.SumCena = utapp.price;
             app.State = (utapp.state == 1) ? true:false ;
-            app.SIA = AppointmentItems(ursia);
+            app.SIA = AppointmentItems(ursia,app.AppointmentId);
+            app.StartTime = TimeOnly.FromDateTime(utapp.dateTime).ToString();         
+            app.EndTime = AddMinutes(TimeOnly.FromDateTime(utapp.dateTime),app.SIA);
             return app;
         }
 
   
 
-        public  BindingList<AppointmentItemFront> AppointmentItems(List<Tuple<int, int>> dba)
+        public  BindingList<AppointmentItemFront> AppointmentItems(List<Tuple<int, int>> dba,int appID)
         {
              BindingList<AppointmentItemFront> aitem = new BindingList<AppointmentItemFront>();
             foreach (Tuple<int, int> d in dba) {
                 AppointmentItemFront aitemx = new AppointmentItemFront();
                 aitemx.Service = Service(serviceService.FindById(d.Item1));
                 aitemx.Employee = Employee(workerService.FindById(d.Item2));
+                DBSIA buffer = sIAService.FindById(new Tuple<int, int>(appID,d.Item1));
+                aitemx.Price = buffer.value;
+                aitemx.PaymentMethod = false;
+                if (buffer.method == "p") { aitemx.PaymentMethod = true; }
                 aitem.Add(aitemx);
             }
             return aitem;
@@ -92,6 +97,15 @@ namespace Common.Methods.TransformSubclasses
             employee.EmployeeId = worker.id;
             employee.Name = worker.name;
             return employee;
+        }
+
+        public string AddMinutes(TimeOnly startTime,BindingList<AppointmentItemFront> SIA) {
+            TimeOnly vreme = startTime;
+            foreach (var x in SIA) {
+                vreme = vreme.AddMinutes(x.Service.Duration);
+            }
+            
+            return vreme.ToString();
         }
     }
 }

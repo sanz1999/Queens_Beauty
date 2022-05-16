@@ -201,7 +201,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                         LoyaltyCardIdErrorText = "Cannot have letters in loyalty card ID!";
                         IsLoyaltyCardIdErrorVisible = "Visible";
                     }
-                    else if (validation.customer.LoyalCard(LoyaltyCardIdVM) == -1)
+                    else if ((validation.customer.LoyalCard(LoyaltyCardIdVM) == -1) &&(HeadText!= "Alter") )
                     {
                         LoyaltyCardIdErrorText = "ID already assigned to a customer!";
                         IsLoyaltyCardIdErrorVisible = "Visible";

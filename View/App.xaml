@@ -94,5 +94,13 @@
             <Setter Property="VerticalContentAlignment"
                     Value="Center" />
         </Style>
+        
+        <!-- CheckBox -->
+        <Style TargetType="CheckBox">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

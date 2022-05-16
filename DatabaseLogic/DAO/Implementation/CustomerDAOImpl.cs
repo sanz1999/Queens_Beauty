@@ -204,7 +204,7 @@ namespace DatabaseLogic.DAO.Implementation
                             o = new DBCustomer(reader.GetInt32(0),
                                                reader.GetString(1),
                                                reader.GetString(2),
-                                               reader.GetDateTime(3),
+                                               (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
                                                reader.GetString(4),
                                                reader.GetString(5),
                                                reader.GetString(6),
@@ -233,11 +233,27 @@ namespace DatabaseLogic.DAO.Implementation
         { 
             StringBuilder insertSql = new StringBuilder();
 
+            //insert into customer (cid, cname, csname, cdob, cnum, cmail, csex, cp, cloyal) values (:cid, :cname, :csname, :cdob, :cnum, :cmail, :csex, :cp, :cloyal)
+
             insertSql.Append("insert into customer (");
             if (entity.id != 0)
                 insertSql.Append("cid,");
 
-            insertSql.Append("cname, csname, cdob, cnum, cmail, csex, cp");
+            insertSql.Append(" cname, csname");
+
+            if (entity.dateOfBirth != DateTime.MaxValue)
+                insertSql.Append(", cdob");
+
+            insertSql.Append(", cnum");
+
+            if (entity.email != null)
+                insertSql.Append(", cmail");
+
+            if(entity.gender != null)
+                insertSql.Append(", csex");
+
+            if (entity.points != 0)
+                insertSql.Append(", cp");
 
             if (entity.loyaltyNumber != 0)
                 insertSql.Append(", cloyal");
@@ -247,7 +263,21 @@ namespace DatabaseLogic.DAO.Implementation
             if (entity.id != 0)
                 insertSql.Append(":cid,");
 
-            insertSql.Append(":cname, :csname, :cdob, :cnum, :cmail, :csex, :cp");
+            insertSql.Append(" :cname, :csname");
+
+            if (entity.dateOfBirth != DateTime.MaxValue)
+                insertSql.Append(", :cdob");
+
+            insertSql.Append(", :cnum");
+
+            if (entity.email != null)
+                insertSql.Append(", :cmail");
+
+            if (entity.gender != null)
+                insertSql.Append(", :csex");
+
+            if (entity.points != 0)
+                insertSql.Append(", :cp");
 
             if (entity.loyaltyNumber != 0)
                 insertSql.Append(", :cloyal");
@@ -256,7 +286,23 @@ namespace DatabaseLogic.DAO.Implementation
 
             StringBuilder updateSql = new StringBuilder();
 
-            updateSql.Append("update customer set cname=:cname, csname=:csname, cdob=:cdob, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp");
+            //update customer set cname=:cname, csname=:csname, cdob=:cdob, cnum=:cnum, cmail=:cmail, csex=:csex, cp=:cp, cloyal=:cloyal where cid=:cid
+
+            updateSql.Append("update customer set cname=:cname, csname=:csname");
+
+            if (entity.dateOfBirth != DateTime.MaxValue)
+                updateSql.Append(", cdob=:cdob");
+
+            updateSql.Append(", cnum=:cnum");
+
+            if (entity.email != null)
+                updateSql.Append(", cmail=:cmail");
+
+            if (entity.gender != null)
+                updateSql.Append(", csex=:csex");
+
+            if (entity.points != 0)
+                updateSql.Append(", cp=:cp");
 
             if (entity.loyaltyNumber != 0)
                 updateSql.Append(", cloyal=:cloyal");
@@ -266,17 +312,28 @@ namespace DatabaseLogic.DAO.Implementation
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = ExistsById(entity.id, connection) ? updateSql.ToString() : insertSql.ToString();
-                if (entity.id != 0 && command.CommandText.Equals(insertSql))
+                if (entity.id != 0 && command.CommandText.Equals(insertSql.ToString()))
                     ParameterUtil.AddParameter(command, "cid", DbType.Int32);
                 ParameterUtil.AddParameter(command, "cname", DbType.String, 30);
                 ParameterUtil.AddParameter(command, "csname", DbType.String, 30);
-                ParameterUtil.AddParameter(command, "cdob", DbType.Date);
+
+                if (entity.dateOfBirth != DateTime.MaxValue)
+                    ParameterUtil.AddParameter(command, "cdob", DbType.Date);
+
                 ParameterUtil.AddParameter(command, "cnum", DbType.String, 30);
-                ParameterUtil.AddParameter(command, "cmail", DbType.String, 30);
-                ParameterUtil.AddParameter(command, "csex", DbType.String, 1);
-                ParameterUtil.AddParameter(command, "cp", DbType.Int32);
+
+                if (entity.email != null)
+                    ParameterUtil.AddParameter(command, "cmail", DbType.String, 30);
+
+                if (entity.gender != null)
+                    ParameterUtil.AddParameter(command, "csex", DbType.String, 1);
+
+                if (entity.points != 0)
+                    ParameterUtil.AddParameter(command, "cp", DbType.Int32);
+
                 if(entity.loyaltyNumber != 0)
                     ParameterUtil.AddParameter(command, "cloyal", DbType.Int32);
+
                 if (command.CommandText.Equals(updateSql.ToString()))
                     ParameterUtil.AddParameter(command, "cid", DbType.Int32);
 
@@ -285,11 +342,15 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.SetParameterValue(command, "cid", entity.id);
                 ParameterUtil.SetParameterValue(command, "cname", entity.name);
                 ParameterUtil.SetParameterValue(command, "csname", entity.surname);
-                ParameterUtil.SetParameterValue(command, "cdob", entity.dateOfBirth);
+                if (entity.dateOfBirth != DateTime.MaxValue)
+                    ParameterUtil.SetParameterValue(command, "cdob", entity.dateOfBirth);
                 ParameterUtil.SetParameterValue(command, "cnum", entity.phoneNumber);
-                ParameterUtil.SetParameterValue(command, "cmail", entity.email);
-                ParameterUtil.SetParameterValue(command, "csex", entity.gender);
-                ParameterUtil.SetParameterValue(command, "cp", entity.points);
+                if (entity.email != null)
+                    ParameterUtil.SetParameterValue(command, "cmail", entity.email);
+                if (entity.gender != null)
+                    ParameterUtil.SetParameterValue(command, "csex", entity.gender);
+                if (entity.points != 0)
+                    ParameterUtil.SetParameterValue(command, "cp", entity.points);
                 if (entity.loyaltyNumber != 0)
                     ParameterUtil.SetParameterValue(command, "cloyal", entity.loyaltyNumber);
                 return command.ExecuteNonQuery();
