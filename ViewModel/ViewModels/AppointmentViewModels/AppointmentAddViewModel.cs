@@ -663,5 +663,17 @@ namespace ViewModel.ViewModels.AppointmentViewModels
             }
             return vremetext;
         }
+
+        public void ValidationReset() {
+            IsAddedServicesErrorVisible = "Collapsed";
+            IsEmployeePickedErrorVisible = "Collapsed";
+            IsDateErrorVisible = "Collapsed";
+            IsEmptyAddedServicesErrorVisible = "Collapsed";
+            IsSumCenaErrorVisible = "Collapsed";
+            IsStartTimeErrorVisible = "Collapsed";
+            IsSelectCustomerErrorVisible = "Collapsed";
+
+
+        }
     }
 }

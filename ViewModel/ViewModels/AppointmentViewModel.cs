@@ -145,7 +145,10 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsSumCenaErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsStartTimeErrorVisible = "Collapsed";
+
                 appointmentAddViewModel.IsSelectCustomerErrorVisible = "Collapsed";
+                IsPayButtonVisible = "Collapsed";
+
 
                 OnNav("filter");
             }
@@ -198,6 +201,7 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.HeadText = "Alter";
                 CanAdd = false;
                 CanDelete = false;
+                IsPayButtonVisible = "Collapsed";
 
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
@@ -331,6 +335,8 @@ namespace ViewModel.ViewModels
                         CurrentAppointmentViewModel = appointmentAddViewModel;
                         CanAlter = false;
                         CanDelete = false;
+                        appointmentAddViewModel.IsAddServiceVisible = "Visible";
+                        IsPayButtonVisible = "Collapsed";
                         if (SelectedItem == null)
                             break;
                         SelectedItem = null;
@@ -344,6 +350,8 @@ namespace ViewModel.ViewModels
                             newAppointment = appointmentCRUD.FindLastAdded();
                             Appointments.Add(newAppointment);
                             AppointmentsSearch.Add(newAppointment);
+                            appointmentAddViewModel.AppointmentAddDisplayViewModel.Name = "";
+                            appointmentAddViewModel.ValidationReset();
                             OnNav("filter");
 
                             CanAlter = false;
@@ -449,7 +457,7 @@ namespace ViewModel.ViewModels
             }
         }
 
-        
+
 
 }
 }
