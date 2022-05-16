@@ -92,6 +92,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 if (sumPoints != value)
                 {
                     double sumPointsD = 0;
+                    //Comm
                     if (SIAList.Count != 0)
                         foreach (AppointmentItemFront sia in SIAList)
                         {
