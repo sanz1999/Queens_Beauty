@@ -53,6 +53,9 @@ namespace TestingCA.UIHandler
                         List<DBService> services = (List<DBService>)serviceService.FindAll();
                         List<DBWorker> workers = (List<DBWorker>)workerService.FindAll();
 
+                        double value = 0;
+                        string method = "c";
+
                         if (!appointments.Any() && !services.Any())
                         {
                             Console.WriteLine("Za formiranje SIA potreban je makar jedan Appointment i jedan Service");
@@ -61,9 +64,27 @@ namespace TestingCA.UIHandler
                         {
                             for (int i = 0; i < n; i++)
                             {
+                                if (i % 2 == 0)
+                                {
+                                    method = "p";
+                                }
+                                else
+                                {
+                                    method = "c";
+                                }
+
+                                if(method == "p")
+                                {
+                                    value = services.ElementAt(i % services.Count).pointsPrice;
+                                }
+                                else
+                                {
+                                    value = services.ElementAt(i % services.Count).price;
+                                }
+
                                 id = new Tuple<int,int>(appointments.ElementAt(i % appointments.Count()).appointmentId,
                                                                        services.ElementAt(i % services.Count()).id);
-                                DBSIA u = new DBSIA(id, workers.ElementAt(i % workers.Count()).id);
+                                DBSIA u = new DBSIA(id, workers.ElementAt(i % workers.Count()).id, value, method);
                                 if (siaService.Save(u) == 1)
                                     Console.WriteLine("dodavanje uspesno");
                             }

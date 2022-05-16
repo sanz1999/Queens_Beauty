@@ -22,8 +22,6 @@ namespace Model.FrontendModel
 
         public AppointmentFront() {
             this.SIA = new BindingList<AppointmentItemFront>();
-
-
         }
 
         public AppointmentFront(int appointmentId, CustomerFront customer, DateOnly appointmentDate, string startTime, string endTime, double sumCena, bool state,BindingList<AppointmentItemFront> lista)

@@ -116,7 +116,9 @@ namespace DatabaseLogic.DAO.Implementation
                         {
                             Tuple<int,int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
                             DBSIA o = new DBSIA(temp,
-                                                reader.GetInt32(2));
+                                                reader.GetInt32(2),
+                                                reader.GetDouble(3),
+                                                reader.GetString(4));
 
                             returnList.Add(o);
                         }
@@ -139,7 +141,7 @@ namespace DatabaseLogic.DAO.Implementation
             sb.Append(")");            
 
             //DEBUG
-            Console.WriteLine(sb.ToString());
+            //Console.WriteLine(sb.ToString());
 
             List<DBSIA> returnList = new List<DBSIA>();
 
@@ -166,7 +168,10 @@ namespace DatabaseLogic.DAO.Implementation
                         while (reader.Read())
                         {
                             Tuple<int, int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
-                            DBSIA o = new DBSIA(temp, reader.GetInt32(2));
+                            DBSIA o = new DBSIA(temp,
+                                                reader.GetInt32(2),
+                                                reader.GetDouble(3),
+                                                reader.GetString(4));
                             returnList.Add(o);
                         }
                     }
@@ -197,7 +202,10 @@ namespace DatabaseLogic.DAO.Implementation
                         if (reader.Read())
                         {
                             Tuple<int, int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
-                            o = new DBSIA(temp, reader.GetInt32(2));
+                             o = new DBSIA(temp,
+                                            reader.GetInt32(2),
+                                            reader.GetDouble(3),
+                                            reader.GetString(4));
                         }
                     }
                 }
@@ -216,9 +224,34 @@ namespace DatabaseLogic.DAO.Implementation
         }
         private int Save(DBSIA o, IDbConnection connection)
         {
-            string insertSql = "insert into sia (aid, sid, wid) values (:aid, :sid, :wid)";
-                                 
-            string updateSql = "update sia set wid=:wid where aid=:aid and sid=:sid";
+            string insertSql = "insert into sia (aid, sid, wid";
+
+            if (o.value != 0)
+                insertSql += ", sia_value";
+
+            if (o.method != null)
+                insertSql += ", sia_method";
+
+            insertSql += ") values (:aid, :sid, :wid";
+
+            if (o.value != 0)
+                insertSql += ", :sia_value";
+
+            if (o.method != null)
+                insertSql += ", :sia_method";
+
+            insertSql += ")";
+
+            string updateSql = "update sia set wid=:wid";
+
+            if (o.value != 0)
+                updateSql += ", sia_value=:sia_value";
+
+            if (o.method != null)
+                updateSql += ", sia_method=:sia_method";
+
+            updateSql += " where aid=:aid and sid=:sid";
+
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = ExistsById(o.id, connection) ? updateSql : insertSql;
@@ -228,6 +261,10 @@ namespace DatabaseLogic.DAO.Implementation
                     ParameterUtil.AddParameter(command, "sid", DbType.Int32);
                 }    
                 ParameterUtil.AddParameter(command, "wid", DbType.Int32);
+                if (o.value != 0)
+                    ParameterUtil.AddParameter(command, "sia_value", DbType.Double);
+                if (o.method != null)
+                    ParameterUtil.AddParameter(command, "sia_method", DbType.String, 1);
                 if (command.CommandText.Equals(updateSql))
                 {
                     ParameterUtil.AddParameter(command, "aid", DbType.Int32);
@@ -239,6 +276,10 @@ namespace DatabaseLogic.DAO.Implementation
                 ParameterUtil.SetParameterValue(command, "aid", o.id.Item1);
                 ParameterUtil.SetParameterValue(command, "sid", o.id.Item2);
                 ParameterUtil.SetParameterValue(command, "wid", o.workerId);
+                if (o.value != 0)
+                    ParameterUtil.SetParameterValue(command, "sia_value", o.value);
+                if (o.method != null)
+                    ParameterUtil.SetParameterValue(command, "sia_method", o.method);
                 return command.ExecuteNonQuery();
             }
         }

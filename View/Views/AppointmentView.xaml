@@ -23,6 +23,9 @@
         <DataTemplate DataType="{x:Type appointmentViewModels:AppointmentInfoViewModel}">
             <appointmentViews:AppointmentInfoView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type appointmentViewModels:AppointmentPayViewModel}">
+            <appointmentViews:AppointmentPayView />
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
@@ -89,8 +92,9 @@
               HorizontalAlignment="Stretch"
               Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -171,6 +175,26 @@
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentAppointmentViewModel}" />
+            <Button Content="Pay"
+                    Grid.Row="2"
+                    Height="30"
+                    Width="80"
+                    Margin="5"
+                    FontSize="14"
+                    IsEnabled="{Binding CanPay}"
+                    VerticalAlignment="Top"
+                    Command="{Binding PayCommand}"
+                    Visibility="{Binding IsPayButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="12"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
         <Grid Margin="10"
               HorizontalAlignment="Stretch"
@@ -312,7 +336,7 @@
                                 <CheckBox IsChecked="{Binding State}"
                                           IsEnabled="False"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

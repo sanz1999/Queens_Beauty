@@ -184,8 +184,7 @@
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
-                  ItemsSource="{Binding SIAList}"
-                  SelectedItem="{Binding SelectedSIA}">
+                  ItemsSource="{Binding SIAList}">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight"

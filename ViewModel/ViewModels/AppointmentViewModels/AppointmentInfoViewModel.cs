@@ -23,7 +23,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         public AppointmentInfoViewModel()
         {
-            
+            SIAList = new BindingList<AppointmentItemFront>();
         }
         internal void ClearInput()
         {

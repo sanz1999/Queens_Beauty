@@ -12,7 +12,7 @@ namespace Model.DBModel
         public int id { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
-        public DateTime dateOfBirth { get; set; }
+        public DateTime dateOfBirth { get; set; } = DateTime.MaxValue;
         public string phoneNumber { get; set; }
         public string email { get; set; }
         public string gender { get; set; }
@@ -23,7 +23,7 @@ namespace Model.DBModel
         
 
         //Koristi se za preuzimanje svih podataka radi ispisa
-        public DBCustomer(int id, string name, string surname, DateTime dateOfBirth, string phoneNumber, string email, string gender, int points, int loyaltyNumber, int exists)
+        public DBCustomer(int id, string name, string surname, DateTime dateOfBirth , string phoneNumber, string email, string gender, int points, int loyaltyNumber, int exists)
         {
             this.id = id;
             this.name = name;
@@ -63,6 +63,14 @@ namespace Model.DBModel
             this.gender = gender;
             this.points = points;
             this.loyaltyNumber = loyaltyNumber;            
+        }
+
+        //Najosnovniji Konstruktor
+        public DBCustomer(string name, string surname, string phoneNumber)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.phoneNumber = phoneNumber;
         }
 
         public static string GetHeader()
