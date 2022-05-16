@@ -173,18 +173,19 @@ namespace Model.FrontendModel
         public override bool Equals(object? obj)
         {
             return obj is ServiceFront front &&
-                   Id == front.Id &&
-                   Name == front.Name &&
-                   Category == front.Category &&
-                   Duration == front.Duration &&
-                   Price == front.Price &&
-                   PointsPrice == front.PointsPrice &&
-                   PointsValue == front.PointsValue;
+                   id == front.id &&
+                   name == front.name &&
+                   category == front.category &&
+                   duration == front.duration &&
+                   price == front.price &&
+                   pointsPrice == front.pointsPrice &&
+                   pointsValue == front.pointsValue &&
+                   exists == front.exists;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Name, Category, Duration, Price, PointsPrice, PointsValue);
+            return HashCode.Combine(id, name, category, duration, price, pointsPrice, pointsValue, exists);
         }
     }
 }

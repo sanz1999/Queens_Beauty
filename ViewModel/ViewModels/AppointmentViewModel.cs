@@ -96,10 +96,18 @@ namespace ViewModel.ViewModels
                     Appointments.Insert(index, newOne);
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
+
+
+                    SelectedItem = AppointmentsSearch[0];
+
+
                     CanAlter = false;
                     CanDelete = false;
 
                     CurrentAppointmentViewModel = appointmentFilterViewModel;
+                    //DO NOT TOUCH THIS TWO ON CALCELS
+                    OnCancel();
+                    OnCancel();
 
                     IsPayButtonVisible = "Collapsed";
                 }
@@ -266,13 +274,11 @@ namespace ViewModel.ViewModels
             if (SelectedItem == null)
                 return;
 
-
             IsPayButtonVisible = "Visible";
             if (SelectedItem.State)
                 CanPay = false;
             else
                 CanPay = true;
-
 
             CanAdd = true;
 
@@ -324,8 +330,9 @@ namespace ViewModel.ViewModels
                         {
                             AppointmentFront newAppointment = appointmentAddViewModel.GetAppointment();
                             appointmentCRUD.AddToDataBase(newAppointment);
-                            Appointments.Add(appointmentCRUD.FindLastAdded());
-                            AppointmentsSearch.Add(appointmentCRUD.FindLastAdded());
+                            newAppointment = appointmentCRUD.FindLastAdded();
+                            Appointments.Add(newAppointment);
+                            AppointmentsSearch.Add(newAppointment);
                             OnNav("filter");
 
                             CanAlter = false;

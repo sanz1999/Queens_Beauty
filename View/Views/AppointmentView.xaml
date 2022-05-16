@@ -207,7 +207,7 @@
                       CanUserResizeColumns="False"
                       CanUserReorderColumns="False"
                       ItemsSource="{Binding AppointmentsSearch}"
-                      SelectedItem="{Binding SelectedItem}">
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight"
