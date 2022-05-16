@@ -86,13 +86,15 @@ namespace Model.FrontendModel
         public override bool Equals(object? obj)
         {
             return obj is AppointmentItemFront front &&
-                   EqualityComparer<ServiceFront>.Default.Equals(Service, front.Service) &&
-                   EqualityComparer<EmployeeFront>.Default.Equals(Employee, front.Employee);
+                   EqualityComparer<ServiceFront>.Default.Equals(service, front.service) &&
+                   EqualityComparer<EmployeeFront>.Default.Equals(employee, front.employee) &&
+                   price == front.price &&
+                   paymentMethod == front.paymentMethod;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Service, Employee);
+            return HashCode.Combine(service, employee, price, paymentMethod);
         }
 
         private void RaisePropertyChanged(string property)

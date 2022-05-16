@@ -115,7 +115,7 @@ namespace ViewModel.ViewModels
                 customerAddViewModel.HeadText = "Alter";
 
                 CanAdd = false;
-                CanDelete=false;
+                CanDelete = false;
 
                 CurrentCustomerViewModel = customerAddViewModel;
                 customerInfoViewModel.ClearInput();
