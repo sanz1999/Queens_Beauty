@@ -307,8 +307,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
             StartTimeHour = "";
             StartTimeMinute = "";
-            EndTimeHour = "";
-            EndTimeMinute = "";
 
             AddedSIA.Clear();
 
@@ -494,30 +492,6 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 {
                     startTimeMinute = value;
                     OnPropertyChanged("StartTimeMinute");
-                }
-            }
-        }
-        public string EndTimeHour
-        {
-            get { return endTimeHour; }
-            set
-            {
-                if (endTimeHour != value)
-                {
-                    endTimeHour = value;
-                    OnPropertyChanged("EndTimeHour");
-                }
-            }
-        }
-        public string EndTimeMinute
-        {
-            get { return endTimeMinute; }
-            set
-            {
-                if (endTimeMinute != value)
-                {
-                    endTimeMinute = value;
-                    OnPropertyChanged("EndTimeMinute");
                 }
             }
         }

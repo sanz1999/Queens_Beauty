@@ -143,7 +143,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Points"
+                    <DataGridTemplateColumn Header="P"
                                             Width="0.3*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
