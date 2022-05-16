@@ -38,10 +38,11 @@ namespace ViewModel.ViewModels
 
         private string isPayButtonVisible = "Collapsed";
 
+
         public AppointmentViewModel()
         {
             //appointmentInfoViewModel.SIAList = new BindingList<AppointmentItemFront>();
-
+        
             proxy = appointmentCRUD.LoadFromDataBase();
 
             foreach (AppointmentFront appointment in proxy)
@@ -105,15 +106,30 @@ namespace ViewModel.ViewModels
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
 
-
                     SelectedItem = AppointmentsSearch[0];
 
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.LastNameVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.LoyaltyCardIdVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsMaleCheckedVM = false;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsFemaleCheckedVM = false;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsOtherCheckedVM = false;
+
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedEmployee = null;
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedService = null;
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.FilterEmployeesVM = "";
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.FilterServicesVM = "";
 
                     CanAlter = false;
                     CanDelete = false;
 
                     CurrentAppointmentViewModel = appointmentFilterViewModel;
                     //DO NOT TOUCH THIS TWO ON CALCELS
+                    OnCancel();
+                    OnCancel();
+                    OnCancel();
+                    OnCancel();
                     OnCancel();
                     OnCancel();
 
@@ -210,6 +226,8 @@ namespace ViewModel.ViewModels
         {
             if (CurrentAppointmentViewModel != appointmentAddViewModel)
             {
+                if (SelectedItem == null)
+                    return;
                 appointmentAddViewModel.HeadText = "Alter";
                 CanAdd = false;
                 CanDelete = false;
@@ -256,6 +274,19 @@ namespace ViewModel.ViewModels
                     CanAdd = true;
                     CanAlter = false;
                     CanDelete = false;
+
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.LastNameVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.LoyaltyCardIdVM = "";
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsMaleCheckedVM = false;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsFemaleCheckedVM = false;
+                    appointmentAddViewModel.AppointmentAddCustomerViewModel.IsOtherCheckedVM = false;
+
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedEmployee = null;
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedService = null;
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.FilterEmployeesVM = "";
+                    appointmentAddViewModel.AppointmentAddServiceViewModel.FilterServicesVM = "";
 
                     CurrentAppointmentViewModel = appointmentFilterViewModel;
                 }
@@ -365,6 +396,19 @@ namespace ViewModel.ViewModels
                             appointmentAddViewModel.AppointmentAddDisplayViewModel.Name = "";
                             appointmentAddViewModel.ValidationReset();
                             OnNav("filter");
+
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.LastNameVM = "";
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.LoyaltyCardIdVM = "";
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.IsMaleCheckedVM = false;
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.IsFemaleCheckedVM = false;
+                            appointmentAddViewModel.AppointmentAddCustomerViewModel.IsOtherCheckedVM = false;
+
+                            appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedEmployee = null;
+                            appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedService = null;
+                            appointmentAddViewModel.AppointmentAddServiceViewModel.FilterEmployeesVM = "";
+                            appointmentAddViewModel.AppointmentAddServiceViewModel.FilterServicesVM = "";
 
                             CanAlter = false;
                             CanDelete = false;

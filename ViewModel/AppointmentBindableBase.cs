@@ -12,7 +12,6 @@ namespace ViewModel
     {
         public static BindingList<AppointmentFront> Appointments { get; set; }
         public static BindingList<AppointmentFront> AppointmentsSearch { get; set; }
-
         public AppointmentBindableBase()
         {
 

@@ -13,6 +13,13 @@ namespace ViewModel.ViewModels
         private CustomerViewModel customerViewModel = new CustomerViewModel();
         private AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
         private BindableBase currentViewModel;
+
+        public AppointmentViewModel AppointmentViewModel
+        {
+            get { return appointmentViewModel; }
+            set { appointmentViewModel = value; }
+        }
+
         
         public MyICommand<string> NavCommand { get; set; }
         public MainWindowViewModel()
@@ -21,7 +28,7 @@ namespace ViewModel.ViewModels
             CurrentViewModel = startupViewModel;
         }
 
-        private void OnNav(string obj)
+        public void OnNav(string obj)
         {
             switch (obj)
             {

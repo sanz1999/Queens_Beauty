@@ -112,6 +112,10 @@ namespace ViewModel.ViewModels
         {
             if(CurrentCustomerViewModel != customerAddViewModel)
             {
+                if(SelectedItem == null)
+                {
+                    return;
+                }
                 customerAddViewModel.HeadText = "Alter";
 
                 CanAdd = false;
