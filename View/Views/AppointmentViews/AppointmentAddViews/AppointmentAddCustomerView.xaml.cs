@@ -24,5 +24,10 @@ namespace View.Views.AppointmentViews.AppointmentAddViews
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

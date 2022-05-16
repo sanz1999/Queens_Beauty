@@ -149,6 +149,18 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsSelectCustomerErrorVisible = "Collapsed";
                 IsPayButtonVisible = "Collapsed";
 
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.LastNameVM = "";
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.LoyaltyCardIdVM = "";
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.IsMaleCheckedVM = false;
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.IsFemaleCheckedVM = false;
+                appointmentAddViewModel.AppointmentAddCustomerViewModel.IsOtherCheckedVM = false;
+
+                appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedEmployee = null;
+                appointmentAddViewModel.AppointmentAddServiceViewModel.SelectedService = null;
+                appointmentAddViewModel.AppointmentAddServiceViewModel.FilterEmployeesVM = "";
+                appointmentAddViewModel.AppointmentAddServiceViewModel.FilterServicesVM = "";
 
                 OnNav("filter");
             }

@@ -13,8 +13,8 @@ namespace ViewModel.ViewModels.AppointmentViewModels
     public class AppointmentAddViewModel : AppointmentBindableBase
     {
         private AppointmentAddDisplayViewModel appointmentAddDisplayViewModel = new AppointmentAddDisplayViewModel();
-        AppointmentAddCustomerViewModel appointmentAddCustomerViewModel = new AppointmentAddCustomerViewModel();
-        AppointmentAddServiceViewModel appointmentAddServiceViewModel = new AppointmentAddServiceViewModel();
+        private AppointmentAddCustomerViewModel appointmentAddCustomerViewModel = new AppointmentAddCustomerViewModel();
+        private AppointmentAddServiceViewModel appointmentAddServiceViewModel = new AppointmentAddServiceViewModel();
         BindableBase currentAppointmentAddViewModel;
 
         private string headText;
@@ -119,6 +119,32 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 {
                     appointmentAddDisplayViewModel = value;
                     OnPropertyChanged("AppointmentAddDisplayViewModel");
+                }
+            }
+        }
+
+        public AppointmentAddCustomerViewModel AppointmentAddCustomerViewModel
+        {
+            get { return appointmentAddCustomerViewModel; }
+            set
+            {
+                if(appointmentAddCustomerViewModel != value)
+                {
+                    appointmentAddCustomerViewModel = value;
+                    OnPropertyChanged("AppointmentAddCustomerViewModel");
+                }
+            }
+        }
+
+        public AppointmentAddServiceViewModel AppointmentAddServiceViewModel
+        {
+            get { return appointmentAddServiceViewModel; }
+            set
+            {
+                if(appointmentAddServiceViewModel != value)
+                {
+                    appointmentAddServiceViewModel = value;
+                    OnPropertyChanged("AppointmentAddServiceViewModel");
                 }
             }
         }
