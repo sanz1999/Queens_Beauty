@@ -30,13 +30,13 @@ namespace Common.Methods.TransformSubclasses
             return new DBCustomer(  utc.CustomerId,
                                     utc.FirstName, 
                                     utc.LastName,
-                                    Convert.ToDateTime( utc.DateOfBirth),
+                                    (utc.DateOfBirth==null || utc.DateOfBirth.Trim()=="")?DateTime.MaxValue:Convert.ToDateTime( utc.DateOfBirth),
                                     utc.PhoneNumber, 
-                                    utc.Email, 
+                                    (utc.Email=="")?"":utc.Email, 
                                     genderdecide, 
                                     utc.Points, 
                                     loyalID,
-                                    utc.Exists);
+                                    utc.Exists);;
         }
         public DBService Service(ServiceFront untrasformedService)
         {

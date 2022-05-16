@@ -243,10 +243,8 @@ namespace ViewModel.ViewModels
         {
             if (customerAddViewModel.FirstNameVM == null ||
                 customerAddViewModel.LastNameVM == null ||
-                customerAddViewModel.PhoneNumberVM == null ||
-                customerAddViewModel.LoyaltyCardIdVM == null ||
-                customerAddViewModel.DateOfBirthVM == null ||
-                customerAddViewModel.EmailVM == null)
+                customerAddViewModel.PhoneNumberVM == null||
+                customerAddViewModel.DateOfBirthVM == null)
                 return false;
             else if (!customerAddViewModel.IsFirstNameErrorVisible.Equals("Collapsed") ||
                 !customerAddViewModel.IsLastNameErrorVisible.Equals("Collapsed") ||

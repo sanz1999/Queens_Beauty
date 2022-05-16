@@ -40,7 +40,7 @@ namespace Common.Methods.TransformSubclasses
                                         untrasformedCustomer.name,
                                         untrasformedCustomer.surname,
                                         untrasformedCustomer.phoneNumber,
-                                        untrasformedCustomer.dateOfBirth.ToShortDateString(),
+                                        (untrasformedCustomer.dateOfBirth.Date.ToString()==DateTime.MaxValue.Date.ToString())?"":    untrasformedCustomer.dateOfBirth.ToShortDateString(),
                                         untrasformedCustomer.email,
                                         genderdecide,
                                         untrasformedCustomer.points,

@@ -39,7 +39,7 @@ namespace Common.Methods.ValidationSubclasses
         public bool Email(string email) {
             var foo = new EmailAddressAttribute();
             bool state = true;
-            if (email == null) { state = false; }
+            if (email == null || email.Trim()=="") { state = true; }
             else
             {
                 email = email.Trim();
@@ -108,7 +108,9 @@ namespace Common.Methods.ValidationSubclasses
             }
             catch
             {
-                return false;
+                
+                    return false;
+                
             }
             return true;
         }

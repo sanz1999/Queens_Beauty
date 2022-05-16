@@ -164,7 +164,7 @@ namespace Model.FrontendModel
         public override bool Equals(object? obj)
         {
             return obj is CustomerFront front &&
-                   customerId == front.customerId &&
+                   customerId == front.customerId; /*&&
                    firstName == front.firstName &&
                    lastName == front.lastName &&
                    phoneNumber == front.phoneNumber &&
@@ -173,7 +173,7 @@ namespace Model.FrontendModel
                    gender == front.gender &&
                    points == front.points &&
                    loyaltyCardId == front.loyaltyCardId &&
-                   exists == front.exists;
+                   exists == front.exists;*/
         }
 
         public override int GetHashCode()
