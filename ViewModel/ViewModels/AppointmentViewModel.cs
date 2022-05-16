@@ -24,6 +24,7 @@ namespace ViewModel.ViewModels
         private bool canAlter = false;
         private bool canDelete = false;
         private bool canAdd = true;
+        private bool canPay = true;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -33,7 +34,7 @@ namespace ViewModel.ViewModels
         public MyICommand PayCommand { get; set; }
 
         public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
-        private bool canPay = true;
+
 
         private string isPayButtonVisible = "Collapsed";
 
@@ -88,6 +89,13 @@ namespace ViewModel.ViewModels
                 {
                     AppointmentFront newOne = SelectedItem;
                     newOne.State = true;
+                    newOne.SumCena = 0;
+                    foreach (var x in newOne.SIA) {
+                        if (!x.PaymentMethod)
+                        {
+                            newOne.SumCena += x.Price;
+                        }
+                    }
                     appointmentCRUD.RegulatePoints(SelectedItem);
                     int index = Appointments.IndexOf(SelectedItem);
                     int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
@@ -206,6 +214,7 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.EndTimeMinute = SelectedItem.EndTime.Substring(3, 2);
 
                 appointmentAddViewModel.StateVM = SelectedItem.State;
+                appointmentAddViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
 
                 foreach (AppointmentItemFront sia in SelectedItem.SIA)
                 {
@@ -438,13 +447,7 @@ namespace ViewModel.ViewModels
             }
         }
 
-        private int FindAppointmentIndex(BindingList<AppointmentFront> list, AppointmentFront appointment) {
-            int index = 0;
-
-
-
-            return index;
-        }
+        
 
 }
 }

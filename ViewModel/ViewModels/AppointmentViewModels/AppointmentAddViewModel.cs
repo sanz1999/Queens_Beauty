@@ -246,7 +246,17 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         private void OnAddService()
         {
             AppointmentItemFront SIAToAdd = new AppointmentItemFront(appointmentAddServiceViewModel.SelectedService, appointmentAddServiceViewModel.SelectedEmployee, appointmentAddServiceViewModel.SelectedService.Price,false);
-            AddedSIA.Add(SIAToAdd);
+            bool exist = false;
+            foreach (var item in AddedSIA) {
+                if (item.Service.Id == SIAToAdd.Service.Id) {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist)
+            {
+                AddedSIA.Add(SIAToAdd);
+            }
             SumCenaVM = "0";
             SumCenaVM = "1";
             appointmentAddServiceViewModel.SelectedService = null;
