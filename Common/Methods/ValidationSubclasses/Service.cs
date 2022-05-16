@@ -39,23 +39,34 @@ namespace Common.Methods.ValidationSubclasses
 
             return state;
         }
-        public bool Price(string name)
+        public int Price(string name)
         {
-            bool state = true;
-            if (name == null) { state = false; }
+            int state = 1;
+            if (name == null) { state = 0; }
             else
             {
                 name = name.Trim();
-                if (name.Equals("")) { state = false; }
+                if (name.Equals("")) { state =0; }
             }
             foreach (char c in name)
             {
-                if (c < '0' || c > '9')
+                if ((c < '0' || c > '9')&&( c!=','))
                 {
-                    state = false;
+                    if (c == '.') {
+                        state = 0;
+                    }
+                    else {
+                        state = -1;
+                    }
                     break;
                 }
+                
             }
+            if (name.Count(f => f == ',') > 1)
+            {
+                state = 4;
+            }
+
             return state;
         }
         public bool PointCost(string name)
