@@ -17,15 +17,28 @@ namespace ViewModel.ViewModels
         public AppointmentViewModel AppointmentViewModel
         {
             get { return appointmentViewModel; }
-            set { appointmentViewModel = value; }
+            set
+            {
+                appointmentViewModel = value;
+                OnPropertyChanged("AppointmentViewModel");
+            }
         }
 
         
         public MyICommand<string> NavCommand { get; set; }
+        public MyICommand RefreshCommand { get; set; }
         public MainWindowViewModel()
         {
             NavCommand = new MyICommand<string>(OnNav);
+            RefreshCommand = new MyICommand(OnRefresh);
             CurrentViewModel = startupViewModel;
+        }
+
+        private void OnRefresh()
+        {
+            OnNav("service");
+            OnNav("appointment");
+            AppointmentViewModel = new AppointmentViewModel();
         }
 
         public void OnNav(string obj)

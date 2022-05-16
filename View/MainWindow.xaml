@@ -67,7 +67,8 @@
                               CommandParameter="settings">
                         <Image Source="Views/Images/settings.png" />
                     </MenuItem>
-                    <MenuItem Header="Refresh">
+                    <MenuItem Header="Refresh"
+                              Command="{Binding RefreshCommand}" />
                 </Menu>
             </Grid>
             <Grid Background="Silver"
