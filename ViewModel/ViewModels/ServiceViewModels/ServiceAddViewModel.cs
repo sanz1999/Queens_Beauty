@@ -126,16 +126,25 @@ namespace ViewModel.ViewModels.ServiceViewModels
                 if (priceVM != value)
                 {
                     priceVM = value;
-                    if (!validation.service.Price(PriceVM))
+                    if (validation.service.Price(PriceVM)!=1)
                     {
                         if (PriceVM.Equals(""))
                         {
                             PriceErrorText = "Cannot leave price empty!";
                             IsPriceErrorVisible = "Visible";
                         }
-                        else
+                        else if (validation.service.Price(PriceVM) == -1)
                         {
                             PriceErrorText = "Cannot have letters in price!";
+                            IsPriceErrorVisible = "Visible";
+                        }
+                        else if (validation.service.Price(PriceVM) == 0)
+                        {
+                            PriceErrorText = "Use comma( , ) instead of period( . )";
+                            IsPriceErrorVisible = "Visible";
+                        }
+                        else {
+                            PriceErrorText = "Maximum number of periods ( , ) is 1";
                             IsPriceErrorVisible = "Visible";
                         }
                     }

@@ -15,6 +15,7 @@ namespace Common.Methods.CRUD
         private Transform transform=  new Transform();      
         private AppointmentService appointmentService = new AppointmentService();
         private SIAService sIAService = new SIAService();
+        private CustomerService customerService = new CustomerService();
 
         public BindingList<AppointmentFront> LoadFromDataBase() {
             BindingList<AppointmentFront> newlist = new BindingList<AppointmentFront>();
@@ -63,6 +64,21 @@ namespace Common.Methods.CRUD
             {
                 sIAService.Save(transform.FEToDB.AppointmentItem(new Tuple<int, AppointmentItemFront>(appointment.AppointmentId, x)));
             }
+        }
+
+        public void RegulatePoints(AppointmentFront appointment) {
+            CustomerFront updateCustomer = appointment.Customer;
+            foreach (var x in appointment.SIA) {
+                if (x.PaymentMethod)
+                {
+                    updateCustomer.Points -= x.Service.PointsPrice;
+                }
+                else {
+                    updateCustomer.Points += x.Service.PointsValue;
+                }
+            }
+            customerService.Save(transform.FEToDB.Customer(updateCustomer));
+        
         }
     }
 }
