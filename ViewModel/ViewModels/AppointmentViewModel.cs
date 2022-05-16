@@ -23,6 +23,7 @@ namespace ViewModel.ViewModels
         private AppointmentFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
+        private bool canAdd = true;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -107,10 +108,12 @@ namespace ViewModel.ViewModels
 
         private void OnCancel()
         {
-            if(CurrentAppointmentViewModel == appointmentAddViewModel)
+            CanAdd = true;
+            if (CurrentAppointmentViewModel == appointmentAddViewModel)
             {
                 appointmentAddViewModel.ClearInput();
 
+                
                 CanAlter = false;
                 CanDelete = false;
 
@@ -176,6 +179,8 @@ namespace ViewModel.ViewModels
             if(CurrentAppointmentViewModel != appointmentAddViewModel)
             {
                 appointmentAddViewModel.HeadText = "Alter";
+                CanAdd = false;
+                CanDelete = false;
 
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
@@ -213,6 +218,7 @@ namespace ViewModel.ViewModels
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
 
+                    CanAdd = true;
                     CanAlter = false;
                     CanDelete = false;
 
@@ -260,11 +266,15 @@ namespace ViewModel.ViewModels
             if (SelectedItem == null)
                 return;
 
+
             IsPayButtonVisible = "Visible";
             if (SelectedItem.State)
                 CanPay = false;
             else
                 CanPay = true;
+
+
+            CanAdd = true;
 
             CanAlter = true;
             CanDelete = true;
@@ -368,6 +378,7 @@ namespace ViewModel.ViewModels
                 }
             }
         }
+
         public bool CanPay
         {
             get { return canPay; }
@@ -392,6 +403,21 @@ namespace ViewModel.ViewModels
                 }
             }
         }
+
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set
+            {
+                if (canAdd != value)
+                {
+                    canAdd = value;
+                    OnPropertyChanged("CanAdd");
+                }
+            }
+        }
+
+
         public AppointmentFront SelectedItem
         {
             get { return selectedItem; }

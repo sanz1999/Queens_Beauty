@@ -22,6 +22,7 @@ namespace ViewModel.ViewModels
         private CustomerFront selectedItem;
         private bool canAlter = false;
         private bool canDelete = false;
+        private bool canAdd = true;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -54,7 +55,8 @@ namespace ViewModel.ViewModels
 
         private void OnCancel()
         {
-            if(CurrentCustomerViewModel == customerAddViewModel)
+            CanAdd = true;
+            if (CurrentCustomerViewModel == customerAddViewModel)
             {
                 customerAddViewModel.ClearInput();
                 
@@ -112,6 +114,9 @@ namespace ViewModel.ViewModels
             {
                 customerAddViewModel.HeadText = "Alter";
 
+                CanAdd = false;
+                CanDelete=false;
+
                 CurrentCustomerViewModel = customerAddViewModel;
                 customerInfoViewModel.ClearInput();
 
@@ -120,6 +125,7 @@ namespace ViewModel.ViewModels
                 customerAddViewModel.PhoneNumberVM = SelectedItem.PhoneNumber;
                 customerAddViewModel.EmailVM = SelectedItem.Email;
                 customerAddViewModel.LoyaltyCardIdVM = SelectedItem.LoyaltyCardId;
+                customerAddViewModel.DateOfBirthVM = SelectedItem.DateOfBirth;
 
                 switch (SelectedItem.Gender)
                 {
@@ -151,7 +157,8 @@ namespace ViewModel.ViewModels
                 Customers.Insert(indexReal, newOne);
 
                 commonCustomer.UpdateInDataBase(newOne);
-
+                ValidationReset();
+                CanAdd = true;
                 CanAlter = false;
                 CanDelete = false;
 
@@ -163,7 +170,7 @@ namespace ViewModel.ViewModels
         {
             if (SelectedItem == null)
                 return;
-
+            CanAdd = true;
             CanAlter = true;
             CanDelete = true;
             OnNav("info");
@@ -215,7 +222,7 @@ namespace ViewModel.ViewModels
                         Customers.Add(commonCustomer.FindLastAdded());
 
                         OnNav("filter");
-
+                        ValidationReset();
                         CanAlter = false;
                         CanDelete = false;
                     }
@@ -247,6 +254,10 @@ namespace ViewModel.ViewModels
                 !customerAddViewModel.IsBirthdayErrorVisible.Equals("Collapsed") ||
                 !customerAddViewModel.IsEmailErrorVisible.Equals("Collapsed") ||
                 !customerAddViewModel.IsLoyaltyCardIdErrorVisible.Equals("Collapsed"))
+                return false;
+            else if (customerAddViewModel.FirstNameVM == null &&
+                customerAddViewModel.LastNameVM == null &&
+                customerAddViewModel.PhoneNumberVM == null)
                 return false;
             return true;
         }
@@ -284,6 +295,21 @@ namespace ViewModel.ViewModels
                 }
             }
         }
+
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set
+            {
+                if (canAdd != value)
+                {
+                    canAdd = value;
+                    OnPropertyChanged("CanAdd");
+                }
+            }
+        }
+
+
 
         public CustomerFront SelectedItem
         {

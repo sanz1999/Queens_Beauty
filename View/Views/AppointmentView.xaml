@@ -108,6 +108,7 @@
                         Margin="5"
                         FontSize="14"
                         Content="Add"
+                        IsEnabled="{Binding CanAdd}"
                         Command="{Binding NavCommand}"
                         CommandParameter="add">
                     <Button.Template>
