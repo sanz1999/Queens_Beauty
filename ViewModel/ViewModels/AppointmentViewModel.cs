@@ -24,6 +24,7 @@ namespace ViewModel.ViewModels
         private bool canAlter = false;
         private bool canDelete = false;
         private bool canAdd = true;
+        private bool canPay = true;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -33,7 +34,7 @@ namespace ViewModel.ViewModels
         public MyICommand PayCommand { get; set; }
 
         public BindingList<AppointmentFront> proxy = new BindingList<AppointmentFront>();
-        private bool canPay = true;
+
 
         private string isPayButtonVisible = "Collapsed";
 
@@ -88,6 +89,13 @@ namespace ViewModel.ViewModels
                 {
                     AppointmentFront newOne = SelectedItem;
                     newOne.State = true;
+                    newOne.SumCena = 0;
+                    foreach (var x in newOne.SIA) {
+                        if (!x.PaymentMethod)
+                        {
+                            newOne.SumCena += x.Price;
+                        }
+                    }
                     appointmentCRUD.RegulatePoints(SelectedItem);
                     int index = Appointments.IndexOf(SelectedItem);
                     int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
@@ -137,6 +145,7 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsSumCenaErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsStartTimeErrorVisible = "Collapsed";
+                IsPayButtonVisible = "Collapsed";
 
                 OnNav("filter");
             }
@@ -189,6 +198,7 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.HeadText = "Alter";
                 CanAdd = false;
                 CanDelete = false;
+                IsPayButtonVisible = "Collapsed";
 
                 CurrentAppointmentViewModel = appointmentAddViewModel;
                 appointmentInfoViewModel.ClearInput();
@@ -320,6 +330,8 @@ namespace ViewModel.ViewModels
                         CurrentAppointmentViewModel = appointmentAddViewModel;
                         CanAlter = false;
                         CanDelete = false;
+                        appointmentAddViewModel.IsAddServiceVisible = "Visible";
+                        IsPayButtonVisible = "Collapsed";
                         if (SelectedItem == null)
                             break;
                         SelectedItem = null;
@@ -333,6 +345,8 @@ namespace ViewModel.ViewModels
                             newAppointment = appointmentCRUD.FindLastAdded();
                             Appointments.Add(newAppointment);
                             AppointmentsSearch.Add(newAppointment);
+                            appointmentAddViewModel.AppointmentAddDisplayViewModel.Name = "";
+                            appointmentAddViewModel.ValidationReset();
                             OnNav("filter");
 
                             CanAlter = false;
@@ -438,13 +452,7 @@ namespace ViewModel.ViewModels
             }
         }
 
-        private int FindAppointmentIndex(BindingList<AppointmentFront> list, AppointmentFront appointment) {
-            int index = 0;
-
-
-
-            return index;
-        }
+       
 
 }
 }
