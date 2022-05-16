@@ -665,5 +665,19 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
+
+        private string CalculateEndTime() {     //izracunavanje endtime sabirajuci sia dodajuci na starttime
+            string vremetext = "";
+            if (!((StartTimeMinute == null) || (StartTimeMinute.Equals("")) || (StartTimeHour == null) || (StartTimeHour == "")))
+            {
+                TimeOnly vreme = new TimeOnly(int.Parse(StartTimeHour),int.Parse(StartTimeMinute));
+                foreach (var item in AddedSIA) {
+                    vreme = vreme.AddMinutes(item.Service.Duration);
+                }
+                vremetext = vreme.ToString();
+
+            }
+            return vremetext;
+        }
     }
 }
