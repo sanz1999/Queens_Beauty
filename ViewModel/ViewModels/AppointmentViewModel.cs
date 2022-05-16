@@ -431,7 +431,13 @@ namespace ViewModel.ViewModels
             }
         }
 
-     
+        private int FindAppointmentIndex(BindingList<AppointmentFront> list, AppointmentFront appointment) {
+            int index = 0;
+
+
+
+            return index;
+        }
 
 }
 }
