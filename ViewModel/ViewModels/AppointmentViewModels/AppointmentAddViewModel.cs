@@ -245,7 +245,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
 
         private void OnAddService()
         {
-            AppointmentItemFront SIAToAdd = new AppointmentItemFront(appointmentAddServiceViewModel.SelectedService, appointmentAddServiceViewModel.SelectedEmployee);
+            AppointmentItemFront SIAToAdd = new AppointmentItemFront(appointmentAddServiceViewModel.SelectedService, appointmentAddServiceViewModel.SelectedEmployee, appointmentAddServiceViewModel.SelectedService.Price,false);
             AddedSIA.Add(SIAToAdd);
             SumCenaVM = "0";
             SumCenaVM = "1";
@@ -260,7 +260,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         public AppointmentFront GetAppointment()
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
-            string endTime = EndTimeHour + ":" + EndTimeMinute;
+            string endTime = CalculateEndTime();
             
             AppointmentFront appointmentToAdd = new AppointmentFront(IdCnt++, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), 
                 startTime, endTime, double.Parse(SumCenaVM), StateVM, new BindingList<AppointmentItemFront>());
@@ -274,7 +274,7 @@ namespace ViewModel.ViewModels.AppointmentViewModels
         public AppointmentFront GetAppointment(int id)
         {
             string startTime = StartTimeHour + ":" + StartTimeMinute;
-            string endTime = EndTimeHour + ":" + EndTimeMinute;
+            string endTime = CalculateEndTime();
 
             AppointmentFront appointmentToAdd = new AppointmentFront(id, SelectedCustomer, DateOnly.Parse(AppointmentDateVM), 
                 startTime, endTime, double.Parse(SumCenaVM), StateVM, new BindingList<AppointmentItemFront>());

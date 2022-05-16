@@ -24,6 +24,14 @@ namespace Model.FrontendModel
             this.Employee = employee;
         }
 
+        public AppointmentItemFront(ServiceFront service, EmployeeFront employee,double value, bool method)
+        {
+            this.Service = service;
+            this.Employee = employee;
+            this.price = value;
+            this.paymentMethod = method;
+        }
+
         public ServiceFront Service
         {
             get { return service; }

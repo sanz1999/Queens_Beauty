@@ -71,6 +71,9 @@ namespace Common.Methods.TransformSubclasses
             DBSIA x = new DBSIA();
             x.id = new Tuple<int, int>(SIA.Item1,SIA.Item2.Service.Id);
             x.workerId = SIA.Item2.Employee.EmployeeId;
+            x.value = SIA.Item2.Price;
+            if (SIA.Item2.PaymentMethod) { x.method = "p"; }
+            else { x.method = "c"; }
             return x;
 
         }
