@@ -145,6 +145,7 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.IsEmptyAddedServicesErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsSumCenaErrorVisible = "Collapsed";
                 appointmentAddViewModel.IsStartTimeErrorVisible = "Collapsed";
+                appointmentAddViewModel.IsSelectCustomerErrorVisible = "Collapsed";
 
                 OnNav("filter");
             }
@@ -210,8 +211,6 @@ namespace ViewModel.ViewModels
                 appointmentAddViewModel.StartTimeHour = SelectedItem.StartTime.Substring(0, 2);
                 appointmentAddViewModel.StartTimeMinute = SelectedItem.StartTime.Substring(3, 2);
 
-                appointmentAddViewModel.EndTimeHour = SelectedItem.EndTime.Substring(0, 2);
-                appointmentAddViewModel.EndTimeMinute = SelectedItem.EndTime.Substring(3, 2);
 
                 appointmentAddViewModel.StateVM = SelectedItem.State;
                 appointmentAddViewModel.SumCenaVM = SelectedItem.SumCena.ToString();
@@ -220,6 +219,9 @@ namespace ViewModel.ViewModels
                 {
                     appointmentAddViewModel.AddedSIA.Add(sia);
                 }
+
+                appointmentAddViewModel.SumCenaVM = "1";
+                appointmentAddViewModel.SumCenaVM = "0";
             }
             else
             {   
