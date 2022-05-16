@@ -135,13 +135,13 @@ namespace Model.FrontendModel
         public override bool Equals(object? obj)
         {
             return obj is AppointmentFront front &&
-                   appointmentId == front.appointmentId &&
+                   appointmentId == front.appointmentId;  /* &&
                    EqualityComparer<CustomerFront>.Default.Equals(customer, front.customer) &&
                    appointmentDate.Equals(front.appointmentDate) &&
                    startTime == front.startTime &&
                    endTime == front.endTime &&
                    sumCena == front.sumCena &&
-                   state == front.state;
+                   state == front.state;*/
         }
 
         public override int GetHashCode()

@@ -161,28 +161,38 @@ namespace Model.FrontendModel
 
             public event PropertyChangedEventHandler? PropertyChanged;
 
-            public override bool Equals(object? obj)
-            {
-                return obj is CustomerFront customer &&
-                       customerId == customer.customerId &&
-                       firstName == customer.firstName &&
-                       lastName == customer.lastName &&
-                       phoneNumber == customer.phoneNumber &&
-                       email == customer.email &&
-                       gender == customer.gender &&
-                       points == customer.points &&
-                       loyaltyCardId == customer.loyaltyCardId &&
-                       dateOfBirth == customer.dateOfBirth&&
-                       exists==customer.exists;
-                    
-            }
+        public override bool Equals(object? obj)
+        {
+            return obj is CustomerFront front &&
+                   customerId == front.customerId &&
+                   firstName == front.firstName &&
+                   lastName == front.lastName &&
+                   phoneNumber == front.phoneNumber &&
+                   dateOfBirth == front.dateOfBirth &&
+                   email == front.email &&
+                   gender == front.gender &&
+                   points == front.points &&
+                   loyaltyCardId == front.loyaltyCardId &&
+                   exists == front.exists;
+        }
 
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(customerId, firstName, lastName, phoneNumber, email, gender, points, loyaltyCardId);
-            }
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(customerId);
+            hash.Add(firstName);
+            hash.Add(lastName);
+            hash.Add(phoneNumber);
+            hash.Add(dateOfBirth);
+            hash.Add(email);
+            hash.Add(gender);
+            hash.Add(points);
+            hash.Add(loyaltyCardId);
+            hash.Add(exists);
+            return hash.ToHashCode();
+        }
 
-            private void RaisePropertyChanged(string property)
+        private void RaisePropertyChanged(string property)
             {
                 if (PropertyChanged != null)
                 {

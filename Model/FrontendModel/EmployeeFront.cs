@@ -45,17 +45,6 @@ namespace Model.FrontendModel
             }
         }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is EmployeeFront employee &&
-                   employeeId == employee.employeeId &&
-                   name == employee.name;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(employeeId, name);
-        }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void RaisePropertyChanged(string property)
         {
@@ -63,6 +52,18 @@ namespace Model.FrontendModel
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is EmployeeFront front &&
+                   employeeId == front.employeeId &&
+                   name == front.name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(employeeId, name);
         }
     }
 }
