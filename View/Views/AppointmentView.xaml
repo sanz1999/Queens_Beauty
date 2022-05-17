@@ -287,7 +287,8 @@
                                           AutoGenerateColumns="False"
                                           CanUserResizeColumns="False"
                                           CanUserReorderColumns="False"
-                                          ItemsSource="{Binding SIA}">
+                                          ItemsSource="{Binding SIA}"
+                                          HeadersVisibility="None">
                                     <DataGrid.ColumnHeaderStyle>
                                         <Style TargetType="DataGridColumnHeader">
                                             <Setter Property="FontWeight"
