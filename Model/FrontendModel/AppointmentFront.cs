@@ -20,6 +20,8 @@ namespace Model.FrontendModel
         public BindingList<AppointmentItemFront> SIA { get;  set; }
         //public BindingList<Tuple<ServiceFront, EmployeeFront>> SIA { get; private set; }
 
+        private string stateColor;
+
         public AppointmentFront() {
             this.SIA = new BindingList<AppointmentItemFront>();
         }
@@ -34,6 +36,14 @@ namespace Model.FrontendModel
             this.sumCena = sumCena;
             this.state = state;
             this.SIA = lista;
+            if (state)
+            {
+                stateColor = "#FE6584";
+            }
+            else if (!state)
+            {
+                stateColor = "White";
+            }
             
         }
 
@@ -117,12 +127,38 @@ namespace Model.FrontendModel
                 if (state != value)
                 {
                     state = value;
-                    RaisePropertyChanged("State");
+                    if(state)
+                    {
+                        stateColor = "#FE6584";
+                    }
+                    else if(!state)
+                    {
+                        stateColor = "White";
+                    }
+                    OnPropertyChanged("State");
                 }
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public string StateColor
+        {
+            get { return stateColor; }
+            set
+            {
+                if(stateColor != value)
+                {
+                    stateColor = value;
+                    OnPropertyChanged("StateColor");
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private void RaisePropertyChanged(string property)
         {

@@ -60,7 +60,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
             if (LoyaltyCardIdVM == "")
                 LoyaltyCardIdVM = null;
             CustomerFront customerToAdd = 
-                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM, (DateOfBirthVM == null || DateOfBirthVM == "") ? DateTime.MaxValue.ToString() : DateOfBirthVM, (EmailVM == null || EmailVM == "") ? "" : EmailVM, gender, 0, (LoyaltyCardIdVM == null || LoyaltyCardIdVM == "") ? "0" : LoyaltyCardIdVM, 1);
+                new CustomerFront(IdCnt++, FirstNameVM, LastNameVM, PhoneNumberVM,  DateOfBirthVM, (EmailVM == null || EmailVM == "") ? "" : EmailVM, gender, 0, (LoyaltyCardIdVM == null || LoyaltyCardIdVM == "") ? "0" : LoyaltyCardIdVM, 1);
 
             ClearInput();
 
@@ -74,7 +74,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                 LoyaltyCardIdVM = null;
 
             CustomerFront customerToAdd =
-                new CustomerFront(id, FirstNameVM, LastNameVM, PhoneNumberVM, (DateOfBirthVM==null || DateOfBirthVM == "") ? DateTime.MaxValue.ToString():DateOfBirthVM, (EmailVM == null || EmailVM == "") ? "" : EmailVM, gender, points, (LoyaltyCardIdVM == null || LoyaltyCardIdVM == "") ? "0" : LoyaltyCardIdVM, 1); ;
+                new CustomerFront(id, FirstNameVM, LastNameVM, PhoneNumberVM, DateOfBirthVM, (EmailVM == null || EmailVM == "") ? "" : EmailVM, gender, points, (LoyaltyCardIdVM == null || LoyaltyCardIdVM == "") ? "0" : LoyaltyCardIdVM, 1); ;
 
             ClearInput();
 

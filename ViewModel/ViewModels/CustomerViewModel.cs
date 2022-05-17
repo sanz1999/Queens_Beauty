@@ -152,7 +152,7 @@ namespace ViewModel.ViewModels
                 CustomerFront newOne = customerAddViewModel.GetCustomer(SelectedItem.CustomerId, SelectedItem.Points);
 
                 newOne.Exists = selectedOne.Exists;
-                newOne.DateOfBirth = selectedOne.DateOfBirth;
+                
                 int index = CustomersSearch.IndexOf(SelectedItem);
                 int indexReal = Customers.IndexOf(SelectedItem);
                 CustomersSearch.RemoveAt(index);
