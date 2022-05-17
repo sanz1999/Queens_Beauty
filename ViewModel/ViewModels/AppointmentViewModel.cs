@@ -25,6 +25,7 @@ namespace ViewModel.ViewModels
         private bool canDelete = false;
         private bool canAdd = true;
         private bool canPay = true;
+        private bool isPaying = false;
 
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
@@ -88,8 +89,16 @@ namespace ViewModel.ViewModels
             {
                 if (!appointmentPayViewModel.IsPointsErrorVisible.Equals("Visible"))
                 {
-                    AppointmentFront newOne = SelectedItem;
-                    newOne.State = true;
+                    
+                    AppointmentFront newOne = new AppointmentFront(
+                        SelectedItem.AppointmentId,
+                        SelectedItem.Customer,
+                        SelectedItem.AppointmentDate,
+                        SelectedItem.StartTime,
+                        SelectedItem.EndTime,
+                        SelectedItem.SumCena,
+                        true,
+                        SelectedItem.SIA);
                     newOne.SumCena = 0;
                     foreach (var x in newOne.SIA) {
                         if (!x.PaymentMethod)
@@ -97,7 +106,6 @@ namespace ViewModel.ViewModels
                             newOne.SumCena += x.Price;
                         }
                     }
-                    appointmentCRUD.RegulatePoints(SelectedItem);
                     int index = Appointments.IndexOf(SelectedItem);
                     int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
                     appointmentCRUD.UpdateInDataBase(newOne);
@@ -106,7 +114,7 @@ namespace ViewModel.ViewModels
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
 
-                    SelectedItem = AppointmentsSearch[0];
+                    appointmentCRUD.RegulatePoints(newOne);
 
                     appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
                     appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
@@ -126,13 +134,7 @@ namespace ViewModel.ViewModels
 
                     CurrentAppointmentViewModel = appointmentFilterViewModel;
                     //DO NOT TOUCH THIS TWO ON CALCELS
-                    OnCancel();
-                    OnCancel();
-                    OnCancel();
-                    OnCancel();
-                    OnCancel();
-                    OnCancel();
-
+                    
                     IsPayButtonVisible = "Collapsed";
                 }
             }
@@ -219,6 +221,7 @@ namespace ViewModel.ViewModels
             AppointmentsSearch.Remove(appointmentToRemove);
             CanAlter = false;
             CanDelete = false;
+            IsPayButtonVisible = "Collapsed";
             OnNav("filter");
         }
 
@@ -262,7 +265,9 @@ namespace ViewModel.ViewModels
                 if (ValidationCheck())
                 {
                     AppointmentFront selectedOne = SelectedItem;
+                    
                     AppointmentFront newOne = appointmentAddViewModel.GetAppointment(SelectedItem.AppointmentId);
+                    
                     int index = Appointments.IndexOf(SelectedItem);
                     int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
                     appointmentCRUD.UpdateInDataBase(newOne);
@@ -513,7 +518,17 @@ namespace ViewModel.ViewModels
             }
         }
 
-
-
+        public bool IsPaying
+        {
+            get { return isPaying; }
+            set
+            {
+                if (isPaying != value)
+                {
+                    isPaying = value;
+                    OnPropertyChanged("IsPaying");
+                }
+            }
+        }
 }
 }
