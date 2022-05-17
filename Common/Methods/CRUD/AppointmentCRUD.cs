@@ -77,6 +77,7 @@ namespace Common.Methods.CRUD
                     updateCustomer.Points += x.Service.PointsValue;                   
                 }
             }
+            customerService.Save(transform.FEToDB.Customer(updateCustomer));
             
         }
 
