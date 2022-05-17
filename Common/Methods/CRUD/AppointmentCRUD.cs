@@ -74,10 +74,28 @@ namespace Common.Methods.CRUD
                     updateCustomer.Points -= x.Service.PointsPrice;
                 }
                 else {
-                    updateCustomer.Points += x.Service.PointsValue;
+                    updateCustomer.Points += x.Service.PointsValue;                   
                 }
             }
-            customerService.Save(transform.FEToDB.Customer(updateCustomer));
+            
+        }
+
+        public AppointmentFront UpdateCustomerInList(AppointmentFront paidAppointment,AppointmentFront appointmentFromList)
+        {
+            AppointmentFront newOne = appointmentFromList;
+                foreach (var x in paidAppointment.SIA)
+                {
+                    if (x.PaymentMethod)
+                    {
+                        newOne.Customer.Points -= x.Service.PointsPrice;
+                    }
+                    else
+                    {
+                        newOne.Customer.Points += x.Service.PointsValue;
+                    }
+                }
+            return newOne;
+
         }
     }
 }
