@@ -116,9 +116,9 @@ namespace DatabaseLogic.DAO.Implementation
                                                           (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
                                                           reader.GetString(4),
                                                           reader.IsDBNull(5) ? "" : reader.GetString(5),
-                                                          reader.GetString(6),
-                                                          reader.GetInt32(7),
-                                                          (reader.IsDBNull(8))? 0: reader.GetInt32(8),
+                                                          reader.IsDBNull(6) ? "N" : reader.GetString(6),
+                                                          reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                                                          reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
                                                           reader.GetInt32(9));
 
                             returnList.Add(o);
@@ -169,9 +169,9 @@ namespace DatabaseLogic.DAO.Implementation
                                                           (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
                                                           reader.GetString(4),
                                                           reader.IsDBNull(5) ? "" : reader.GetString(5),
-                                                          reader.GetString(6),
-                                                          reader.GetInt32(7),
-                                                          (reader.IsDBNull(8)) ? 0 : reader.GetInt32(8),
+                                                          reader.IsDBNull(6) ? "N" : reader.GetString(6),
+                                                          reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                                                          reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
                                                           reader.GetInt32(9));
 
                             returnList.Add(o);
@@ -202,15 +202,15 @@ namespace DatabaseLogic.DAO.Implementation
                         if (reader.Read())
                         {
                             o = new DBCustomer(reader.GetInt32(0),
-                                               reader.GetString(1),
-                                               reader.GetString(2),
-                                               (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
-                                               reader.GetString(4),
-                                               reader.IsDBNull(5) ? "" : reader.GetString(5),
-                                               reader.GetString(6),
-                                               reader.GetInt32(7),
-                                               (reader.IsDBNull(8)) ? 0 : reader.GetInt32(8),
-                                               reader.GetInt32(9));
+                                                          reader.GetString(1),
+                                                          reader.GetString(2),
+                                                          (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
+                                                          reader.GetString(4),
+                                                          reader.IsDBNull(5) ? "" : reader.GetString(5),
+                                                          reader.IsDBNull(6) ? "N" : reader.GetString(6),
+                                                          reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                                                          reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
+                                                          reader.GetInt32(9));
 
                         }
                     }
@@ -442,9 +442,9 @@ namespace DatabaseLogic.DAO.Implementation
                                                           (reader.IsDBNull(3)) ? DateTime.MaxValue : reader.GetDateTime(3),
                                                           reader.GetString(4),
                                                           reader.IsDBNull(5) ? "" : reader.GetString(5),
-                                                          reader.GetString(6),
-                                                          reader.GetInt32(7),
-                                                          (reader.IsDBNull(8)) ? 0 : reader.GetInt32(8),
+                                                          reader.IsDBNull(6) ? "N" : reader.GetString(6),
+                                                          reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+                                                          reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
                                                           reader.GetInt32(9));
 
                             returnList.Add(o);
