@@ -205,6 +205,24 @@ namespace ViewModel.ViewModels
 
                     appointmentCRUD.RegulatePoints(newOne);
 
+                    for (int i = 0; i < Appointments.Count; i++) {
+                        if (newOne.Customer.CustomerId == Appointments[i].Customer.CustomerId)
+                        {
+                            
+                            Appointments[i] = appointmentCRUD.UpdateCustomerInList(newOne, Appointments[i]);
+                        }
+                    }
+                    for (int i = 0; i < AppointmentsSearch.Count; i++)
+                    {
+                        if (newOne.Customer.CustomerId == AppointmentsSearch[i].Customer.CustomerId)
+                        {
+
+                            AppointmentsSearch[i] = appointmentCRUD.UpdateCustomerInList(newOne, AppointmentsSearch[i]);
+                        }
+                    }
+
+
+                    
                     appointmentAddViewModel.AppointmentAddCustomerViewModel.SelectedItem = null;
                     appointmentAddViewModel.AppointmentAddCustomerViewModel.FirstNameVM = "";
                     appointmentAddViewModel.AppointmentAddCustomerViewModel.LastNameVM = "";
