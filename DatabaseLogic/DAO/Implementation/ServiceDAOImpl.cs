@@ -120,8 +120,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                        reader.GetString(2),
                                                        reader.GetInt32(3),
                                                        reader.GetDouble(4),
-                                                       reader.GetInt32(5),
-                                                       reader.GetInt32(6),
+                                                       reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                                       reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                                                        reader.GetInt32(7));
 
                             listaUsluga.Add(usluga);
@@ -167,13 +167,13 @@ namespace DatabaseLogic.DAO.Implementation
                         while (reader.Read())
                         {
                             DBService service = new DBService(reader.GetInt32(0),
-                                                                      reader.GetString(1),
-                                                                      reader.GetString(2),
-                                                                      reader.GetInt32(3),
-                                                                      reader.GetDouble(4),
-                                                                      reader.GetInt32(5),
-                                                                      reader.GetInt32(6),
-                                                                      reader.GetInt32(7));
+                                                       reader.GetString(1),
+                                                       reader.GetString(2),
+                                                       reader.GetInt32(3),
+                                                       reader.GetDouble(4),
+                                                       reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                                       reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                                                       reader.GetInt32(7));
                             serviceList.Add(service);
                         }
                     }
@@ -202,13 +202,13 @@ namespace DatabaseLogic.DAO.Implementation
                         if (reader.Read())
                         {
                             service = new DBService(reader.GetInt32(0),
-                                                        reader.GetString(1),
-                                                        reader.GetString(2),
-                                                        reader.GetInt32(3),
-                                                        reader.GetDouble(4),
-                                                        reader.GetInt32(5),
-                                                        reader.GetInt32(6),
-                                                        reader.GetInt32(7));
+                                                       reader.GetString(1),
+                                                       reader.GetString(2),
+                                                       reader.GetInt32(3),
+                                                       reader.GetDouble(4),
+                                                       reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                                       reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                                                       reader.GetInt32(7));
                         }
                     }
                 }
@@ -325,8 +325,8 @@ namespace DatabaseLogic.DAO.Implementation
                                                        reader.GetString(2),
                                                        reader.GetInt32(3),
                                                        reader.GetDouble(4),
-                                                       reader.GetInt32(5),
-                                                       reader.GetInt32(6),
+                                                       reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                                                       reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                                                        reader.GetInt32(7));
 
                             listaUsluga.Add(usluga);

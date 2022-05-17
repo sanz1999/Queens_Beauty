@@ -112,7 +112,7 @@ namespace DatabaseLogic.DAO.Implementation
                             DBAppointment o = new DBAppointment(reader.GetInt32(0),
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
-                                                                reader.GetDouble(3),
+                                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
                                                                 reader.GetInt32(4));
 
                             returnList.Add(o);
@@ -160,7 +160,7 @@ namespace DatabaseLogic.DAO.Implementation
                             DBAppointment o = new DBAppointment(reader.GetInt32(0),
                                                                 reader.GetInt32(1),
                                                                 reader.GetDateTime(2),
-                                                                reader.GetDouble(3),
+                                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
                                                                 reader.GetInt32(4));
                             returnList.Add(o);
                         }
@@ -190,10 +190,10 @@ namespace DatabaseLogic.DAO.Implementation
                         if (reader.Read())
                         {
                             o = new DBAppointment(reader.GetInt32(0),
-                                                  reader.GetInt32(1),
-                                                  reader.GetDateTime(2),
-                                                  reader.GetDouble(3),
-                                                  reader.GetInt32(4));
+                                                                reader.GetInt32(1),
+                                                                reader.GetDateTime(2),
+                                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
+                                                                reader.GetInt32(4));
                         }
                     }
                 }

@@ -117,8 +117,8 @@ namespace DatabaseLogic.DAO.Implementation
                             Tuple<int,int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
                             DBSIA o = new DBSIA(temp,
                                                 reader.GetInt32(2),
-                                                reader.GetDouble(3),
-                                                reader.GetString(4));
+                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
+                                                reader.IsDBNull(4) ? "c" : reader.GetString(4));
 
                             returnList.Add(o);
                         }
@@ -170,8 +170,8 @@ namespace DatabaseLogic.DAO.Implementation
                             Tuple<int, int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
                             DBSIA o = new DBSIA(temp,
                                                 reader.GetInt32(2),
-                                                reader.GetDouble(3),
-                                                reader.GetString(4));
+                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
+                                                reader.IsDBNull(4) ? "c" : reader.GetString(4));
                             returnList.Add(o);
                         }
                     }
@@ -203,9 +203,9 @@ namespace DatabaseLogic.DAO.Implementation
                         {
                             Tuple<int, int> temp = new Tuple<int, int>(reader.GetInt32(0), reader.GetInt32(1));
                              o = new DBSIA(temp,
-                                            reader.GetInt32(2),
-                                            reader.GetDouble(3),
-                                            reader.GetString(4));
+                                                reader.GetInt32(2),
+                                                reader.IsDBNull(3) ? 0 : reader.GetDouble(3),
+                                                reader.IsDBNull(4) ? "c" : reader.GetString(4));
                         }
                     }
                 }
