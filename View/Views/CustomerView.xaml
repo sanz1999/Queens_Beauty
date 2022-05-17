@@ -192,6 +192,10 @@
                                 Value="14" />
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                     Color="#FE6584" />
+                </DataGrid.Resources>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
