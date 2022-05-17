@@ -92,6 +92,14 @@ namespace ViewModel.ViewModels.ServiceViewModels
                 if (categoryVM != value)
                 {
                     categoryVM = value;
+                    if(categoryVM != null)
+                    {
+                        IsCategoryErrorVisible = "Collapsed";
+                    }
+                    else
+                    {
+                        IsCategoryErrorVisible = "Visible";
+                    }
                     OnPropertyChanged("CategoryVM");
                 }
             }
