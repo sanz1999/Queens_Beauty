@@ -362,10 +362,12 @@
                                             Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding State}"
-                                          IsEnabled="False"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center" />
+                                <Grid Background="{Binding StateColor}">
+                                    <CheckBox IsChecked="{Binding State}"
+                                              IsEnabled="False"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                                </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
