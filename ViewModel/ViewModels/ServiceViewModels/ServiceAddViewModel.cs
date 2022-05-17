@@ -144,7 +144,7 @@ namespace ViewModel.ViewModels.ServiceViewModels
                             IsPriceErrorVisible = "Visible";
                         }
                         else {
-                            PriceErrorText = "Maximum number of periods ( , ) is 1";
+                            PriceErrorText = "Maximum number of commas ( , ) is 1";
                             IsPriceErrorVisible = "Visible";
                         }
                     }
