@@ -182,6 +182,10 @@
                       CanUserReorderColumns="False"
                       ItemsSource="{Binding ServicesSearch}"
                       SelectedItem="{Binding SelectedItem}">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                     Color="#FE6584" />
+                </DataGrid.Resources>
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight"

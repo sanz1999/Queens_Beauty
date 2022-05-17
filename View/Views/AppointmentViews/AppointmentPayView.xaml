@@ -51,6 +51,10 @@
                   CanUserReorderColumns="False"
                   Height="180"
                   ItemsSource="{Binding SIAList}">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                 Color="#FE6584" />
+            </DataGrid.Resources>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="FontWeight"
@@ -88,7 +92,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Service.Price}"
-                                       FontSize="13" />
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -97,7 +103,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Service.PointsPrice}"
-                                       FontSize="13" />
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -106,7 +114,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding PaymentMethod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsEnabled="True">
+                                      IsEnabled="True"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ItemSelectedCommand}" />

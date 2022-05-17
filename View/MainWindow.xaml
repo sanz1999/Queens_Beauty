@@ -62,13 +62,6 @@
                               CommandParameter="appointment"
                               FontWeight="Bold"
                               FontSize="16" />
-                    <MenuItem Header=""
-                              Command="{Binding NavCommand}"
-                              CommandParameter="settings">
-                        <Image Source="Views/Images/settings.png" />
-                    </MenuItem>
-                    <MenuItem Header="Refresh"
-                              Command="{Binding RefreshCommand}" />
                 </Menu>
             </Grid>
             <Grid Background="Silver"

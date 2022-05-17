@@ -27,6 +27,8 @@ namespace ViewModel.ViewModels
         private bool canPay = true;
         private bool isPaying = false;
 
+        private string appointmentDateFormatted;
+
         public MyICommand<string> NavCommand { get; set; }
         public MyICommand ItemSelectedCommand { get; set; }
         public MyICommand AlterCommand { get; set; }
@@ -50,6 +52,38 @@ namespace ViewModel.ViewModels
             {
                 Appointments.Add(appointment);
             }
+
+            int res;
+            int resTime;
+            AppointmentFront temp;
+            //sorting by date and time
+            for (int i = 0; i < Appointments.Count; i++)
+            {
+                for (int j = i; j < Appointments.Count; j++)
+                {
+                    // res < 0 : appDate earlier than targetDate
+                    // res = 0 : appDate same as targetDate
+                    // res > 0 : appDate later than targetDate
+                    res = Appointments[i].AppointmentDate.CompareTo(Appointments[j].AppointmentDate);
+                    if (res > 0)
+                    {
+                        temp = Appointments[i];
+                        Appointments[i] = Appointments[j];
+                        Appointments[j] = temp;
+                    }
+                    else if (res == 0)
+                    {
+                        resTime = CalculateEarlierByTime(Appointments[i], Appointments[j]);
+                        if(resTime == -1)
+                        {
+                            temp = Appointments[i];
+                            Appointments[i] = Appointments[j];
+                            Appointments[j] = temp;
+                        }
+                    }
+                }
+            }
+
             foreach (AppointmentFront appointment in Appointments)
             {
                 AppointmentsSearch.Add(appointment);
@@ -63,6 +97,61 @@ namespace ViewModel.ViewModels
             PayCommand = new MyICommand(OnPay);
 
             CurrentAppointmentViewModel = appointmentFilterViewModel;
+        }
+
+        private int CalculateEarlierByTime(AppointmentFront app1, AppointmentFront app2)
+        {
+            string app1Hours;
+            string app1Minutes;
+            string app2Hours;
+            string app2Minutes;
+
+            try
+            {
+                app1Hours = app1.StartTime.Substring(0, 2);
+                app1Minutes = app1.StartTime.Substring(3, 2);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                app1Hours = app1.StartTime.Substring(0, 1);
+                app1Minutes = app1.StartTime.Substring(2, 2);
+            }
+            try
+            {
+                app2Hours = app2.StartTime.Substring(0, 2);
+                app2Minutes = app2.StartTime.Substring(3, 2);
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                app2Hours = app2.StartTime.Substring(0, 1);
+                app2Minutes = app2.StartTime.Substring(2, 2);
+            }
+
+            int app1HoursNum = int.Parse(app1Hours);
+            int app1MinutesNum = int.Parse(app1Minutes);
+            int app2HoursNum = int.Parse(app2Hours);
+            int app2MinutesNum = int.Parse(app2Minutes);
+
+            // if swap needed
+            if (app1HoursNum > app2HoursNum)
+                return -1;
+            else if (app1HoursNum == app2HoursNum)
+            {
+                if (app1MinutesNum > app2MinutesNum)
+                    return -1;
+                else if (app1MinutesNum == app2MinutesNum)
+                    return 0;
+                else
+                    return 1;
+            }
+            // if swap not needed
+            else
+                return 1;
         }
 
         private void OnPay()
@@ -231,6 +320,7 @@ namespace ViewModel.ViewModels
             {
                 if (SelectedItem == null)
                     return;
+
                 appointmentAddViewModel.HeadText = "Alter";
                 CanAdd = false;
                 CanDelete = false;
@@ -240,6 +330,7 @@ namespace ViewModel.ViewModels
                 appointmentInfoViewModel.ClearInput();
 
                 appointmentAddViewModel.SelectedCustomer = SelectedItem.Customer;
+                appointmentAddViewModel.AppointmentAddDisplayViewModel.Name = appointmentAddViewModel.SelectedCustomer.FirstName + " " + appointmentAddViewModel.SelectedCustomer.LastName;
 
                 appointmentAddViewModel.AddedSIA.Clear();
 
@@ -527,6 +618,18 @@ namespace ViewModel.ViewModels
                 {
                     isPaying = value;
                     OnPropertyChanged("IsPaying");
+                }
+            }
+        }
+        public string AppointmentDateFormatted
+        {
+            get { return appointmentDateFormatted; }
+            set
+            {
+                if (appointmentDateFormatted != value)
+                {
+                    appointmentDateFormatted = value;
+                    OnPropertyChanged("AppointmentDateFormatted");
                 }
             }
         }

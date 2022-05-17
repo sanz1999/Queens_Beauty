@@ -216,6 +216,10 @@
                                 Value="14" />
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                     Color="#FE6584" />
+                </DataGrid.Resources>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ItemSelectedCommand}" />
@@ -246,7 +250,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding AppointmentDate}"
-                                           FontSize="13" />
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -255,7 +261,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding StartTime}"
-                                           FontSize="13" />
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -264,7 +272,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding EndTime}"
-                                           FontSize="13" />
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -286,6 +296,10 @@
                                                     Value="13" />
                                         </Style>
                                     </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                                         Color="#FE6584" />
+                                    </DataGrid.Resources>
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn Header="Name"
                                                                 Width="*">
@@ -300,8 +314,10 @@
                                                                 Width="*">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Service.Price}"
-                                                               FontSize="13" />
+                                                    <TextBlock Text="{Binding Price}"
+                                                               FontSize="13"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -311,6 +327,17 @@
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Employee.Name}"
                                                                FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="P"
+                                                                Width="Auto">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding PaymentMethod}"
+                                                              IsEnabled="False"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -325,7 +352,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding SumCena}"
-                                           FontSize="13" />
+                                           FontSize="13"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
