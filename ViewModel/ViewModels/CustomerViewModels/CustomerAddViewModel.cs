@@ -26,7 +26,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isOtherCheckedVM;
 
 
-        private string phoneNumberErrorText;
+        private string phoneNumberErrorText = "Cannot leave phone number empty!";
         private string emailErrorText;
         private string loyaltyCardIdErrorText;
 

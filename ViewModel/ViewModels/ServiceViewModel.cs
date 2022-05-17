@@ -231,7 +231,21 @@ namespace ViewModel.ViewModels
                 serviceAddViewModel.PointsPriceVM == null ||
                 serviceAddViewModel.PointsValueVM == null ||
                 serviceAddViewModel.PriceVM == null)
+            {
+                if (serviceAddViewModel.NameVM == null)
+                    serviceAddViewModel.IsNameErrorVisible = "Visible";
+                if (serviceAddViewModel.CategoryVM == null)
+                    serviceAddViewModel.IsCategoryErrorVisible = "Visible";
+                if (serviceAddViewModel.DurationVM == null)
+                    serviceAddViewModel.IsDurationErrorVisible = "Visible";
+                if (serviceAddViewModel.PointsPriceVM == null)
+                    serviceAddViewModel.IsPointsPriceErrorVisible = "Visible";
+                if (serviceAddViewModel.PointsValueVM == null)
+                    serviceAddViewModel.IsPointsRewardErrorVisible = "Visible";
+                if (serviceAddViewModel.PriceVM == null)
+                    serviceAddViewModel.IsPriceErrorVisible = "Visible";
                 return false;
+            }
             else if (!serviceAddViewModel.IsNameErrorVisible.Equals("Collapsed") ||
                 !serviceAddViewModel.IsCategoryErrorVisible.Equals("Collapsed") ||
                 !serviceAddViewModel.IsDurationErrorVisible.Equals("Collapsed") ||

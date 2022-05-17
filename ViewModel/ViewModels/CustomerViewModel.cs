@@ -249,7 +249,18 @@ namespace ViewModel.ViewModels
                 customerAddViewModel.LastNameVM == null ||
                 customerAddViewModel.PhoneNumberVM == null||
                 customerAddViewModel.DateOfBirthVM == null)
+            {
+                if (customerAddViewModel.FirstNameVM == null)
+                    customerAddViewModel.IsFirstNameErrorVisible = "Visible";
+                if (customerAddViewModel.LastNameVM == null)
+                    customerAddViewModel.IsLastNameErrorVisible = "Visible";
+                if (customerAddViewModel.PhoneNumberVM == null)
+                    customerAddViewModel.IsPhoneNumberErrorVisible = "Visible";
+                if (customerAddViewModel.DateOfBirthVM == null)
+                    customerAddViewModel.IsBirthdayErrorVisible = "Visible";
                 return false;
+            }
+
             else if (!customerAddViewModel.IsFirstNameErrorVisible.Equals("Collapsed") ||
                 !customerAddViewModel.IsLastNameErrorVisible.Equals("Collapsed") ||
                 !customerAddViewModel.IsPhoneNumberErrorVisible.Equals("Collapsed") ||

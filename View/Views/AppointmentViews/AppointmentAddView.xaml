@@ -209,9 +209,9 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1.1*"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1.1*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="1"

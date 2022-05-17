@@ -228,6 +228,10 @@ namespace ViewModel.ViewModels.AppointmentViewModels
                     IsSelectCustomerVisible = "Visible";
                     IsAddServiceVisible = "Visible";
                     IsFinishVisible = "Collapsed";
+
+                    IsAddedServicesErrorVisible = "Collapsed";
+                    IsEmployeePickedErrorVisible = "Collapsed";
+
                     appointmentAddServiceViewModel.SelectedEmployee = null;
                     appointmentAddServiceViewModel.SelectedService = null;
                     break;

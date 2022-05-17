@@ -19,10 +19,10 @@ namespace ViewModel.ViewModels.ServiceViewModels
         private string pointsPriceVM;
         private string pointsValueVM;
 
-        private string durationErrorText;
-        private string priceErrorText;
-        private string pointsPriceErrorText;
-        private string pointsRewardErrorText;
+        private string durationErrorText = "Cannot leave duration empty!";
+        private string priceErrorText = "Cannot leave price empty!";
+        private string pointsPriceErrorText = "Cannot leave points price empty!";
+        private string pointsRewardErrorText = "Cannot leave points reward empty!";
 
         private string headText;
 
