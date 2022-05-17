@@ -78,7 +78,6 @@ namespace Common.Methods.CRUD
                 }
             }
             customerService.Save(transform.FEToDB.Customer(updateCustomer));
-        
         }
     }
 }
