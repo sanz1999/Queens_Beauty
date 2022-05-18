@@ -198,13 +198,13 @@ namespace ViewModel.ViewModels
                     int index = Appointments.IndexOf(SelectedItem);
                     int indexSearch = AppointmentsSearch.IndexOf(SelectedItem);
                     appointmentCRUD.UpdateInDataBase(newOne);
-                    appointmentCRUD.RegulatePoints(newOne);
                     Appointments.RemoveAt(index);
                     Appointments.Insert(index, newOne);
                     AppointmentsSearch.RemoveAt(indexSearch);
                     AppointmentsSearch.Insert(indexSearch, newOne);
+                    appointmentCRUD.RegulatePoints(newOne);
 
-                    
+
 
                     for (int i = 0; i < Appointments.Count; i++) {
                         if (newOne.Customer.CustomerId == Appointments[i].Customer.CustomerId)
