@@ -80,11 +80,7 @@
                            FontFamily="Arial"
                            FontWeight="Bold" />
             </Grid>
-            <StackPanel>
-                <TextBlock Text="Program Manual"
-                           FontSize="20"
-                           Foreground="DarkSlateGray" />
-            </StackPanel>
+            
             <!--
             <StackPanel>
                 <TextBlock Text="Customers with incoming birthdays:"

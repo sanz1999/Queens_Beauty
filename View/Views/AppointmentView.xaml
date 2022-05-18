@@ -107,7 +107,7 @@
                         Height="30"
                         Margin="5"
                         FontSize="14"
-                        Content="Add"
+                        Content="Hinzufügen"
                         IsEnabled="{Binding CanAdd}"
                         Command="{Binding NavCommand}"
                         CommandParameter="add">
@@ -125,7 +125,7 @@
                         Height="30"
                         Margin="5"
                         FontSize="14"
-                        Content="Alter"
+                        Content="Ändern"
                         IsEnabled="{Binding CanAlter}"
                         Command="{Binding AlterCommand}"
                         CommandParameter="alter">
@@ -143,7 +143,7 @@
                         Height="30"
                         Margin="5"
                         FontSize="14"
-                        Content="Delete"
+                        Content="Löschen"
                         IsEnabled="{Binding CanDelete}"
                         Command="{Binding DeleteCommand}">
                     <Button.Template>
@@ -160,7 +160,7 @@
                         Height="30"
                         Margin="5"
                         FontSize="14"
-                        Content="Cancel"
+                        Content="Abbrechen"
                         Command="{Binding CancelCommand}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -175,7 +175,7 @@
             </Grid>
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentAppointmentViewModel}" />
-            <Button Content="Pay"
+            <Button Content="Bezahlen"
                     Grid.Row="2"
                     Height="30"
                     Width="80"
@@ -227,7 +227,7 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
 
-                    <DataGridTemplateColumn Header="First Name"
+                    <DataGridTemplateColumn Header="Vorname"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -236,7 +236,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Last Name"
+                    <DataGridTemplateColumn Header="Nachname"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -245,7 +245,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Date"
+                    <DataGridTemplateColumn Header="Datum"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -256,7 +256,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Start time"
+                    <DataGridTemplateColumn Header="Startzeit"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -267,7 +267,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="End time"
+                    <DataGridTemplateColumn Header="Endzeit"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -278,7 +278,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Services"
+                    <DataGridTemplateColumn Header="Dienstleistung"
                                             Width="3*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -311,7 +311,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Price"
+                                        <DataGridTemplateColumn Header="Preis"
                                                                 Width="*">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
@@ -322,7 +322,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Employee"
+                                        <DataGridTemplateColumn Header="Angestellter"
                                                                 Width="*">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
@@ -348,7 +348,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Full price"
+                    <DataGridTemplateColumn Header="Gesamtpreis"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -359,7 +359,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="State"
+                    <DataGridTemplateColumn Header="Fertig"
                                             Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

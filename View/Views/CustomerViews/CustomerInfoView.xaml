@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="First name:"
+                       Text="Vorname:"
                        FontSize="14"
                        Margin="22,5,5,5"/>
             <TextBox Grid.Column="1"
@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Last name:"
+                       Text="Nachname:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Phone number:"
+                       Text="Telefonnummer:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
@@ -56,7 +56,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Date of birth:"
+                       Text="Geburtsdatum:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
@@ -69,7 +69,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Email:"
+                       Text="E-mail:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
@@ -82,7 +82,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Gender:"
+                       Text="Geschlecht:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <Grid Grid.Column="1">
@@ -96,7 +96,7 @@
                              IsChecked="{Binding IsMaleCheckedVM}"
                              IsEnabled="False">
                     <WrapPanel>
-                        <TextBlock Text="Male"
+                        <TextBlock Text="Männlich"
                                    FontSize="13" />
                     </WrapPanel>
                 </RadioButton>
@@ -105,7 +105,7 @@
                              IsChecked="{Binding IsFemaleCheckedVM}"
                              IsEnabled="False">
                     <WrapPanel>
-                        <TextBlock Text="Female"
+                        <TextBlock Text="Weiblich"
                                    FontSize="13" />
                     </WrapPanel>
                 </RadioButton>
@@ -114,7 +114,7 @@
                              IsChecked="{Binding IsOtherCheckedVM}"
                              IsEnabled="False">
                     <WrapPanel>
-                        <TextBlock Text="Other"
+                        <TextBlock Text="Anderes"
                                    FontSize="13" />
                     </WrapPanel>
                 </RadioButton>
@@ -126,7 +126,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="Loyalty Card ID:"
+                       Text="Kundenkarten ID:"
                        FontSize="14"
                        Margin="22,5,5,5" />
             <TextBox Grid.Column="1"
