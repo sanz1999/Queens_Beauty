@@ -19,7 +19,7 @@ namespace Common.Methods.CRUD
         public BindingList<CustomerFront> LoadFromDataBase()
         { 
             BindingList<CustomerFront> newList = new BindingList<CustomerFront>();
-            List<DBCustomer> dBCustomers = (List<DBCustomer>)customerService.FindAll();
+            List<DBCustomer> dBCustomers = (List<DBCustomer>)customerService.FindAllExisting();
             foreach (DBCustomer dBCustomer in dBCustomers) {
                 newList.Add(transform.DBToFE.Customer(dBCustomer));
             }
@@ -39,7 +39,7 @@ namespace Common.Methods.CRUD
         }
 
         public void DeleteFromDataBase(CustomerFront customer) {
-            customerService.Delete(transform.FEToDB.Customer(customer));
+            customerService.DeleteByIdLog(customer.CustomerId);
         }
         public void UpdateInDataBase(CustomerFront customer) {
             DBCustomer dBCustomer = transform.FEToDB.Customer(customer);

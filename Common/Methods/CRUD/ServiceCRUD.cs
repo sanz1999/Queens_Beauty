@@ -18,7 +18,7 @@ namespace Common.Methods.CRUD
 
         public BindingList<ServiceFront> LoadFromDataBase() {
             BindingList<ServiceFront> newList = new BindingList<ServiceFront>();
-            List<DBService> dBServices = (List<DBService>)serviceService.FindAll();
+            List<DBService> dBServices = (List<DBService>)serviceService.FindAllExisting();
             foreach (DBService dBService in dBServices) {
                 newList.Add(transform.DBToFE.Service(dBService));
             }
@@ -46,7 +46,7 @@ namespace Common.Methods.CRUD
         }
         public void DeleteFromDataBase(ServiceFront service)
         {
-            serviceService.Delete(transform.FEToDB.Service(service));
+            serviceService.DeleteByIdLog(service.Id);
         }
 
         public void UpdateInDataBase(ServiceFront service) {

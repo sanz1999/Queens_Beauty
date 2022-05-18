@@ -100,7 +100,7 @@ namespace ViewModel.ViewModels
                 return;
 
             CustomerFront customerToRemove = SelectedItem;
-            commonCustomer.DeleteFromDataBase(SelectedItem);
+            commonCustomer.DeleteFromDataBase(customerToRemove);
             CustomersSearch.Remove(customerToRemove);
             Customers.Remove(customerToRemove);
             CanAlter = false;
