@@ -116,7 +116,7 @@ namespace ViewModel.ViewModels
                 {
                     return;
                 }
-                customerAddViewModel.HeadText = "Alter";
+                customerAddViewModel.HeadText = "Ändern";
 
                 CanAdd = false;
                 CanDelete = false;
@@ -133,13 +133,13 @@ namespace ViewModel.ViewModels
 
                 switch (SelectedItem.Gender)
                 {
-                    case "Male":
+                    case "Männlich":
                         customerAddViewModel.IsMaleCheckedVM = true;
                         break;
-                    case "Female":
+                    case "Weiblich":
                         customerAddViewModel.IsFemaleCheckedVM = true;
                         break;
-                    case "Other":
+                    case "Anderes":
                         customerAddViewModel.IsOtherCheckedVM = true;
                         break;
                     default:
@@ -209,7 +209,7 @@ namespace ViewModel.ViewModels
                 case "add":
                     if (CurrentCustomerViewModel != customerAddViewModel)
                     {
-                        customerAddViewModel.HeadText = "Add";
+                        customerAddViewModel.HeadText = "Hinzufügen";
                         //FilterVisibility = "Collapsed";
                         CurrentCustomerViewModel = customerAddViewModel;
                         CanAlter = false;

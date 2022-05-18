@@ -202,7 +202,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
                         LoyaltyCardIdErrorText = "Kundenkarten ID darf keine Buchstaben beinhalten!";
                         IsLoyaltyCardIdErrorVisible = "Visible";
                     }
-                    else if ((validation.customer.LoyalCard(LoyaltyCardIdVM) == -1) &&(HeadText!= "Alter") )
+                    else if ((validation.customer.LoyalCard(LoyaltyCardIdVM) == -1) &&(HeadText!= "Ändern") )
                     {
                         LoyaltyCardIdErrorText = "ID bereits einem Kunden zugewiesen!";
                         IsLoyaltyCardIdErrorVisible = "Visible";

@@ -78,7 +78,7 @@
         </Grid>
 
 
-        <TextBlock Text="Services"
+        <TextBlock Text="Dienstleistung"
                    FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"

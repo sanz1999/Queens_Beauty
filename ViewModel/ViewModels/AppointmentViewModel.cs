@@ -340,7 +340,7 @@ namespace ViewModel.ViewModels
                 if (SelectedItem == null)
                     return;
 
-                appointmentAddViewModel.HeadText = "Alter";
+                appointmentAddViewModel.HeadText = "Ändern";
                 CanAdd = false;
                 CanDelete = false;
                 IsPayButtonVisible = "Collapsed";
@@ -488,7 +488,7 @@ namespace ViewModel.ViewModels
                 case "add":
                     if (CurrentAppointmentViewModel != appointmentAddViewModel)
                     {
-                        appointmentAddViewModel.HeadText = "Add";
+                        appointmentAddViewModel.HeadText = "Hinzufügen";
 
                         CurrentAppointmentViewModel = appointmentAddViewModel;
                         CanAlter = false;

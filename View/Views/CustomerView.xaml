@@ -77,7 +77,7 @@
             </StackPanel>
         </Grid>
 
-        <TextBlock Text="Customers"
+        <TextBlock Text="Kunden"
                    FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"

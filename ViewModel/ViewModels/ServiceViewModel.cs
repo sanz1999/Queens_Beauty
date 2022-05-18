@@ -129,7 +129,7 @@ namespace ViewModel.ViewModels
                 if (SelectedItem == null)
                     return;
 
-                serviceAddViewModel.HeadText = "Alter";
+                serviceAddViewModel.HeadText = "Ändern";
                 CanAdd = false;
                 CanDelete=false;
 
@@ -191,7 +191,7 @@ namespace ViewModel.ViewModels
                 case "add":
                     if (CurrentServiceViewModel != serviceAddViewModel)
                     {
-                        serviceAddViewModel.HeadText = "Add";
+                        serviceAddViewModel.HeadText = "Hinzufügen";
 
                         CurrentServiceViewModel = serviceAddViewModel;
                         CanAlter = false;

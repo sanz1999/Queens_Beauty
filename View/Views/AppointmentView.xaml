@@ -82,7 +82,7 @@
         </Grid>
 
 
-        <TextBlock Text="Appointments"
+        <TextBlock Text="Termine"
                    FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
