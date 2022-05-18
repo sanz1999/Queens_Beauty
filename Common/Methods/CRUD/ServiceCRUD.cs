@@ -34,6 +34,7 @@ namespace Common.Methods.CRUD
             }
             return newList;
         }
+
         public void AddToDataBase(ServiceFront service) { 
             DBService dBService = transform.FEToDB.Service(service);
             dBService.id = 0;
