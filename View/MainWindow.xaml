@@ -27,6 +27,9 @@
         <DataTemplate DataType="{x:Type viewModels:AppointmentViewModel}">
             <views:AppointmentView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:HelpViewModel}">
+            <views:HelpView />
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -62,6 +65,11 @@
                               CommandParameter="appointment"
                               FontWeight="Bold"
                               FontSize="16" />
+                    <MenuItem Header="Help"
+                              FontWeight="Bold"
+                              FontSize="16"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="help" />
                 </Menu>
             </Grid>
             <Grid Background="Silver"
