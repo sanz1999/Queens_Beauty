@@ -22,15 +22,15 @@ namespace Common.Methods.TransformSubclasses
             string genderdecide = "";
             if (untrasformedCustomer.gender == "M")
             {
-                genderdecide = "Male";
+                genderdecide = "Männlich";
             }
             else if (untrasformedCustomer.gender == "F")
             {
-                genderdecide = "Female";
+                genderdecide = "Weiblich";
             }
             else if (untrasformedCustomer.gender == "O")
             {
-                genderdecide = "Other";
+                genderdecide = "Anderes";
             }
             else
             {

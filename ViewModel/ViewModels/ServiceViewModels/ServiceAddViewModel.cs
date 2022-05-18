@@ -19,10 +19,10 @@ namespace ViewModel.ViewModels.ServiceViewModels
         private string pointsPriceVM;
         private string pointsValueVM;
 
-        private string durationErrorText = "Cannot leave duration empty!";
-        private string priceErrorText = "Cannot leave price empty!";
-        private string pointsPriceErrorText = "Cannot leave points price empty!";
-        private string pointsRewardErrorText = "Cannot leave points reward empty!";
+        private string durationErrorText = "Dauer darf nicht leer sein!";
+        private string priceErrorText = "Preis darf nicht leer sein!";
+        private string pointsPriceErrorText = "Preis in Punkten darf nicht leer sein!";
+        private string pointsRewardErrorText = "Punkte Belohnung darf nicht leer sein!";
 
         private string headText;
 
@@ -115,9 +115,9 @@ namespace ViewModel.ViewModels.ServiceViewModels
                     if (!validation.service.Duration(DurationVM))
                     {
                         if (DurationVM.Equals(""))
-                            DurationErrorText = "Cannot leave duration empty";
+                            DurationErrorText = "Dauer darf nicht leer sein!";
                         else
-                            DurationErrorText = "Cannot have letters in duration!";
+                            DurationErrorText = "Dauer darf keine Buchstaben beinhalten!";
                         IsDurationErrorVisible = "Visible";
                     }
                     else
@@ -138,21 +138,21 @@ namespace ViewModel.ViewModels.ServiceViewModels
                     {
                         if (PriceVM.Equals(""))
                         {
-                            PriceErrorText = "Cannot leave price empty!";
+                            PriceErrorText = "Preis darf nicht leer sein!";
                             IsPriceErrorVisible = "Visible";
                         }
                         else if (validation.service.Price(PriceVM) == -1)
                         {
-                            PriceErrorText = "Cannot have letters in price!";
+                            PriceErrorText = "Preis darf keine Buchstaben beinhalten!";
                             IsPriceErrorVisible = "Visible";
                         }
                         else if (validation.service.Price(PriceVM) == 0)
                         {
-                            PriceErrorText = "Use comma( , ) instead of period( . )";
+                            PriceErrorText = "Benutzen Sie Komma (,) anstatt Punkt (.)";
                             IsPriceErrorVisible = "Visible";
                         }
                         else {
-                            PriceErrorText = "Maximum number of commas ( , ) is 1";
+                            PriceErrorText = "Maximale Anzahl an Kommas (,) ist 1";
                             IsPriceErrorVisible = "Visible";
                         }
                     }
@@ -174,12 +174,12 @@ namespace ViewModel.ViewModels.ServiceViewModels
                     {
                         if (PointsPriceVM.Equals(""))
                         {
-                            PointsPriceErrorText = "Cannot leave points cost empty!";
+                            PointsPriceErrorText = "Preis in Punkten darf nicht leer sein!";
                             IsPointsPriceErrorVisible = "Visible";
                         }
                         else
                         {
-                            PointsPriceErrorText = "Cannot have letters in points cost!";
+                            PointsPriceErrorText = "Preis in Punkten darf keine Buchstaben beinhalten!";
                             IsPointsPriceErrorVisible = "Visible";
                         }
                     }
@@ -201,12 +201,12 @@ namespace ViewModel.ViewModels.ServiceViewModels
                     {
                         if (PointsValueVM.Equals(""))
                         {
-                            PointsRewardErrorText = "Cannot leave points reward empty!";
+                            PointsRewardErrorText = "Punkte Belohnung darf nicht leer sein!";
                             IsPointsRewardErrorVisible = "Visible";
                         }
                         else
                         {
-                            PointsRewardErrorText = "Cannot have letters in points reward!";
+                            PointsRewardErrorText = "Punkte Belohnung darf keine Buchstaben beinhalten!";
                             IsPointsRewardErrorVisible = "Visible";
                         }
                     }

@@ -26,7 +26,7 @@ namespace ViewModel.ViewModels.CustomerViewModels
         private bool isOtherCheckedVM;
 
 
-        private string phoneNumberErrorText = "Cannot leave phone number empty!";
+        private string phoneNumberErrorText = "Telefonnummer darf nicht leer sein!";
         private string emailErrorText;
         private string loyaltyCardIdErrorText;
 
@@ -49,9 +49,9 @@ namespace ViewModel.ViewModels.CustomerViewModels
 
         private string GetGender()
         {
-            if (IsMaleCheckedVM) return "Male";
-            else if (IsFemaleCheckedVM) return "Female";
-            else if (IsOtherCheckedVM) return "Other";
+            if (IsMaleCheckedVM) return "Männlich";
+            else if (IsFemaleCheckedVM) return "Weiblich";
+            else if (IsOtherCheckedVM) return "Anderes";
             else return "Unspecified";
         }
         public CustomerFront GetCustomer()
@@ -137,9 +137,9 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     if (!validation.customer.PhoneNumber(PhoneNumberVM))
                     {
                         if (PhoneNumberVM.Equals(""))
-                            PhoneNumberErrorText = "Cannot leave phone number empty!";
+                            PhoneNumberErrorText = "Telefonnummer darf nicht leer sein!";
                         else
-                            PhoneNumberErrorText = "Phone number cannot have letters!";
+                            PhoneNumberErrorText = "Telefonnummer darf nur Zahlen beinhalten!";
                         IsPhoneNumberErrorVisible = "Visible";
                     }
                     else
@@ -176,9 +176,9 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     if (!validation.customer.Email(EmailVM))
                     {
                         if (EmailVM.Equals(""))
-                            EmailErrorText = "Cannot leave email empty!";
+                            EmailErrorText = "E-mail darf nicht leer sein!";
                         else
-                            EmailErrorText = "Email not in correct format!";
+                            EmailErrorText = "Falsches Format der E-mail!";
                         IsEmailErrorVisible = "Visible";
                     }
                     else
@@ -199,12 +199,12 @@ namespace ViewModel.ViewModels.CustomerViewModels
                     loyaltyCardIdVM = value;
                     if (validation.customer.LoyalCard(LoyaltyCardIdVM) == 0)
                     {
-                        LoyaltyCardIdErrorText = "Cannot have letters in loyalty card ID!";
+                        LoyaltyCardIdErrorText = "Kundenkarten ID darf keine Buchstaben beinhalten!";
                         IsLoyaltyCardIdErrorVisible = "Visible";
                     }
                     else if ((validation.customer.LoyalCard(LoyaltyCardIdVM) == -1) &&(HeadText!= "Alter") )
                     {
-                        LoyaltyCardIdErrorText = "ID already assigned to a customer!";
+                        LoyaltyCardIdErrorText = "ID bereits einem Kunden zugewiesen!";
                         IsLoyaltyCardIdErrorVisible = "Visible";
                     }
                     else
