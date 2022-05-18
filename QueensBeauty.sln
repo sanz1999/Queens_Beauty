@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingCA", "TestingCA\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QueensBeauty_Instalation", "QueensBeauty_Instalation\QueensBeauty_Instalation.vdproj", "{412E74F0-9EB1-4FDE-8448-0409283454E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,8 +45,6 @@ Global
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{412E74F0-9EB1-4FDE-8448-0409283454E2}.Debug|Any CPU.ActiveCfg = Debug
-		{412E74F0-9EB1-4FDE-8448-0409283454E2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
