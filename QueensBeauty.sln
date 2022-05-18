@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{25D6A667-3E3A-4C6F-9FC6-95976166DF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{25D6A667-3E3A-4C6F-9FC6-95976166DF73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{DB0C1CB0-C3F7-4AF5-B7B0-3E02DBE3219D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{DB0C1CB0-C3F7-4AF5-B7B0-3E02DBE3219D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{8EF6987B-F364-46E6-9F3E-BEDC24904860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{8EF6987B-F364-46E6-9F3E-BEDC24904860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLogic", "DatabaseLogic\DatabaseLogic.csproj", "{D6C29C6B-CAF1-44C0-A10D-F9490A8A9354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseLogic", "DatabaseLogic\DatabaseLogic.csproj", "{D6C29C6B-CAF1-44C0-A10D-F9490A8A9354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingCA", "TestingCA\TestingCA.csproj", "{4928917C-57D5-438F-9FC0-2170C7E7EFD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingCA", "TestingCA\TestingCA.csproj", "{4928917C-57D5-438F-9FC0-2170C7E7EFD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QueensBeauty_Instalation", "QueensBeauty_Instalation\QueensBeauty_Instalation.vdproj", "{412E74F0-9EB1-4FDE-8448-0409283454E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,8 @@ Global
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{271E8AA4-8DDF-4EF2-B5B7-1190494B17BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412E74F0-9EB1-4FDE-8448-0409283454E2}.Debug|Any CPU.ActiveCfg = Debug
+		{412E74F0-9EB1-4FDE-8448-0409283454E2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
