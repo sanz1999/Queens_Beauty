@@ -50,26 +50,26 @@
                               CommandParameter="home"
                               FontWeight="Bold"
                               FontSize="16" />
-                    <MenuItem Header="Customers"
+                    <MenuItem Header="Kunden"
                               Command="{Binding NavCommand}"
                               CommandParameter="customer"
                               FontWeight="Bold"
                               FontSize="16" />
-                    <MenuItem Header="Services"
+                    <MenuItem Header="Dienstleistung"
                               Command="{Binding NavCommand}"
                               CommandParameter="service"
                               FontWeight="Bold"
                               FontSize="16" />
-                    <MenuItem Header="Appointments"
+                    <MenuItem Header="Termine"
                               Command="{Binding NavCommand}"
                               CommandParameter="appointment"
                               FontWeight="Bold"
                               FontSize="16" />
-                    <MenuItem Header="Help"
+                    <MenuItem Header="Hilfe"
                               FontWeight="Bold"
                               FontSize="16"
                               Command="{Binding NavCommand}"
-                              CommandParameter="help" />
+                              CommandParameter="help" Click="MenuItem_Click" />
                 </Menu>
             </Grid>
             <Grid Background="Silver"

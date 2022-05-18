@@ -56,11 +56,11 @@ namespace ViewModel.ViewModels.CustomerViewModels
             if (LoyaltyCardIdVM != null)
                 if (!customer.LoyaltyCardId.ToLower().Contains(LoyaltyCardIdVM.ToLower()) && !LoyaltyCardIdVM.ToLower().Equals(""))
                     return false;
-            if (IsMaleCheckedVM && !customer.Gender.Equals("Male"))
+            if (IsMaleCheckedVM && !customer.Gender.Equals("Männlich"))
                 return false;
-            if (IsFemaleCheckedVM && !customer.Gender.Equals("Female"))
+            if (IsFemaleCheckedVM && !customer.Gender.Equals("Weiblich"))
                 return false;
-            if (IsOtherCheckedVM && !customer.Gender.Equals("Other"))
+            if (IsOtherCheckedVM && !customer.Gender.Equals("Anderes"))
                 return false;
             return true;
         }

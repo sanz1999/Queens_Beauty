@@ -12,13 +12,13 @@ namespace Common.Methods.TransformSubclasses
     {
         public DBCustomer Customer(CustomerFront utc) {
             string genderdecide = "";
-            if (utc.Gender == "Male") {
+            if (utc.Gender == "Männlich") {
                 genderdecide = "M";
             }
-            else if (utc.Gender == "Female") {
+            else if (utc.Gender == "Weiblich") {
                 genderdecide = "F";
             }
-            else if (utc.Gender == "Other") {
+            else if (utc.Gender == "Anderes") {
                 genderdecide = "O";
             }
             else { 
