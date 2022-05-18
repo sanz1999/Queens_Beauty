@@ -71,21 +71,15 @@
                 </Grid.ColumnDefinitions>
                 <Image HorizontalAlignment="Left"
                        Grid.Column="0"
-                       Source="Images/LogoImage.jpg"/>
-                <TextBlock Grid.Column="1" 
+                       Source="Images/LogoImage.jpg" />
+                <TextBlock Grid.Column="1"
                            Text="Queen's Beauty"
                            FontSize="60"
                            TextWrapping="Wrap"
                            Foreground="#FE6584"
                            FontFamily="Arial"
-                           FontWeight="Bold"/>
+                           FontWeight="Bold" />
             </Grid>
-            <StackPanel>
-                <TextBlock Text="Lorem ipsum sit dolore, Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,Lorem ipsum sit dolore,"
-                           TextWrapping="Wrap"
-                           FontSize="20"
-                           Foreground="DarkSlateGray"/>
-            </StackPanel>
             <StackPanel>
                 <TextBlock Text="Program Manual"
                            FontSize="20"
