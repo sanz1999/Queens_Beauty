@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Width="130"
+            <Button Width="180"
                     Grid.Column="0"
                     Content="Wählen Sie den Kunden aus"
                     Command="{Binding NavCommand}"
@@ -48,7 +48,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Width="130"
+            <Button Width="180"
                     Grid.Column="0"
                     Content="Beenden"
                     Command="{Binding NavCommand}"
@@ -64,7 +64,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Width="130"
+            <Button Width="180"
                     Grid.Column="1"
                     Content="Dienstleistung hinzufügen"
                     Command="{Binding NavCommand}"
@@ -175,7 +175,7 @@
         </DataGrid>
         <Button Width="170"
                 Margin="5"
-                Content="Dienstleistung aus der Liste entfernen"
+                Content="Dienstleistung entfernen"
                 Command="{Binding RemoveAddedServiceCommand}"
                 IsEnabled="{Binding CanRemoveAddedService}">
             <Button.Template>
