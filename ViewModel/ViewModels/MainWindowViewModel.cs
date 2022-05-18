@@ -12,6 +12,7 @@ namespace ViewModel.ViewModels
         private ServiceViewModel serviceViewModel = new ServiceViewModel();
         private CustomerViewModel customerViewModel = new CustomerViewModel();
         private AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
+        private HelpViewModel helpViewModel = new HelpViewModel();
         private BindableBase currentViewModel;
 
         public AppointmentViewModel AppointmentViewModel
@@ -56,6 +57,9 @@ namespace ViewModel.ViewModels
                     break;
                 case "appointment":
                     CurrentViewModel = appointmentViewModel;
+                    break;
+                case "help":
+                    CurrentViewModel = helpViewModel;
                     break;
             }
         }
